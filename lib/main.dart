@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_optipets_webapp/views/login/login_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home:  const LoginView(),
     );
   }
 }

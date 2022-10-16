@@ -40,6 +40,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  stacked_services: ^0.9.5
 
 dev_dependencies:
   flutter_test:
@@ -66,7 +67,10 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+      - lib/assets/fonts/
+      - lib/assets/images/
+
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
@@ -80,6 +84,13 @@ flutter:
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
+  fonts:
+     - family: Avalon
+       fonts:
+         - asset: lib/assets/fonts/Avalon_Regular.ttf
+           weight: 400
+         - asset: lib/assets/fonts/Avalon_Bold.ttf
+           weight: 700
   # example:
   # fonts:
   #   - family: Schyler

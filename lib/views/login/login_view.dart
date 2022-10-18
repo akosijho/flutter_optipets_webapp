@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/utils/input_validation_mixin.dart';
 import 'package:flutter_optipets_webapp/views/login/login_view_model.dart';
+import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends StatelessWidget with InputValidationMixin {
@@ -9,19 +10,18 @@ class LoginView extends StatelessWidget with InputValidationMixin {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController scrollController = ScrollController();
     return ViewModelBuilder<LoginViewModel>.reactive(
       viewModelBuilder: () => LoginViewModel(),
       disposeViewModel: false,
       builder: (BuildContext context, LoginViewModel model, Widget? child) {
         return Scaffold(
-          backgroundColor: Theme.of(getContext).scaffoldBackgroundColor,
+          backgroundColor: Colors.white38,
           body: Center(
             child: Scrollbar(
               scrollbarOrientation: ScrollbarOrientation.bottom,
-              controller: scrollController,
+              controller: model.scrollController,
               child: SingleChildScrollView(
-                controller: scrollController,
+                controller: model.scrollController,
                 primary: false,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
@@ -37,6 +37,11 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                         color: Theme.of(context).scaffoldBackgroundColor,
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 154, 154, 151),
+                          width: 1,
+                          style: BorderStyle.solid,
+                        ),
                         boxShadow: [
                           BoxShadow(
                             color:
@@ -82,12 +87,12 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                                 height: 24,
                               ),
                               TextFormField(
-                                controller: model.userController,
                                 decoration: const InputDecoration(
                                   label: Text('Username'),
                                   border: OutlineInputBorder(),
                                   prefixIcon: Icon(Icons.person),
                                 ),
+                                onChanged: (val) => model.email = val,
                                 validator: (val) => isEmailValid(val!)
                                     ? null
                                     : 'Enter a valid email address',
@@ -107,6 +112,7 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                                         Icons.remove_red_eye_outlined,
                                       )),
                                 ),
+                                onChanged: (val) => model.password = val,
                                 validator: (val) => isPasswordValid(val!)
                                     ? null
                                     : 'Password must contain least 6 characters',
@@ -124,17 +130,38 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                                         const Color(0xff00BBF0),
                                       ),
                                     ),
-                                    onPressed: () {},
-                                    child: Text(
-                                      "Login",
-                                      style: TextStyle(
-                                          fontSize: Theme.of(context)
-                                              .textTheme
-                                              .headline6!
-                                              .fontSize,
-                                          color: Theme.of(context)
-                                              .scaffoldBackgroundColor),
-                                    )),
+                                    onPressed: () {
+                                      // if (model.applicationViewModel
+                                      //         .formGlobalKey.currentState!
+                                      //         .validate() &&
+                                      //     isNotEmpty(model.email) &&
+                                      //     isNotEmpty(model.password)) {
+                                      //   model.signIn(
+                                      //       model.email, model.password);
+                                      // } else {
+                                      //   showSnackbar(
+                                      //       title: 'Oops',
+                                      //       message: 'Some fields are empty!',
+                                      //       maxWidth: 480);
+                                      // }
+                                      model.home();
+                                    },
+                                    child: model.isBusy
+                                        ? const Center(
+                                            child: CircularProgressIndicator(
+                                              color: Colors.white,
+                                            ),
+                                          )
+                                        : Text(
+                                            "Login",
+                                            style: TextStyle(
+                                                fontSize: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6!
+                                                    .fontSize,
+                                                color: Theme.of(context)
+                                                    .scaffoldBackgroundColor),
+                                          )),
                               )
                             ],
                           ),

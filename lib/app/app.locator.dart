@@ -8,6 +8,10 @@
 
 import 'package:stacked_core/stacked_core.dart';
 
+import '../services/firebase_services/firebase_auth.dart';
+import '../services/firebase_services/firebase_auth_impl.dart';
+import '../services/navigation/navigation.dart';
+import '../services/navigation/navigation_impl.dart';
 import '../views/application/application_view_model.dart';
 
 final locator = StackedLocator.instance;
@@ -21,4 +25,7 @@ Future<void> setupLocator(
 // Register dependencies
   locator.registerLazySingleton<ApplicationViewModel>(
       () => ApplicationViewModel());
+  locator.registerLazySingleton<Auth>(() => AuthImpl());
+  locator
+      .registerLazySingleton<NavigationService>(() => NavigationServiceImpl());
 }

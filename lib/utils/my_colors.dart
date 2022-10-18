@@ -19,4 +19,6 @@ class MyColors {
   static const Color textFieldBorder = Color(0xFFE8E9E9);
   static const Color facebook = Color(0xFF1877F2);
   static const Color coverColor =Color(0xFF1A315A);
+  static const Color topAppBarBackgroundColor = Color(0xff005792);
+  static const Color blueButtonColor = Color(0xff00BBF0);
 }

@@ -12,4 +12,14 @@ class HomeViewModel extends BaseViewModel {
   final ScrollController verticalScrollController = ScrollController(
     initialScrollOffset: maxWidth
   );
+
+  void prints() {
+    showDialog(
+        context: getContext,
+        builder: (_) {
+          return const AlertDialog(
+            title: Text('data'),
+          );
+        });
+  }
 }

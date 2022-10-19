@@ -29,9 +29,10 @@ class MyThemes {
           radius: Radius.zero,
         ),
         textTheme: const TextTheme(
-          headline3: TextStyle(
+          headline3:  TextStyle(
             fontWeight: FontWeight.w700,
           ),
+         
         ),
       );
 }

@@ -124,15 +124,9 @@ class AddNew extends StatelessWidget {
                                 fieldLabel(label: 'Birthday:', fieldWidth: 80),
                                 textField(
                                   label: 'mm/dd/yyyy',
+                                  textEditingController: model.birthDay,
                                   maxWidth: 160,
-                                  // function:() async {
-                                  //   model.birthDay = (await showDatePicker(
-                                  //       context: getContext,
-                                  //       initialDate: DateTime.now(),
-                                  //       firstDate: DateTime(1989, 1),
-                                  //       lastDate: DateTime.now(),
-                                  //     )) as String;
-                                  // }
+                                  function: model.pickDate
                                 ),
                               ],
                             ),
@@ -197,12 +191,14 @@ class AddNew extends StatelessWidget {
 
   TextFormField textField(
       {required String label,
+      bool? enabled,
       int lines = 1,
       TextEditingController? textEditingController,
       double maxWidth = 400,
       dynamic function}) {
     return TextFormField(
       controller: textEditingController,
+      enabled: enabled,
       maxLines: lines,
       style: thisLabelStyle,
       decoration: InputDecoration(

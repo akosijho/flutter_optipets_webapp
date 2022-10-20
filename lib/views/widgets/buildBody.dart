@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/utils/my_colors.dart';

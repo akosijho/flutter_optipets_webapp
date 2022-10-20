@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/buttons.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:stacked/stacked.dart';
 
-class LeftNavBar extends StatelessWidget {
+class LeftNavBar extends ViewModelWidget<HomeViewModel> {
   const LeftNavBar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, HomeViewModel viewModel) {
     return Container(
         width: 200,
         height: 768,
@@ -43,7 +44,11 @@ class LeftNavBar extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            leftNavButton(function: prints, icon: Icons.add),
+            leftNavButton(function: viewModel.home, icon: Icons.home, label: 'Home'),
+            leftNavButton(function: viewModel.addNew, icon: Icons.add, label: 'New'),
+            leftNavButton(function: viewModel.appointments, icon: Icons.add, label: 'Appointments'),
+            leftNavButton(function: prints, icon: Icons.add, label: 'button'),
+            leftNavButton(function: prints, icon: Icons.add, label: 'button'),
           ],
         ));
   }
@@ -53,7 +58,7 @@ class LeftNavBar extends StatelessWidget {
         context: getContext,
         builder: (_) {
           return const AlertDialog(
-            title: const Text('data'),
+            title: Text('data'),
           );
         });
   }

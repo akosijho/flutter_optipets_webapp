@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/appointments/appointments_view.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/home/home.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/new/add_new.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeViewModel extends BaseViewModel {
@@ -13,6 +16,8 @@ class HomeViewModel extends BaseViewModel {
     initialScrollOffset: maxWidth
   );
 
+  Widget? child = const AddNew();
+
   void prints() {
     showDialog(
         context: getContext,
@@ -21,5 +26,20 @@ class HomeViewModel extends BaseViewModel {
             title: Text('data'),
           );
         });
+  }
+
+  home() {
+    child = const Home();
+    notifyListeners();
+  }
+
+  addNew() {
+    child = const AddNew();
+    notifyListeners();
+  }
+
+  appointments() {
+    child = const AppointmentsView();
+    notifyListeners();
   }
 }

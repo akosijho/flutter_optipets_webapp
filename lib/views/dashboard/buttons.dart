@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 
-Widget leftNavButton({required IconData icon, required dynamic function}) {
+Widget leftNavButton({required IconData icon, required String label,  dynamic function}) {
   return Material(
       color: Theme.of(getContext).primaryColor,
       child: InkWell(
@@ -22,13 +22,12 @@ Widget leftNavButton({required IconData icon, required dynamic function}) {
                       color: Colors.white,
                     ),
                   ),
-                  const Center(
+                  Center(
                       child: Text(
-                    'New',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w100,
+                    label,
+                    style: const TextStyle(
                       color: Colors.white,
+
                     ),
                   )),
                 ],

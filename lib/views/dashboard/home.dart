@@ -42,14 +42,16 @@ class Home extends StatelessWidget {
                       children: [
                        const LeftNavBar(), //left navbar
                         // Changeable panel
-                       Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          StatusBar(),
-                          DashViews(),
-                        ],
+                       Expanded(
+                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const StatusBar(),
+                            Expanded(child: DashViews(child: model.child)),
+                          ],
+                         ),
                        )  
                       ],
                     ),

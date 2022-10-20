@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/buttons.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:stacked/stacked.dart';
 
-class LeftNavBar extends StatelessWidget {
+class LeftNavBar extends ViewModelWidget<HomeViewModel> {
   const LeftNavBar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, HomeViewModel viewModel) {
     return Container(
         width: 200,
         height: 768,
@@ -23,52 +26,40 @@ class LeftNavBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SvgPicture.asset('lib/assets/images/logo.svg',
-            width: 184,),
-            Material(
-                color: Theme.of(getContext).primaryColor,
-                child: InkWell(
-                    child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: const BoxDecoration(
-                          border: Border.symmetric(
-                              horizontal:
-                                  BorderSide(color: Colors.white, width: 0.5)),
-                        ),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Center(
-                                child: Text(
-                              'New',
-                              style: TextStyle(
-                                fontSize: Theme.of(getContext)
-                                    .textTheme
-                                    .headline6!
-                                    .fontSize,
-                                fontWeight: FontWeight.w100,
-                                color: Colors.white,
-                              ),
-                            )),
-                          ],
-                        )),
-                    onTap: () {
-                      showDialog(
-                          context: getContext,
-                          builder: (_) {
-                            return const AlertDialog(
-                              title: const Text('data'),
-                            );
-                          });
-                    })),
+            SvgPicture.asset(
+              SvgIcons.logo,
+              width: 104,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              'optipets',
+              style: TextStyle(
+                fontSize: Theme.of(context).textTheme.headline4!.fontSize,
+                fontWeight: FontWeight.w200,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            leftNavButton(function: viewModel.home, icon: Icons.home, label: 'Home'),
+            leftNavButton(function: viewModel.addNew, icon: Icons.add, label: 'New'),
+            leftNavButton(function: viewModel.appointments, icon: Icons.add, label: 'Appointments'),
+            leftNavButton(function: prints, icon: Icons.add, label: 'button'),
+            leftNavButton(function: prints, icon: Icons.add, label: 'button'),
           ],
         ));
+  }
+
+  void prints() {
+    showDialog(
+        context: getContext,
+        builder: (_) {
+          return const AlertDialog(
+            title: Text('data'),
+          );
+        });
   }
 }

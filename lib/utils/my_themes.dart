@@ -3,7 +3,7 @@ import 'package:flutter_optipets_webapp/utils/my_colors.dart';
 
 class MyThemes {
   static ThemeData light = ThemeData(
-        fontFamily: 'Avalon',
+        fontFamily: 'Poppins',
         useMaterial3: true,
         dividerColor: MyColors.black,
         toggleableActiveColor: MyColors.facebook,

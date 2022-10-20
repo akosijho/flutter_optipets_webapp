@@ -216,7 +216,7 @@ class AddNew extends StatelessWidget {
           fontSize: 10,
         ),
       ),
-      validator: (val) => val!.isEmpty ? 'Do not leave this' : null,
+      validator: (val) => val!.isEmpty ? 'Do not leave this empty' : null,
       onTap: function,
     );
   }

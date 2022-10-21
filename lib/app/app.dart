@@ -1,3 +1,5 @@
+import 'package:flutter_optipets_webapp/services/firebase_services/firbase_firestore/firestore_service.dart';
+import 'package:flutter_optipets_webapp/services/firebase_services/firbase_firestore/firestore_service_impl.dart';
 import 'package:flutter_optipets_webapp/services/firebase_services/firebase_auth.dart';
 import 'package:flutter_optipets_webapp/services/firebase_services/firebase_auth_impl.dart';
 import 'package:flutter_optipets_webapp/services/navigation/navigation.dart';
@@ -14,5 +16,6 @@ import 'package:stacked/stacked_annotations.dart';
   LazySingleton(classType: ApplicationViewModel, asType: ApplicationViewModel),
   LazySingleton(classType: AuthImpl, asType: Auth),
   LazySingleton(classType: NavigationServiceImpl, asType: NavigationService),
+  LazySingleton(classType: FirestoreServiceImpl, asType: FirestoreService),
 ])
 class App {}

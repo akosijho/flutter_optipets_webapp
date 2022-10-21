@@ -58,7 +58,7 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
         context: getContext,
         builder: (_) {
           return const AlertDialog(
-            title: Text('data'),
+            content: Text('data'),
           );
         });
   }

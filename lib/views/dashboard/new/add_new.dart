@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_optipets_webapp/utils/constants.dart';
+import 'package:flutter_optipets_webapp/utils/my_colors.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/add_new_view_model.dart';
+import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 import 'package:stacked/stacked.dart';
 
 class AddNew extends StatelessWidget {
@@ -19,163 +20,281 @@ class AddNew extends StatelessWidget {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: SingleChildScrollView(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        fieldLabel(label: 'Owner\'s Name:'),
-                        textField(label: 'Owner\'s Name'),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        fieldLabel(label: 'Address:'),
-                        textField(label: 'Address', lines: 3),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        fieldLabel(label: 'Contact nos:'),
-                        textField(label: 'Contact nos'),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                fieldLabel(
-                                    label: 'Pet\'s Name:', fieldWidth: 80),
-                                textField(label: 'Pet\'s Name', maxWidth: 160),
-                              ],
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              fieldLabel(label: 'Owner\'s Name:'),
+                              textField(
+                                  label: 'First Name',
+                                  textEditingController: model.firstName),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              fieldLabel(label: ''),
+                              textField(
+                                  label: 'Middle Name',
+                                  textEditingController: model.middleName),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              fieldLabel(label: ''),
+                              textField(
+                                  label: 'Last Name',
+                                  textEditingController: model.lastName),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              fieldLabel(label: 'Address:'),
+                              textField(
+                                  label: 'Address',
+                                  lines: 3,
+                                  textEditingController: model.address),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              fieldLabel(label: 'Contact nos:'),
+                              textField(
+                                  label: 'Contact nos',
+                                  textEditingController: model.contacts),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      fieldLabel(
+                                          label: 'Pet\'s Name:',
+                                          fieldWidth: 80),
+                                      textField(
+                                          label: 'Pet\'s Name',
+                                          maxWidth: 160,
+                                          textEditingController: model.petName),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      fieldLabel(
+                                          label: 'Specie:', fieldWidth: 48),
+                                      textField(
+                                          label: 'Specie',
+                                          maxWidth: 200,
+                                          textEditingController: model.specie),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      fieldLabel(
+                                          label: 'Breed:', fieldWidth: 80),
+                                      textField(
+                                          label: 'Breed',
+                                          maxWidth: 160,
+                                          textEditingController: model.breed),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      fieldLabel(
+                                          label: 'Color:', fieldWidth: 48),
+                                      textField(
+                                          label: 'Color',
+                                          maxWidth: 200,
+                                          textEditingController: model.color),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      fieldLabel(
+                                          label: 'Birthday:', fieldWidth: 80),
+                                      textField(
+                                          label: 'mm/dd/yyyy',
+                                          textEditingController: model.birthDay,
+                                          maxWidth: 160,
+                                          function: model.pickDate),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      fieldLabel(label: 'Sex:', fieldWidth: 48),
+                                      Row(
+                                        children: [
+                                          Radio(
+                                              groupValue: model.sex,
+                                              value: 'Male',
+                                              onChanged:
+                                                  model.radioValueChanges),
+                                          const SizedBox(
+                                            width: 2,
+                                          ),
+                                          Text(
+                                            'Male',
+                                            style: thisLabelStyle,
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Radio(
+                                              groupValue: model.sex,
+                                              value: 'Female',
+                                              onChanged:
+                                                  model.radioValueChanges),
+                                          const SizedBox(
+                                            width: 2,
+                                          ),
+                                          Text(
+                                            'Female',
+                                            style: thisLabelStyle,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text(
+                              'Clear',
                             ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                fieldLabel(label: 'Specie:', fieldWidth: 48),
-                                textField(label: 'Specie', maxWidth: 200),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                fieldLabel(label: 'Breed:', fieldWidth: 80),
-                                textField(label: 'Breed', maxWidth: 160),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                fieldLabel(label: 'Color:', fieldWidth: 48),
-                                textField(label: 'Color', maxWidth: 200),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                fieldLabel(label: 'Birthday:', fieldWidth: 80),
-                                textField(
-                                  label: 'mm/dd/yyyy',
-                                  textEditingController: model.birthDay,
-                                  maxWidth: 160,
-                                  function: model.pickDate
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                fieldLabel(label: 'Sex:', fieldWidth: 48),
-                                Row(
-                                  children: [
-                                    Radio(
-                                        groupValue: model.sex,
-                                        value: 'Male',
-                                        onChanged: model.radioValueChanges),
-                                    const SizedBox(
-                                      width: 2,
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              model.applicationViewModel.formGlobalKey
+                                      .currentState!
+                                      .validate()
+                                  ? model.addNew(
+                                      model.firstName.text,
+                                      model.middleName.text,
+                                      model.lastName.text,
+                                      model.address.text,
+                                      model.contacts.text,
+                                      model.petName.text,
+                                      model.specie.text,
+                                      model.breed.text,
+                                      model.color.text,
+                                      model.birthDay.text,
+                                      model.sex!)
+                                  : showSnackbar(
+                                      title: 'Oops',
+                                      message: 'Check for empt fields',
+                                      maxWidth: 400);
+                            },
+                            style: const ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    MyColors.coverColor)),
+                            child: model.isBusy
+                                ? const Center(
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
                                     ),
-                                    Text('Male',
-                                    style: thisLabelStyle,),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  width: 16,
-                                ),
-                                Row(
-                                  children: [
-                                    Radio(
-                                        groupValue: model.sex,
-                                        value: 'Female',
-                                        onChanged: model.radioValueChanges),
-                                    const SizedBox(
-                                      width: 2,
-                                    ),
-                                    Text('Female',
-                                    style: thisLabelStyle,),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                                  )
+                                : const Text('Save',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    )),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ]),
           ),
         );
       },

@@ -18,14 +18,7 @@ class FirestoreServiceImpl extends FirestoreService {
   Future<void> addNew(UserObject userData) async {
     try {
       // add new user to firestore
-      userRef.doc(userData.uid).set(UserObject(
-              uid: userData.uid,
-              firstName: userData.firstName,
-              middleName: userData.middleName,
-              lastName: userData.lastName,
-              address: userData.address,
-              contacts: userData.contacts)
-          .toFirestore());
+       _db.collection('user').doc(userData.uid).set(userData.toFirestore());
     } catch (e) {
       rethrow;
     }
@@ -35,15 +28,7 @@ class FirestoreServiceImpl extends FirestoreService {
   @override
   Future<void> newPet(PetObject petData) async {
     try {
-      petRef.add(PetObject(
-        name: petData.name,
-        specie: petData.specie,
-        breed: petData.breed,
-        color: petData.color,
-        birthday: petData.birthday,
-        sex: petData.sex,
-        owner: petData.owner
-      ).toFireStore()).then((value) => value.update({'id': value.id}));
+      petRef.add(petData.toFireStore()).then((value) => value.update({'id': value.id}));
     } catch (e) {
       rethrow;
     }

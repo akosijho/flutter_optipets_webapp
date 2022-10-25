@@ -23,9 +23,9 @@ class UserObject extends Equatable {
 
   Map<String, dynamic> toFirestore() => {
         if (uid != null) 'uid': uid,
-        if (firstName != null) "name": firstName,
-        if (middleName != null) "name": middleName,
-        if (lastName != null) "name": lastName,
+        if (firstName != null) "firstName": firstName,
+        if (middleName != null) "middleName": middleName,
+        if (lastName != null) "lastName": lastName,
         if (address != null) "address": address,
         if (contacts != null) "contacts": contacts,
       };

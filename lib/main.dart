@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: StackedRouter().onGenerateRoute,
       theme: MyThemes.light,
       debugShowCheckedModeBanner: false,
-      home: const Home(),
+      home: const LoginView(),
     );
   }
 }

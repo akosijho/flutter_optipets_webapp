@@ -18,7 +18,7 @@ class HomeViewModel extends BaseViewModel {
     initialScrollOffset: maxWidth
   );
 
-  Widget? child = const AddNew();
+  Widget? child =  AddNew();
 
   void prints() {
     showDialog(
@@ -36,7 +36,7 @@ class HomeViewModel extends BaseViewModel {
   }
 
   addNew() {
-    child = const AddNew();
+    child = AddNew();
     notifyListeners();
   }
 

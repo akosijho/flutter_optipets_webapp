@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/utils/input_validation_mixin.dart';
 import 'package:flutter_optipets_webapp/views/login/login_view_model.dart';
-import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends StatelessWidget with InputValidationMixin {

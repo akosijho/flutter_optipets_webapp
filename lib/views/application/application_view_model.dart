@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/models/user_object.dart';
@@ -11,6 +12,8 @@ class ApplicationViewModel extends BaseViewModel{
 
     //firebase auth
   final Auth auth = locator<Auth>(); 
+
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   // key for form validation
   final formGlobalKey = GlobalKey<FormState>();

@@ -8,6 +8,8 @@
 
 import 'package:stacked_core/stacked_core.dart';
 
+import '../services/firebase_services/firbase_firestore/firestore_service.dart';
+import '../services/firebase_services/firbase_firestore/firestore_service_impl.dart';
 import '../services/firebase_services/firebase_auth.dart';
 import '../services/firebase_services/firebase_auth_impl.dart';
 import '../services/navigation/navigation.dart';
@@ -28,4 +30,5 @@ Future<void> setupLocator(
   locator.registerLazySingleton<Auth>(() => AuthImpl());
   locator
       .registerLazySingleton<NavigationService>(() => NavigationServiceImpl());
+  locator.registerLazySingleton<FirestoreService>(() => FirestoreServiceImpl());
 }

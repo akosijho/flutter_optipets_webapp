@@ -5,9 +5,10 @@ import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 import 'package:stacked/stacked.dart';
 
 class AddNew extends StatelessWidget {
-  const AddNew({Key? key}) : super(key: key);
+ AddNew({Key? key}) : super(key: key);
 
   final thisLabelStyle = const TextStyle(fontSize: 12);
+  final formGlobalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class AddNew extends StatelessWidget {
       disposeViewModel: false,
       builder: (context, model, child) {
         return Form(
-          key: model.applicationViewModel.formGlobalKey,
+          key: formGlobalKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: SingleChildScrollView(
             child: Row(
@@ -256,7 +257,7 @@ class AddNew extends StatelessWidget {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              model.applicationViewModel.formGlobalKey
+                              formGlobalKey
                                       .currentState!
                                       .validate()
                                   ? model.addNew(

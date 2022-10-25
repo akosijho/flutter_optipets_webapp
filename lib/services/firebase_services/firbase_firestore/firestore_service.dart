@@ -3,5 +3,8 @@ import 'package:flutter_optipets_webapp/models/user_object.dart';
 
 abstract class FirestoreService {
 
-  Future<void> addNew (UserObject userData, PetObject petData);
+  // add new user
+  Future<void> addNew (UserObject userData);
+  //new Pet
+  Future<void> newPet (PetObject petData);
 }

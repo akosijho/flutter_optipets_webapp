@@ -65,7 +65,7 @@ class AddNewViewModel extends BaseViewModel {
     setBusy(true);
     // generate custom email
     String email =
-        '${firstName.replaceAll(' ', '')}.${lastName.replaceAll(' ', '')}@boholvet.bh';
+        '${firstName.replaceAll(' ', '')}.${lastName.replaceAll(' ', '')}@boholvet.bh'.replaceAll(' ', '');
     String password = 'ChangeMe${DateFormat('MMddyy').format(DateTime.now())}';
     try {
       // creates new login credentials
@@ -74,7 +74,9 @@ class AddNewViewModel extends BaseViewModel {
       // creates user object
       UserObject newClient = UserObject(
           uid: newUser.user!.uid,
-          name: '$firstName $middlename $lastName',
+          firstName: firstName, 
+          middleName: middlename,
+          lastName: lastName,
           address: address,
           contacts: contacts);
       
@@ -90,13 +92,8 @@ class AddNewViewModel extends BaseViewModel {
       );
 
       // add new client data to firestore database
-      await firestoreService.addNew(newClient, newPet);
-
-      print(email);
-      print(password);
-      print(newClient.toFirestore());
-      print(newPet.toFireStore());
-
+      await firestoreService.addNew(newClient);
+      await firestoreService.newPet(newPet);
       setBusy(false);
 
       showSnackbar(title: 'Success', message: 'New Client Added', maxWidth: 400);

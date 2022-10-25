@@ -7,7 +7,6 @@ import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/firebase_options.dart';
 import 'package:flutter_optipets_webapp/utils/my_themes.dart';
-import 'package:flutter_optipets_webapp/views/dashboard/home.dart';
 import 'package:flutter_optipets_webapp/views/login/login_view.dart';
 // import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get/get.dart';

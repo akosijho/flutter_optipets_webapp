@@ -45,6 +45,9 @@ dependencies:
   stacked_services: ^0.9.5
   intl: ^0.17.0
   cloud_firestore: ^4.0.1
+  cached_network_image: ^3.2.2
+  image_network: ^2.5.1
+  firebase_storage: ^11.0.3
 
 dev_dependencies:
   flutter_test:

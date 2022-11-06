@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/app/app.router.dart';
+import 'package:flutter_optipets_webapp/models/user_object.dart';
+import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 import 'package:stacked/stacked.dart';
@@ -10,7 +12,7 @@ class LoginViewModel extends BaseViewModel {
   final ApplicationViewModel applicationViewModel =
       locator<ApplicationViewModel>();
 
-   //controls the scroll position
+  //controls the scroll position
   final ScrollController scrollController = ScrollController();
 
   String email = '';
@@ -29,17 +31,21 @@ class LoginViewModel extends BaseViewModel {
   }
 
   void home() async {
-    await applicationViewModel.navigationService.pushReplacementNamed(Routes.home);
+    await applicationViewModel.navigationService
+        .pushReplacementNamed(Routes.home);
   }
 
-  // sign in with credentials
+  // sign in with credentialsflutter pub
   void signIn(String email, String password) async {
+    setBusy(true);
     try {
       final user = await applicationViewModel.auth
-          .signInWithCredentials(email, password);
+          .signInWithCredentials('$email$myDomain'.replaceAll(' ', ''), password);
       if (user != null) {
-        applicationViewModel.userObject = user;
-        await applicationViewModel.navigationService.pushReplacementNamed(Routes.home);
+        await userRef.doc(user.uid).get().then((value) => applicationViewModel
+            .userObject = UserObject.fromJson(value.data()!));
+        await applicationViewModel.navigationService
+            .pushReplacementNamed(Routes.home);
       } else {
         return null;
       }

@@ -5,20 +5,23 @@ import 'package:flutter_optipets_webapp/services/firebase_services/firbase_fires
 import 'package:stacked/stacked_annotations.dart';
 
 @LazySingleton(asType: FirestoreService)
-class FirestoreServiceImpl extends FirestoreService {
+class FirestoreServiceImpl implements FirestoreService {
+
   // initialize firestore instance
   final _db = FirebaseFirestore.instance;
-  // user reference
-  late CollectionReference userRef = _db.collection('user');
-  // petReference
-  late CollectionReference petRef = _db.collection('pets');
+
+ @override
+  late CollectionReference<Object?> petRef = _db.collection('pets');
+  
+  @override
+  late CollectionReference<Object?> userRef = _db.collection('users');
 
   // pushes new data into database
   @override
   Future<void> addNew(UserObject userData) async {
     try {
       // add new user to firestore
-       _db.collection('user').doc(userData.uid).set(userData.toFirestore());
+       userRef.doc(userData.uid).set(userData.toFirestore());
     } catch (e) {
       rethrow;
     }

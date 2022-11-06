@@ -1,7 +1,16 @@
 import 'package:equatable/equatable.dart';
 
 class UserObject extends Equatable {
-  const UserObject({this.firstName, this.middleName, this.lastName, this.address, this.contacts, required this.uid});
+  const UserObject({
+    this.firstName,
+    this.middleName,
+    this.lastName,
+    this.address,
+    this.contacts,
+    required this.uid,
+    this.role,
+    this.displayImage,
+  });
 
   final String? uid;
   final String? firstName;
@@ -9,16 +18,19 @@ class UserObject extends Equatable {
   final String? lastName;
   final String? address;
   final String? contacts;
+  final String? role;
+  final String? displayImage;
 
   factory UserObject.fromJson(Map<String, dynamic> json) {
     return UserObject(
-      uid: json['uid'] as String,
-      firstName: json['firstName'] as String,
-      middleName: json['middleName'] as String,
-      lastName: json['lastName'] as String,
-      address: json['address'] as String,
-      contacts: json['contacts'] as String,
-    );
+        uid: json['uid'] as String?,
+        firstName: json['firstName'] as String?,
+        middleName: json['middleName'] as String?,
+        lastName: json['lastName'] as String?,
+        address: json['address'] as String?,
+        contacts: json['contacts'] as String?,
+        role: json['role'] as String?,
+        displayImage: json['displayImage'] as String?);
   }
 
   Map<String, dynamic> toFirestore() => {
@@ -28,8 +40,19 @@ class UserObject extends Equatable {
         if (lastName != null) "lastName": lastName,
         if (address != null) "address": address,
         if (contacts != null) "contacts": contacts,
+        if (role != null) "role": role,
+        if (displayImage != null) "displayImage": displayImage
       };
 
   @override
-  List<Object?> get props => [uid, firstName, middleName, lastName, address, contacts];
+  List<Object?> get props => [
+        uid,
+        firstName,
+        middleName,
+        lastName,
+        address,
+        contacts,
+        role,
+        displayImage
+      ];
 }

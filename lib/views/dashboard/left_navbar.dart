@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
+import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/buttons.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -48,7 +51,10 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
             leftNavButton(function: viewModel.addNew, icon: Icons.add, label: 'New'),
             leftNavButton(function: viewModel.appointments, icon: Icons.add, label: 'Appointments'),
             leftNavButton(function: prints, icon: Icons.add, label: 'button'),
-            leftNavButton(function: prints, icon: Icons.add, label: 'button'),
+            leftNavButton(function: () async{
+              await FirebaseAuth.instance.signOut();
+              await ApplicationViewModel().navigationService.pushReplacementNamed(Routes.login);
+            }, icon: Icons.add, label: 'button'),
           ],
         ));
   }

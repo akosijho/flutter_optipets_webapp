@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
+import 'package:flutter_optipets_webapp/models/user_object.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/appointments/appointments_view.dart';
@@ -19,6 +20,14 @@ class HomeViewModel extends BaseViewModel {
   );
 
   Widget? child =  AddNew();
+  UserObject? user;
+
+  void init() {
+    setBusy(true);
+    user = applicationViewModel.userObject;
+    setBusy(false);
+    notifyListeners();
+  }
 
   void prints() {
     showDialog(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/utils/input_validation_mixin.dart';
 import 'package:flutter_optipets_webapp/views/login/login_view_model.dart';
+import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends StatelessWidget with InputValidationMixin {
@@ -92,7 +93,7 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                                   prefixIcon: Icon(Icons.person),
                                 ),
                                 onChanged: (val) => model.email = val,
-                                validator: (val) => isEmailValid(val!)
+                                validator: (val) => val!.isNotEmpty
                                     ? null
                                     : 'Enter a valid email address',
                               ),
@@ -130,20 +131,19 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                                       ),
                                     ),
                                     onPressed: () {
-                                      // if (model.applicationViewModel
-                                      //         .formGlobalKey.currentState!
-                                      //         .validate() &&
-                                      //     isNotEmpty(model.email) &&
-                                      //     isNotEmpty(model.password)) {
-                                      //   model.signIn(
-                                      //       model.email, model.password);
-                                      // } else {
-                                      //   showSnackbar(
-                                      //       title: 'Oops',
-                                      //       message: 'Some fields are empty!',
-                                      //       maxWidth: 480);
-                                      // }
-                                      model.home();
+                                      if (model.applicationViewModel
+                                              .formGlobalKey.currentState!
+                                              .validate() &&
+                                          isNotEmpty(model.email) &&
+                                          isNotEmpty(model.password)) {
+                                        model.signIn(
+                                            model.email, model.password);
+                                      } else {
+                                        showSnackbar(
+                                            title: 'Oops',
+                                            message: 'Some fields are empty!',
+                                            maxWidth: 480);
+                                      }
                                     },
                                     child: model.isBusy
                                         ? const Center(

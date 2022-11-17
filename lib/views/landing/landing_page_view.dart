@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/utils/my_colors.dart';
 import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
+import 'package:flutter_optipets_webapp/views/landing/bottom_bar.dart';
 import 'package:flutter_optipets_webapp/views/landing/landing_page_view_model.dart';
 import 'package:flutter_optipets_webapp/views/landing/menu_drawer.dart';
 import 'package:flutter_optipets_webapp/views/login/login_view.dart';
@@ -12,23 +13,45 @@ class LandingPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // get screen size
     var screenSize = MediaQuery.of(context).size;
     debugPrint(screenSize.toString());
     return ViewModelBuilder<LandingPageViewModel>.reactive(
         viewModelBuilder: () => LandingPageViewModel(),
-        // onModelReady: (model) => model.onScreenSizeChange(),
         builder: (context, model, child) {
           model.onScreenSizeChange();
           return Scaffold(
-            extendBodyBehindAppBar: true,
+            extendBodyBehindAppBar: false,
+            // Drawer widget
             endDrawer: const MenuDrawer(),
-            appBar: screenSize.width < 800
+            appBar: screenSize.width < 690
+                // appbar for small screen
                 ? AppBar(
-                    backgroundColor: Colors.white,
-                    elevation: 0,
-                    iconTheme: const IconThemeData(color: Colors.blue),
-                    title: InkWell(
-                      onTap: () {
+                    backgroundColor: MyColors.coverColor,
+                    elevation: 1,
+                    // create hamburger icon for drawer
+                    actions: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16.0),
+                        child: Builder(
+                          builder: (BuildContext context) {
+                            return IconButton(
+                              icon: const Icon(Icons.menu, color: Colors.white),
+                              onPressed: () {
+                                Scaffold.of(context).openEndDrawer();
+                              },
+                              tooltip: MaterialLocalizations.of(context)
+                                  .openAppDrawerTooltip,
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                    title: TextButton(
+                      style: ButtonStyle(
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent)),
+                      onPressed: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -38,24 +61,18 @@ class LandingPageView extends StatelessWidget {
                       },
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                        // child: ClipRect(
-                        //   clipBehavior: Clip.antiAliasWithSaveLayer,
-                        //   child: Image.asset('lib/assets/images/app_icon.png',
-                        //   width: 20,
-                        //   isAntiAlias: true,
-                        //   filterQuality: FilterQuality.none,),
-                        // ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SvgPicture.asset(SvgIcons.logo,
                                 width: 48,
                                 clipBehavior: Clip.antiAlias,
-                                color: MyColors.coverColor),
+                                color: Colors.white),
                             const SizedBox(width: 8),
                             const Center(
                                 child: Text("optipets",
-                                    style: TextStyle(fontSize: 20))),
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white))),
                           ],
                         ),
                       ),
@@ -71,6 +88,9 @@ class LandingPageView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextButton(
+                              style: ButtonStyle(
+                                  overlayColor: MaterialStateProperty.all(
+                                      Colors.transparent)),
                               onPressed: () {
                                 Navigator.pushReplacement(
                                   context,
@@ -81,13 +101,6 @@ class LandingPageView extends StatelessWidget {
                               },
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                                // child: ClipRect(
-                                //   clipBehavior: Clip.antiAliasWithSaveLayer,
-                                //   child: Image.asset('lib/assets/images/app_icon.png',
-                                //   scale: 1,
-                                //   isAntiAlias: true,
-                                //   filterQuality: FilterQuality.none,),
-                                // ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -111,6 +124,9 @@ class LandingPageView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 TextButton(
+                                  style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          Colors.transparent)),
                                   onPressed: () {},
                                   child: const Center(
                                       child: Text("Download",
@@ -120,6 +136,9 @@ class LandingPageView extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 24),
                                 TextButton(
+                                  style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          Colors.transparent)),
                                   onPressed: () {
                                     Navigator.pushReplacement(
                                       context,
@@ -141,8 +160,13 @@ class LandingPageView extends StatelessWidget {
                       ),
                     ),
                   ),
-            body: const SingleChildScrollView(
+            body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
+              child: Column(
+                children: const [
+                  BottomBar()
+                ],
+              ),
             ),
           );
         });

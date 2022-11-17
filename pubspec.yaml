@@ -37,6 +37,7 @@ dependencies:
   firebase_auth: ^4.0.1
   adaptive_scrollbar: ^2.1.2
   flutter_svg: ^1.1.1+1 #load svg format images
+  url_launcher: ^6.1.6 # launch url
 
 
   # The following adds the Cupertino Icons font to your application.

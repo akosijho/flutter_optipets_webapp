@@ -1,6 +1,7 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'dart:js' as js;
 
 class InfoText extends StatelessWidget {
   final String type, text;
@@ -28,20 +29,21 @@ class InfoText extends StatelessWidget {
           ),
         ),
         Flexible(
-          child: InkWell(
+          child: isEmail != null && isEmail! ?  Text(
+              text,
+              textAlign: TextAlign.justify,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white60,
+              ),
+            ) : isAddress !=null && isAddress! ? InkWell(
             onTap: () async {
-              if (isEmail == true) {
-                var mailUrl =
-                    'mailto:$text?subject=Your Subject&body=Your Body Text';
+             if (isAddress == true) {
+                var addressUrl = 'https://goo.gl/maps/hnMjc745HYA44Skd7';
                 try {
-                  await launchUrl(Uri.parse(mailUrl));
-                } catch (e) {
-                  await Clipboard.setData(ClipboardData(text: text));
-                }
-              } else if (isAddress == true) {
-                var addressUrl = 'https://goo.gl/maps/qKvpEu9Ld4Syx4RR7';
-                try {
-                  await launchUrl(Uri.parse(addressUrl));
+                  js.context.callMethod('open', [addressUrl]);
                 } catch (e) {
                   await Clipboard.setData(ClipboardData(text: addressUrl));
                   debugPrint('Address Copied');
@@ -58,7 +60,7 @@ class InfoText extends StatelessWidget {
                 color: Colors.white60,
               ),
             ),
-          ),
+          ) : Container(),
         ),
       ],
     );

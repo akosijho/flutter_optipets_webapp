@@ -1,6 +1,6 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'dart:js' as js;
 
 class BottomBarColumn extends StatelessWidget {
@@ -54,17 +54,9 @@ class BottomBarColumn extends StatelessWidget {
               ),
             ),
           const SizedBox(height: 10),
-          InkWell(
-            onTap: () async {
-              if (s2Link.isNotEmpty) {
-                try {
-                  await launchUrl(Uri.parse(s2Link));
-                } catch (e) {
-                  await Clipboard.setData(ClipboardData(text: s2Link));
-                }
-              } else {
-                debugPrint('LINK: $s2Link');
-              }
+           s2Link.isNotEmpty ? InkWell(
+            onTap: () {
+              js.context.callMethod('open', [s2Link]);
             },
             child: Text(
               s2,
@@ -73,19 +65,17 @@ class BottomBarColumn extends StatelessWidget {
                 color: Colors.white60,
               ),
             ),
-          ),
+          ) :  Text(
+              s2,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white60,
+              ),
+            ),
           const SizedBox(height: 10),
-          InkWell(
-            onTap: () async {
-              if (s3Link.isNotEmpty) {
-                try {
-                  await launchUrl(Uri.parse(s3Link));
-                } catch (e) {
-                  await Clipboard.setData(ClipboardData(text: s3Link));
-                }
-              } else {
-                debugPrint('LINK: $s3Link');
-              }
+          s3Link.isNotEmpty ? InkWell(
+            onTap: () {
+              js.context.callMethod('open', [s3Link]);
             },
             child: Text(
               s3,
@@ -94,7 +84,13 @@ class BottomBarColumn extends StatelessWidget {
                 color: Colors.white60,
               ),
             ),
-          ),
+          ) :  Text(
+              s3,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white60,
+              ),
+            ),
           const SizedBox(height: 10),
         ],
       ),

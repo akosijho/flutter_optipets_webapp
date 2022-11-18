@@ -1,9 +1,13 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_optipets_webapp/utils/my_image.dart';
+import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
 import 'package:flutter_optipets_webapp/views/landing/bottom_bar_column.dart';
 import 'package:flutter_optipets_webapp/views/landing/info_text.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'dart:js' as js;
+
+import 'package:flutter_optipets_webapp/views/landing/style.dart';
 
 // import 'widgets.dart';
 
@@ -33,8 +37,8 @@ class BottomBar extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    BottomBarColumn(
+                  children: [
+                    const BottomBarColumn(
                       heading: 'Contact Us',
                       s1: '09462339892',
                       s1Link: '',
@@ -43,23 +47,33 @@ class BottomBar extends StatelessWidget {
                       s3: '',
                       s3Link: '',
                     ),
-                    // BottomBarColumn(
-                    //   heading: 'HELP',
-                    //   s1: 'Payment',
-                    //   s1Link: '',
-                    //   s2: 'Cancellation',
-                    //   s2Link: '',
-                    //   s3: 'FAQ',
-                    //   s3Link: '',
-                    // ),
-                    BottomBarColumn(
-                      heading: 'SOCIAL',
-                      s1: 'Facebook',
-                      s1Link: 'https://twitter.com/alamin_karno',
-                      s2: 'Facebook',
-                      s2Link: 'https://www.facebook.com/alamin.karnoOfficial',
-                      s3: 'YouTube',
-                      s3Link: 'https://youtube.com/alaminkarno',
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 88,
+                          height: 72,
+                          child: TextButton(
+                            style: buttonStyle,
+                            onPressed: () => js.context.callMethod('open',
+                                ['https://web.facebook.com/boholveteclinic']),
+                            child: const MyImage(imageUrl: SvgIcons.bvcLogo),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        SizedBox(
+                          width: 88,
+                          height: 72,
+                          child: TextButton(
+                            style: buttonStyle,
+                            onPressed: () => js.context
+                                .callMethod('open', ['https://optipets.web.app']),
+                            child: const MyImage(imageUrl: SvgIcons.appIcon),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -72,14 +86,13 @@ class BottomBar extends StatelessWidget {
                   children: const [
                     InfoText(
                       type: 'Email',
-                      text: 'alamin.karno@outlook.com',
+                      text: 'boholveterinaryclinic@gmail.com',
                       isEmail: true,
                     ),
                     SizedBox(height: 10),
                     InfoText(
                       type: 'Address',
-                      text:
-                          'Bool District, Tagbilaran City, Bohol',
+                      text: 'Bool District, Tagbilaran City, Bohol',
                       isAddress: true,
                     ),
                   ],
@@ -89,22 +102,11 @@ class BottomBar extends StatelessWidget {
                   color: Colors.white60,
                 ),
                 const SizedBox(height: 20),
-                InkWell(
-                  onTap: () async {
-                    var addressUrl = 'https://github.com/alamin-karno';
-                    try {
-                      await launchUrl(Uri.parse(addressUrl));
-                    } catch (e) {
-                      await Clipboard.setData(ClipboardData(text: addressUrl));
-                      debugPrint('Address Copied');
-                    }
-                  },
-                  child: Text(
-                    'Copyright © 2022 | Bohol Veterinary Clinic',
-                    style: TextStyle(
-                      color: Colors.blueGrey[100],
-                      fontSize: 14,
-                    ),
+                Text(
+                  'Copyright © 2022 | Bohol Veterinary Clinic',
+                  style: TextStyle(
+                    color: Colors.blueGrey[100],
+                    fontSize: 14,
                   ),
                 ),
               ],
@@ -116,31 +118,41 @@ class BottomBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     const BottomBarColumn(
-                      heading: 'ABOUT',
-                      s1: 'Contact Us',
+                      heading: 'Contact Us',
+                      s1: '09462339892',
                       s1Link: '',
-                      s2: 'About Us',
-                      s2Link: '',
-                      s3: 'Careers',
+                      s2: 'Facebook',
+                      s2Link: 'https://web.facebook.com/boholveteclinic',
+                      s3: '',
                       s3Link: '',
                     ),
-                    // const BottomBarColumn(
-                    //   heading: 'HELP',
-                    //   s1: 'Payment',
-                    //   s1Link: '',
-                    //   s2: 'Cancellation',
-                    //   s2Link: '',
-                    //   s3: 'FAQ',
-                    //   s3Link: '',
-                    // ),
-                    const BottomBarColumn(
-                      heading: 'SOCIAL',
-                      s1: 'Twitter',
-                      s1Link: 'https://twitter.com/alamin_karno',
-                      s2: 'Facebook',
-                      s2Link: 'https://www.facebook.com/alamin.karnoOfficial',
-                      s3: 'YouTube',
-                      s3Link: 'https://youtube.com/alaminkarno',
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 88,
+                          height: 72,
+                          child: TextButton(
+                            style: buttonStyle,
+                            onPressed: () => js.context.callMethod('open',
+                                ['https://web.facebook.com/boholveteclinic']),
+                            child: const MyImage(imageUrl: SvgIcons.bvcLogo),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        SizedBox(
+                          width: 88,
+                          height: 72,
+                          child: TextButton(
+                            style: buttonStyle,
+                            onPressed: () => js.context
+                                .callMethod('open', ['https://optipets.web.app']),
+                            child: const MyImage(imageUrl: SvgIcons.appIcon),
+                          ),
+                        ),
+                      ],
                     ),
                     Container(
                       color: Colors.white60,
@@ -152,14 +164,13 @@ class BottomBar extends StatelessWidget {
                       children: const [
                         InfoText(
                           type: 'Email',
-                          text: 'alamin.karno@outlook.com',
+                          text: 'boholveterinaryclinic@gmail.com',
                           isEmail: true,
                         ),
                         SizedBox(height: 10),
                         InfoText(
                           type: 'Address',
-                          text:
-                              'Bool District, Tagbilaran City, Bohol',
+                          text: 'Bool District, Tagbilaran City, Bohol',
                           isAddress: true,
                         ),
                       ],
@@ -170,16 +181,11 @@ class BottomBar extends StatelessWidget {
                   color: Colors.white60,
                 ),
                 const SizedBox(height: 20),
-                InkWell(
-                  onTap: (){
-                    js.context.callMethod('open', ['https://stackoverflow.com/questions/ask']);
-                  },
-                  child: Text(
-                    'Copyright © 2022 | Bohol Veterinary Clinic',
-                    style: TextStyle(
-                      color: Colors.blueGrey[100],
-                      fontSize: 14,
-                    ),
+                Text(
+                  'Copyright © 2022 | Bohol Veterinary Clinic',
+                  style: TextStyle(
+                    color: Colors.blueGrey[100],
+                    fontSize: 14,
                   ),
                 ),
               ],

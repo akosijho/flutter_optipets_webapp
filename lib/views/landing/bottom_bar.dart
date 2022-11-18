@@ -126,12 +126,12 @@ class BottomBar extends StatelessWidget {
                       s3: '',
                       s3Link: '',
                     ),
-                    Column(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 88,
-                          height: 72,
+                          width: 120,
+                          height: 104,
                           child: TextButton(
                             style: buttonStyle,
                             onPressed: () => js.context.callMethod('open',
@@ -143,8 +143,8 @@ class BottomBar extends StatelessWidget {
                           height: 4,
                         ),
                         SizedBox(
-                          width: 88,
-                          height: 72,
+                          width: 120,
+                          height: 104,
                           child: TextButton(
                             style: buttonStyle,
                             onPressed: () => js.context

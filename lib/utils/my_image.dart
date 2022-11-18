@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
 class MyImage extends StatelessWidget {
-  const MyImage(
-      {super.key,
-      required this.imageUrl});
+  const MyImage({super.key, required this.imageUrl});
   final String imageUrl;
 
   @override
@@ -20,8 +18,13 @@ class MyImage extends StatelessWidget {
           // ..other props
           ..style.width = '100%'
           ..style.height = '100%'
-          ..children =[html.ImageElement()
-        ..src = imageUrl];
+          ..children = [html.ImageElement()
+          ..src = imageUrl
+          // ..style.width = '72px'
+          // ..style.height = '72px'
+          ..style.width = '100%'
+          ..style.height = '100%'
+          ];
         return htmlElement;
       },
     );

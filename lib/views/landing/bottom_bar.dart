@@ -1,12 +1,11 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
 import 'package:flutter/material.dart';
-import 'package:flutter_optipets_webapp/utils/my_image.dart';
 import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
 import 'package:flutter_optipets_webapp/views/landing/bottom_bar_column.dart';
 import 'package:flutter_optipets_webapp/views/landing/info_text.dart';
 import 'dart:js' as js;
-
+import 'dart:html' as html;
 import 'package:flutter_optipets_webapp/views/landing/style.dart';
 import 'package:image_network/image_network.dart';
 
@@ -53,8 +52,11 @@ class BottomBar extends StatelessWidget {
                       children: [
                         TextButton(
                           style: buttonStyle,
-                          onPressed: () => js.context.callMethod('open',
-                              ['https://web.facebook.com/boholveteclinic']),
+                          // onPressed: () => js.context.callMethod('open',
+                          //     ['https://web.facebook.com/boholveteclinic']),
+                          onPressed: () {
+                            html.window.open('https://web.facebook.com/boholveteclinic',"_blank");
+                          },
                           child: const ImageNetwork(
                             image: 'assets/${SvgIcons.bvcLogo}',
                             fitWeb: BoxFitWeb.fill,
@@ -79,7 +81,6 @@ class BottomBar extends StatelessWidget {
                             width: 104,
                             height: 104,
                             curve: Curves.easeOut,
-                            // const MyImage(imageUrl: SvgIcons.bvcLogo),
                           ),
                         ),
                       ],

@@ -1,12 +1,16 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/utils/my_colors.dart';
 import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
 import 'package:flutter_optipets_webapp/views/landing/bottom_bar.dart';
+import 'package:flutter_optipets_webapp/views/landing/hero_section.dart';
 import 'package:flutter_optipets_webapp/views/landing/landing_page_view_model.dart';
 import 'package:flutter_optipets_webapp/views/landing/menu_drawer.dart';
 import 'package:flutter_optipets_webapp/views/login/login_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
+import 'dart:js' as js;
 
 class LandingPageView extends StatelessWidget {
   const LandingPageView({super.key});
@@ -14,7 +18,7 @@ class LandingPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // get screen size
-    var screenSize = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
     debugPrint(screenSize.toString());
     return ViewModelBuilder<LandingPageViewModel>.reactive(
         viewModelBuilder: () => LandingPageViewModel(),
@@ -28,7 +32,9 @@ class LandingPageView extends StatelessWidget {
                 // appbar for small screen
                 ? AppBar(
                     backgroundColor: MyColors.coverColor,
-                    elevation: 1,
+                    elevation: 0,
+                    foregroundColor: MyColors.coverColor,
+                    surfaceTintColor: MyColors.coverColor,
                     // create hamburger icon for drawer
                     actions: [
                       Padding(
@@ -127,7 +133,11 @@ class LandingPageView extends StatelessWidget {
                                   style: ButtonStyle(
                                       overlayColor: MaterialStateProperty.all(
                                           Colors.transparent)),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    js.context.callMethod('open', [
+                                      'https://appdistribution.firebase.google.com/testerapps/1:123934579832:android:538171b55e0e5dcbe7218d/releases/1l1ej6v8k0ct8'
+                                    ]);
+                                  },
                                   child: const Center(
                                       child: Text("Download",
                                           style: TextStyle(
@@ -163,9 +173,9 @@ class LandingPageView extends StatelessWidget {
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
-                children: const [
-                  BottomBar()
-                ],
+                children: [
+                  HeroSection(screenSize: screenSize,),
+                  const BottomBar()],
               ),
             ),
           );

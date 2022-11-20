@@ -8,6 +8,7 @@ import 'package:flutter_optipets_webapp/views/landing/info_text.dart';
 import 'dart:js' as js;
 
 import 'package:flutter_optipets_webapp/views/landing/style.dart';
+import 'package:image_network/image_network.dart';
 
 // import 'widgets.dart';
 
@@ -50,27 +51,35 @@ class BottomBar extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          width: 88,
-                          height: 72,
-                          child: TextButton(
-                            style: buttonStyle,
-                            onPressed: () => js.context.callMethod('open',
-                                ['https://web.facebook.com/boholveteclinic']),
-                            child: const MyImage(imageUrl: SvgIcons.bvcLogo),
+                        TextButton(
+                          style: buttonStyle,
+                          onPressed: () => js.context.callMethod('open',
+                              ['https://web.facebook.com/boholveteclinic']),
+                          child: const ImageNetwork(
+                            image: 'assets/${SvgIcons.bvcLogo}',
+                            fitWeb: BoxFitWeb.fill,
+                            fitAndroidIos: BoxFit.fill,
+                            width: 104,
+                            height: 104,
+                            curve: Curves.easeOut,
+                            // const MyImage(imageUrl: SvgIcons.bvcLogo),
                           ),
                         ),
                         const SizedBox(
                           height: 4,
                         ),
-                        SizedBox(
-                          width: 88,
-                          height: 72,
-                          child: TextButton(
-                            style: buttonStyle,
-                            onPressed: () => js.context
-                                .callMethod('open', ['https://optipets.web.app']),
-                            child: const MyImage(imageUrl: SvgIcons.appIcon),
+                        TextButton(
+                          style: buttonStyle,
+                          onPressed: () => js.context
+                              .callMethod('open', ['https://optipets.web.app/#/']),
+                          child: const ImageNetwork(
+                            image: 'assets/${SvgIcons.appIcon}',
+                            fitWeb: BoxFitWeb.fill,
+                            fitAndroidIos: BoxFit.fill,
+                            width: 104,
+                            height: 104,
+                            curve: Curves.easeOut,
+                            // const MyImage(imageUrl: SvgIcons.bvcLogo),
                           ),
                         ),
                       ],
@@ -129,27 +138,35 @@ class BottomBar extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          width: 120,
-                          height: 104,
-                          child: TextButton(
-                            style: buttonStyle,
-                            onPressed: () => js.context.callMethod('open',
-                                ['https://web.facebook.com/boholveteclinic']),
-                            child: const MyImage(imageUrl: SvgIcons.bvcLogo),
+                        TextButton(
+                          style: buttonStyle,
+                          onPressed: () => js.context.callMethod('open',
+                              ['https://web.facebook.com/boholveteclinic']),
+                          child: const ImageNetwork(
+                            image: 'assets/${SvgIcons.bvcLogo}',
+                            fitWeb: BoxFitWeb.fill,
+                            fitAndroidIos: BoxFit.fill,
+                            width: 104,
+                            height: 104,
+                            curve: Curves.easeOut,
+                            // const MyImage(imageUrl: SvgIcons.bvcLogo),
                           ),
                         ),
                         const SizedBox(
                           height: 4,
                         ),
-                        SizedBox(
-                          width: 120,
-                          height: 104,
-                          child: TextButton(
-                            style: buttonStyle,
-                            onPressed: () => js.context
-                                .callMethod('open', ['https://optipets.web.app']),
-                            child: const MyImage(imageUrl: SvgIcons.appIcon),
+                        TextButton(
+                          style: buttonStyle,
+                          onPressed: () => js.context
+                              .callMethod('open', ['https://optipets.web.app']),
+                          child: const ImageNetwork(
+                            image: 'assets/${SvgIcons.appIcon}',
+                            fitWeb: BoxFitWeb.fill,
+                            fitAndroidIos: BoxFit.fill,
+                            width: 104,
+                            height: 104,
+                            curve: Curves.easeOut,
+                            // const MyImage(imageUrl: SvgIcons.bvcLogo),
                           ),
                         ),
                       ],

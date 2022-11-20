@@ -140,7 +140,7 @@ class LandingPageView extends StatelessWidget {
                                       overlayColor: MaterialStateProperty.all(
                                           Colors.transparent)),
                                   onPressed: () {
-                                    Navigator.pushReplacement(
+                                    Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>

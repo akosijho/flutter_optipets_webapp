@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
+import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/models/user_object.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
@@ -22,9 +24,18 @@ class HomeViewModel extends BaseViewModel {
   Widget? child =  AddNew();
   UserObject? user;
 
-  void init() {
+  Future<void> init() async {
     setBusy(true);
-    user = applicationViewModel.userObject;
+    // check if a user is currently logged in
+    if(FirebaseAuth.instance.currentUser == null && applicationViewModel.userObject == null){
+      await applicationViewModel.navigationService.pushReplacementNamed(Routes.login);
+    }
+
+    if(FirebaseAuth.instance.currentUser != null && user == null){
+      await userRef.doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) => applicationViewModel
+            .userObject = UserObject.fromJson(value.data()!));
+      user = applicationViewModel.userObject;
+    }
     setBusy(false);
     notifyListeners();
   }

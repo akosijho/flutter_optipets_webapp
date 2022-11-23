@@ -22,6 +22,6 @@ class LandingPageViewModel extends BaseViewModel {
     } else {
       return await applicationViewModel.navigationService
           .pushNamed(Routes.home);
-    }
+    } 
   }
 }

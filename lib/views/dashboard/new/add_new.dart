@@ -126,7 +126,7 @@ class AddNew extends StatelessWidget {
                                           label: 'Specie:', fieldWidth: 48),
                                       textField(
                                           label: 'Specie',
-                                          maxWidth: 200,
+                                          maxWidth: 184,
                                           textEditingController: model.specie),
                                     ],
                                   ),
@@ -163,7 +163,7 @@ class AddNew extends StatelessWidget {
                                           label: 'Color:', fieldWidth: 48),
                                       textField(
                                           label: 'Color',
-                                          maxWidth: 200,
+                                          maxWidth: 184,
                                           textEditingController: model.color),
                                     ],
                                   ),
@@ -314,7 +314,7 @@ class AddNew extends StatelessWidget {
       bool? enabled,
       int lines = 1,
       TextEditingController? textEditingController,
-      double maxWidth = 400,
+      double maxWidth = 384,
       dynamic function}) {
     return TextFormField(
       controller: textEditingController,

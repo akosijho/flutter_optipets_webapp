@@ -52,8 +52,7 @@ class Home extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const StatusBar(),
-                                    Expanded(
-                                        child: DashViews(child: model.child)),
+                                    DashViews(child: model.child),
                                   ],
                                 ),
                               )

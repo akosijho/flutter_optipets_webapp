@@ -12,10 +12,14 @@ import 'package:image_network/image_network.dart';
 // import 'widgets.dart';
 
 class BottomBar extends StatelessWidget {
-  const BottomBar({Key? key}) : super(key: key);
+  const BottomBar({
+    Key? key,
+    required this.currentSize,
+  }) : super(key: key);
 
   static const Color gradientStartColor = Color(0xff11998e);
   static const Color gradientEndColor = Color(0xff0575E6);
+  final Size currentSize;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,8 @@ class BottomBar extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const BottomBarColumn(
+                     BottomBarColumn(
+                      currentSize: currentSize,
                       heading: 'Contact Us',
                       s1: '09462339892',
                       s1Link: '',
@@ -55,7 +60,9 @@ class BottomBar extends StatelessWidget {
                           // onPressed: () => js.context.callMethod('open',
                           //     ['https://web.facebook.com/boholveteclinic']),
                           onPressed: () {
-                            html.window.open('https://web.facebook.com/boholveteclinic',"_blank");
+                            html.window.open(
+                                'https://web.facebook.com/boholveteclinic',
+                                "_blank");
                           },
                           child: const ImageNetwork(
                             image: 'assets/${SvgIcons.bvcLogo}',
@@ -72,8 +79,8 @@ class BottomBar extends StatelessWidget {
                         ),
                         TextButton(
                           style: buttonStyle,
-                          onPressed: () => js.context
-                              .callMethod('open', ['https://optipets.web.app/#/']),
+                          onPressed: () => js.context.callMethod(
+                              'open', ['https://optipets.web.app/#/']),
                           child: const ImageNetwork(
                             image: 'assets/${SvgIcons.appIcon}',
                             fitWeb: BoxFitWeb.fill,
@@ -93,14 +100,16 @@ class BottomBar extends StatelessWidget {
                 const SizedBox(height: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     InfoText(
+                      currentSize: currentSize,
                       type: 'Email',
                       text: 'boholveterinaryclinic@gmail.com',
                       isEmail: true,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     InfoText(
+                      currentSize: currentSize,
                       type: 'Address',
                       text: 'Bool District, Tagbilaran City, Bohol',
                       isAddress: true,
@@ -127,7 +136,8 @@ class BottomBar extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const BottomBarColumn(
+                    BottomBarColumn(
+                      currentSize: currentSize,
                       heading: 'Contact Us',
                       s1: '09462339892',
                       s1Link: '',
@@ -179,14 +189,16 @@ class BottomBar extends StatelessWidget {
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children:  [
                         InfoText(
+                          currentSize: currentSize,
                           type: 'Email',
                           text: 'boholveterinaryclinic@gmail.com',
                           isEmail: true,
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         InfoText(
+                          currentSize: currentSize,
                           type: 'Address',
                           text: 'Bool District, Tagbilaran City, Bohol',
                           isAddress: true,

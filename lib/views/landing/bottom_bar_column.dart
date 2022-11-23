@@ -5,9 +5,11 @@ import 'dart:js' as js;
 
 class BottomBarColumn extends StatelessWidget {
   final String heading, s1, s1Link, s2, s2Link, s3, s3Link;
+  final Size currentSize;
 
   const BottomBarColumn({
     Key? key,
+    required this.currentSize,
     required this.heading,
     required this.s1,
     required this.s1Link,
@@ -29,7 +31,7 @@ class BottomBarColumn extends StatelessWidget {
           Text(
             heading,
             style: TextStyle(
-              fontSize: 18,
+              fontSize: currentSize.width < 800 ? 16 : 18,
               color: Colors.blueGrey[100],
               fontWeight: FontWeight.w700,
             ),

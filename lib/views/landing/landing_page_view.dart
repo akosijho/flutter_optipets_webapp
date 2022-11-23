@@ -1,8 +1,6 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/utils/my_colors.dart';
 import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
 import 'package:flutter_optipets_webapp/views/landing/bottom_bar.dart';
@@ -181,7 +179,9 @@ class LandingPageView extends StatelessWidget {
                   HeroSection(
                     screenSize: screenSize,
                   ),
-                  const BottomBar()
+                  BottomBar(
+                    currentSize: screenSize,
+                  )
                 ],
               ),
             ),

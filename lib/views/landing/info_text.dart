@@ -5,9 +5,11 @@ import 'dart:js' as js;
 
 class InfoText extends StatelessWidget {
   final String type, text;
+  final Size currentSize;
   final bool? isEmail, isAddress;
   const InfoText({
     Key? key,
+    required this.currentSize,
     required this.type,
     required this.text,
     this.isEmail,
@@ -34,8 +36,8 @@ class InfoText extends StatelessWidget {
               textAlign: TextAlign.justify,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 16,
+              style: TextStyle(
+                fontSize: currentSize.width < 800 ? 14 : 16,
                 color: Colors.white60,
               ),
             ) : isAddress !=null && isAddress! ? InkWell(
@@ -55,8 +57,8 @@ class InfoText extends StatelessWidget {
               textAlign: TextAlign.justify,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 16,
+              style: TextStyle(
+                fontSize: currentSize.width < 800 ? 14 : 16,
                 color: Colors.white60,
               ),
             ),

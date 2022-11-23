@@ -1,14 +1,14 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/utils/my_colors.dart';
 import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
 import 'package:flutter_optipets_webapp/views/landing/bottom_bar.dart';
 import 'package:flutter_optipets_webapp/views/landing/hero_section.dart';
 import 'package:flutter_optipets_webapp/views/landing/landing_page_view_model.dart';
 import 'package:flutter_optipets_webapp/views/landing/menu_drawer.dart';
-import 'package:flutter_optipets_webapp/views/login/login_view.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_network/image_network.dart';
 import 'package:stacked/stacked.dart';
 import 'dart:js' as js;
@@ -158,13 +158,8 @@ class LandingPageView extends StatelessWidget {
                                   style: ButtonStyle(
                                       overlayColor: MaterialStateProperty.all(
                                           Colors.transparent)),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              const LoginView()),
-                                    );
+                                  onPressed: () async {
+                                    await model.checkLogged();
                                   },
                                   child: const Center(
                                       child: Text("Login",

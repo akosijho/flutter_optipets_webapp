@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_optipets_webapp/app/app.router.dart';
+import 'package:flutter_optipets_webapp/views/landing/landing_page_view_model.dart';
+import 'package:stacked/stacked.dart';
 
-class MenuDrawer extends StatelessWidget {
+class MenuDrawer extends ViewModelWidget<LandingPageViewModel> {
   const MenuDrawer({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, LandingPageViewModel viewModel) {
     return Drawer(
       child: Container(
         color: Colors.white, //const Color(0xFF077BD7),
@@ -99,9 +103,12 @@ class MenuDrawer extends StatelessWidget {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () async {
+                        viewModel.applicationViewModel.navigationService.pop();
+                        await viewModel.checkLogged();
+                      },
                       child: const Text(
-                        'Contact',
+                        'Login',
                         style: TextStyle(
                           fontSize: 16,
                           color: Color(0xFF077BD7),

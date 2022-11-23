@@ -7,5 +7,7 @@ class SvgIcons {
   static const String bvcLogoSvg = "${_rootPath}bvc_logo_thumbnail.svg";
   static const String bvcLogoPng = "${_rootPath}bvc_logo_thumbnail.png";
   static const String bvcLogo = "${_rootPath}bvc_logo.jpg";
-  static const String appIcon = "${_rootPath}app_icon.png";  
+  static const String appIcon = "${_rootPath}app_icon.png";
+  static const String appLogin = "${_rootPath}app_login.png";    
+  static const String googlePlay = "${_rootPath}google_play.svg";    
 }

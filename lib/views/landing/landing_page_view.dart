@@ -9,6 +9,7 @@ import 'package:flutter_optipets_webapp/views/landing/landing_page_view_model.da
 import 'package:flutter_optipets_webapp/views/landing/menu_drawer.dart';
 import 'package:flutter_optipets_webapp/views/login/login_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_network/image_network.dart';
 import 'package:stacked/stacked.dart';
 import 'dart:js' as js;
 
@@ -69,13 +70,17 @@ class LandingPageView extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SvgPicture.asset(SvgIcons.logo,
-                                width: 48,
-                                clipBehavior: Clip.antiAlias,
-                                color: Colors.white),
-                            const SizedBox(width: 8),
-                            const Center(
+                          children: const [
+                            ImageNetwork(
+                              image: 'assets/${SvgIcons.logo}',
+                              fitWeb: BoxFitWeb.fill,
+                              fitAndroidIos: BoxFit.fill,
+                              width: 48,
+                              height: 48,
+                              curve: Curves.easeOut,
+                            ),
+                            SizedBox(width: 8),
+                            Center(
                                 child: Text("optipets",
                                     style: TextStyle(
                                         fontSize: 20, color: Colors.white))),
@@ -110,13 +115,17 @@ class LandingPageView extends StatelessWidget {
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
-                                  children: [
-                                    SvgPicture.asset(SvgIcons.logo,
-                                        width: 64,
-                                        clipBehavior: Clip.antiAlias,
-                                        color: Colors.white),
-                                    const SizedBox(width: 8),
-                                    const Center(
+                                  children: const [
+                                    ImageNetwork(
+                                      image: 'assets/${SvgIcons.logo}',
+                                      fitWeb: BoxFitWeb.fill,
+                                      fitAndroidIos: BoxFit.fill,
+                                      width: 56,
+                                      height: 56,
+                                      curve: Curves.easeOut,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Center(
                                         child: Text("optipets",
                                             style: TextStyle(
                                                 fontSize: 20,
@@ -174,8 +183,11 @@ class LandingPageView extends StatelessWidget {
               scrollDirection: Axis.vertical,
               child: Column(
                 children: [
-                  HeroSection(screenSize: screenSize,),
-                  const BottomBar()],
+                  HeroSection(
+                    screenSize: screenSize,
+                  ),
+                  const BottomBar()
+                ],
               ),
             ),
           );

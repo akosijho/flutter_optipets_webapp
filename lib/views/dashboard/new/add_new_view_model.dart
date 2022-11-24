@@ -73,13 +73,14 @@ class AddNewViewModel extends BaseViewModel {
       final newUser = await applicationViewModel.firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
 
-      // creates user object
+      // creates user object to be saved to firestore database
       UserObject newClient = UserObject(
           uid: newUser.user!.uid,
           firstName: firstName,
           middleName: middlename,
           lastName: lastName,
           address: address,
+          role: 'client',
           contacts: contacts);
 
       // creates new pet object

@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
@@ -16,10 +17,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   setupLocator();
-  // usePathUrlStrategy();
-  // if (kIsWeb) {
-  //   runApp(const MyApp());
-  // }
+  // set session persistence
+  FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   runApp(const MyApp());
 }
 

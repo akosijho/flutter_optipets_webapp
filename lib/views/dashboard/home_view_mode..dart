@@ -3,7 +3,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
-import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/models/user_object.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
@@ -24,20 +23,22 @@ class HomeViewModel extends BaseViewModel {
   Widget? child =  AddNew();
   UserObject? user;
 
-  Future<void> init() async {
+  void init() async {
     setBusy(true);
     // check if a user is currently logged in
-    if(FirebaseAuth.instance.currentUser == null && applicationViewModel.userObject == null){
-      await applicationViewModel.navigationService.pushReplacementNamed(Routes.login);
-    }
+    debugPrint(FirebaseAuth.instance.currentUser.toString());
+    // if(FirebaseAuth.instance.currentUser == null && applicationViewModel.userObject == null){
+    //   await applicationViewModel.navigationService.pushReplacementNamed(Routes.login);
+    // }
 
-    if(FirebaseAuth.instance.currentUser != null && user == null){
-      await userRef.doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) => applicationViewModel
-            .userObject = UserObject.fromJson(value.data()!));
-      user = applicationViewModel.userObject;
-    }
+    // if(FirebaseAuth.instance.currentUser != null && user == null){
+    //  
+    // } await userRef.doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) => applicationViewModel
+    //         .userObject = UserObject.fromJson(value.data()!));
+    //   user = applicationViewModel.userObject;
+    await applicationViewModel.getFirebaseUser();
+    debugPrint(FirebaseAuth.instance.currentUser.toString());
     setBusy(false);
-    notifyListeners();
   }
 
   void prints() {
@@ -57,7 +58,6 @@ class HomeViewModel extends BaseViewModel {
 
   addNew() {
     child = AddNew();
-    notifyListeners();
   }
 
   appointments() {

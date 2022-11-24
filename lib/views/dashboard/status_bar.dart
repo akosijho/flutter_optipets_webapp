@@ -27,9 +27,9 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
                   color: Colors.white,
                 ),
                 child: ImageNetwork(
-                  image: viewModel.user!.displayImage!,
+                  image: viewModel.applicationViewModel.userObject!.displayImage!,
                   imageCache:
-                      CachedNetworkImageProvider(viewModel.user!.displayImage!),
+                      CachedNetworkImageProvider(viewModel.applicationViewModel.userObject!.displayImage!),
                   height: 32,
                   width: 32,
                   duration: 1500,
@@ -43,7 +43,7 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
                   onLoading: const CircularProgressIndicator(
                     color: Colors.indigoAccent,
                   ),
-                  onError: Text(viewModel.user!.firstName![0],
+                  onError: Text(viewModel.applicationViewModel.userObject!.firstName![0],
                       style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
@@ -53,7 +53,7 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
             const SizedBox(
               width: 8,
             ),
-            Text("Hi, ${viewModel.user!.firstName!}!",
+            Text("Hi, ${viewModel.applicationViewModel.userObject!.firstName!}!",
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 12,

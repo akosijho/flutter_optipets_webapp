@@ -7,6 +7,7 @@ import 'package:flutter_optipets_webapp/views/application/application_view_model
 import 'package:flutter_optipets_webapp/views/dashboard/buttons.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_network/image_network.dart';
 import 'package:stacked/stacked.dart';
 
 class LeftNavBar extends ViewModelWidget<HomeViewModel> {
@@ -29,9 +30,12 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SvgPicture.asset(
-              SvgIcons.logo,
+            const ImageNetwork(
+              image: 'assets/${SvgIcons.logo}',
+              height: 104,
               width: 104,
+              fitAndroidIos: BoxFit.fill,
+              fitWeb: BoxFitWeb.fill,
             ),
             const SizedBox(
               height: 8,
@@ -47,14 +51,24 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
             const SizedBox(
               height: 40,
             ),
-            leftNavButton(function: viewModel.home, icon: Icons.home, label: 'Home'),
-            leftNavButton(function: viewModel.addNew, icon: Icons.add, label: 'New'),
-            leftNavButton(function: viewModel.appointments, icon: Icons.add, label: 'Appointments'),
+            leftNavButton(
+                function: viewModel.home, icon: Icons.home, label: 'Home'),
+            leftNavButton(
+                function: viewModel.addNew, icon: Icons.add, label: 'New'),
+            leftNavButton(
+                function: viewModel.appointments,
+                icon: Icons.add,
+                label: 'Appointments'),
             leftNavButton(function: prints, icon: Icons.add, label: 'button'),
-            leftNavButton(function: () async{
-              await FirebaseAuth.instance.signOut();
-              await ApplicationViewModel().navigationService.pushReplacementNamed(Routes.login);
-            }, icon: Icons.add, label: 'button'),
+            leftNavButton(
+                function: () async {
+                  await viewModel.auth.signOut();
+                  await ApplicationViewModel()
+                      .navigationService
+                      .pushReplacementNamed(Routes.login);
+                },
+                icon: Icons.logout_outlined,
+                label: 'Sign Out'),
           ],
         ));
   }

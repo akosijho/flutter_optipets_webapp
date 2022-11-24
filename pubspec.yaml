@@ -81,7 +81,7 @@ flutter:
       - images/
       - lib/assets/fonts/
       - images/3.0x/
-      #- fonts/
+      - fonts/
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
@@ -105,7 +105,7 @@ flutter:
     #        weight: 700
       - family: Poppins
         fonts:
-          - asset: lib/assets/fonts/Poppins-Regular.otf
+          - asset: fonts/Poppins-Regular.otf
   # example:
   # fonts:
   #   - family: Schyler

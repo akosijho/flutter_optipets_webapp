@@ -1,6 +1,4 @@
 // ignore_for_file: file_names
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/models/user_object.dart';
@@ -16,9 +14,7 @@ class HomeViewModel extends BaseViewModel {
       locator<ApplicationViewModel>();
 
   final ScrollController scrollController = ScrollController();
-  final ScrollController verticalScrollController = ScrollController(
-    initialScrollOffset: maxWidth
-  );
+  final ScrollController verticalScrollController = ScrollController();
 
   Widget? child =  AddNew();
   UserObject? user;

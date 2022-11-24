@@ -59,7 +59,7 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset('lib/assets/images/app_icon.png',
+                              Image.asset('images/app_icon.png',
                                   scale: 6),
                               Text(
                                 'optipets | Management',

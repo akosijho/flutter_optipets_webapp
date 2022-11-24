@@ -65,21 +65,23 @@ class AddNewViewModel extends BaseViewModel {
     setBusy(true);
     // generate custom email
     String email =
-        '${firstName.replaceAll(' ', '')}.${lastName.replaceAll(' ', '')}@boholvet.bh'.replaceAll(' ', '');
+        '${firstName.replaceAll(' ', '')}.${lastName.replaceAll(' ', '')}@boholvet.bh'
+            .replaceAll(' ', '');
     String password = 'ChangeMe${DateFormat('MMddyy').format(DateTime.now())}';
     try {
       // creates new login credentials
-      final newUser = await applicationViewModel.firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      final newUser = await applicationViewModel.firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
 
       // creates user object
       UserObject newClient = UserObject(
           uid: newUser.user!.uid,
-          firstName: firstName, 
+          firstName: firstName,
           middleName: middlename,
           lastName: lastName,
           address: address,
           contacts: contacts);
-      
+
       // creates new pet object
       PetObject newPet = PetObject(
         name: petName,
@@ -96,21 +98,39 @@ class AddNewViewModel extends BaseViewModel {
       await firestoreService.newPet(newPet);
       setBusy(false);
 
-      showSnackbar(title: 'Success', message: 'New Client Added', maxWidth: 400);
-    }on FirebaseAuthException catch (e) {
-      if(e.code == 'netword-request-failed'){
+      showSnackbar(
+          title: 'Success', message: 'New Client Added', maxWidth: 400);
+      notifyListeners();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'netword-request-failed') {
         showDialog(
-        context: getContext,
-        builder: (_) {
-          return const AlertDialog(
-            title: Text('Error'),
-            content: Text('Connection timed out'),
-          );
-        });
+            context: getContext,
+            builder: (_) {
+              return const AlertDialog(
+                title: Text('Error'),
+                content: Text('Connection timed out'),
+              );
+            });
       }
       setBusy(false);
       rethrow;
     }
     setBusy(false);
+  }
+
+// clears input
+  void clear() {
+    firstName.clear();
+    middleName.clear();
+    lastName.clear();
+    address.clear();
+    contacts.clear();
+    petName.clear();
+    specie.clear();
+    breed.clear();
+    color.clear();
+    birthDay.clear();
+    sex = 'Male';
+    notifyListeners();
   }
 }

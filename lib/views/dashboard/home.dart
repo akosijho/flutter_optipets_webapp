@@ -14,54 +14,56 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) async => model.init(),
       disposeViewModel: false,
       builder: (context, model, child) {
-        return Scaffold(
-          body: Center(
-            child: AdaptiveScrollbar(
-              width: 12,
-              controller: model.scrollController,
-              position: ScrollbarPosition.bottom,
-              underColor: Colors.grey.shade400,
-              sliderDefaultColor: MyColors.primaryColor,
-              sliderActiveColor: MyColors.primaryColor,
-              child: SingleChildScrollView(
-                controller: model.verticalScrollController,
-                scrollDirection: Axis.vertical,
-                physics: const BouncingScrollPhysics(),
-                child: SingleChildScrollView(
-                  controller: model.scrollController,
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  child: SizedBox(
-                    width: 1366,
-                    height: 768,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                       const LeftNavBar(), //left navbar
-                        // Changeable panel
-                       Expanded(
-                         child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const StatusBar(),
-                            Expanded(child: DashViews(child: model.child)),
-                          ],
-                         ),
-                       )  
-                      ],
+        return model.isBusy
+            ? const Center(child: CircularProgressIndicator())
+            : Scaffold(
+                body: Center(
+                  child: AdaptiveScrollbar(
+                    width: 12,
+                    controller: model.scrollController,
+                    position: ScrollbarPosition.bottom,
+                    underColor: Colors.grey.shade400,
+                    sliderDefaultColor: MyColors.primaryColor,
+                    sliderActiveColor: MyColors.primaryColor,
+                    child: SingleChildScrollView(
+                      controller: model.verticalScrollController,
+                      scrollDirection: Axis.vertical,
+                      physics: const BouncingScrollPhysics(),
+                      child: SingleChildScrollView(
+                        controller: model.scrollController,
+                        scrollDirection: Axis.horizontal,
+                        physics: const BouncingScrollPhysics(),
+                        child: SizedBox(
+                          width: 1366,
+                          height: 768,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const LeftNavBar(), //left navbar
+                              // Changeable panel
+                              Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const StatusBar(),
+                                    DashViews(child: model.child),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-          ),
-        );
+              );
       },
     );
   }

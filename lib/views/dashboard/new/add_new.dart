@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/utils/my_colors.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/add_new_view_model.dart';
 import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
 class AddNew extends StatelessWidget {
- AddNew({Key? key}) : super(key: key);
+  AddNew({Key? key}) : super(key: key);
 
   final thisLabelStyle = const TextStyle(fontSize: 12);
   final formGlobalKey = GlobalKey<FormState>();
@@ -126,7 +127,7 @@ class AddNew extends StatelessWidget {
                                           label: 'Specie:', fieldWidth: 48),
                                       textField(
                                           label: 'Specie',
-                                          maxWidth: 200,
+                                          maxWidth: 184,
                                           textEditingController: model.specie),
                                     ],
                                   ),
@@ -163,7 +164,7 @@ class AddNew extends StatelessWidget {
                                           label: 'Color:', fieldWidth: 48),
                                       textField(
                                           label: 'Color',
-                                          maxWidth: 200,
+                                          maxWidth: 184,
                                           textEditingController: model.color),
                                     ],
                                   ),
@@ -184,7 +185,8 @@ class AddNew extends StatelessWidget {
                                       fieldLabel(
                                           label: 'Birthday:', fieldWidth: 80),
                                       textField(
-                                          label: 'mm/dd/yyyy',
+                                          label: DateFormat('MMM dd, yyyy')
+                                              .format(DateTime.now()),
                                           textEditingController: model.birthDay,
                                           maxWidth: 160,
                                           function: model.pickDate),
@@ -247,7 +249,9 @@ class AddNew extends StatelessWidget {
                       Row(
                         children: [
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              model.clear();
+                            },
                             child: const Text(
                               'Clear',
                             ),
@@ -257,9 +261,7 @@ class AddNew extends StatelessWidget {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              formGlobalKey
-                                      .currentState!
-                                      .validate()
+                              formGlobalKey.currentState!.validate()
                                   ? model.addNew(
                                       model.firstName.text,
                                       model.middleName.text,
@@ -314,7 +316,7 @@ class AddNew extends StatelessWidget {
       bool? enabled,
       int lines = 1,
       TextEditingController? textEditingController,
-      double maxWidth = 400,
+      double maxWidth = 384,
       dynamic function}) {
     return TextFormField(
       controller: textEditingController,

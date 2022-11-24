@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
+import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/models/user_object.dart';
 import 'package:flutter_optipets_webapp/services/firebase_services/firebase_auth.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
@@ -18,13 +19,17 @@ class HomeViewModel extends BaseViewModel {
   final ScrollController scrollController = ScrollController();
   final ScrollController verticalScrollController = ScrollController();
 
-  Widget? child =  AddNew();
+  Widget? child = const Home();
   UserObject? user;
 
   void init() async {
     setBusy(true);
     // check if a user is currently logged in
     await applicationViewModel.getFirebaseUser();
+    if (applicationViewModel.userObject == null) {
+      await applicationViewModel.navigationService
+          .pushReplacementNamed(Routes.login);
+    }
     setBusy(false);
   }
 
@@ -45,6 +50,7 @@ class HomeViewModel extends BaseViewModel {
 
   addNew() {
     child = AddNew();
+    notifyListeners();
   }
 
   appointments() {

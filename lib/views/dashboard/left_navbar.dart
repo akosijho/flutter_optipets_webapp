@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
 import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/buttons.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_network/image_network.dart';
 import 'package:stacked/stacked.dart';
 
@@ -53,8 +51,22 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
             ),
             leftNavButton(
                 function: viewModel.home, icon: Icons.home, label: 'Home'),
-            leftNavButton(
-                function: viewModel.addNew, icon: Icons.add, label: 'New'),
+            PopupMenuButton(
+              position: PopupMenuPosition.under,
+              child: leftNavButton(icon: Icons.add, label: 'New'),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: popupMenuItem(text: 'New Client'),
+                  onTap: () {
+                    viewModel.addNew();
+                  },
+                ),
+                PopupMenuItem(
+                    child: popupMenuItem(
+                  text: 'New Staff',
+                ))
+              ],
+            ),
             leftNavButton(
                 function: viewModel.appointments,
                 icon: Icons.add,
@@ -81,5 +93,15 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
             content: Text('data'),
           );
         });
+  }
+
+  ListTile popupMenuItem({String text = '', IconData? icon}) {
+    return ListTile(
+        leading: Icon(icon),
+        dense: true,
+        title: Text(
+          text,
+          style: const TextStyle(fontWeight: FontWeight.w700),
+        ));
   }
 }

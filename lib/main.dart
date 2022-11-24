@@ -7,7 +7,8 @@ import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/firebase_options.dart';
 import 'package:flutter_optipets_webapp/utils/my_themes.dart';
-import 'package:flutter_optipets_webapp/views/dashboard/home.dart';
+import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
+import 'package:flutter_optipets_webapp/views/landing/landing_page_view.dart';
 // import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get/get.dart';
 
@@ -28,12 +29,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final ApplicationViewModel applicationViewModel = locator<ApplicationViewModel>();
     return GetMaterialApp(
+      onInit: () async => await applicationViewModel.getFirebaseUser(),
       title: 'Optipets | Management',
       onGenerateRoute: StackedRouter().onGenerateRoute,
       theme: MyThemes.light,
       debugShowCheckedModeBanner: false,
-      home: const Home()
+      home: const LandingPageView()
     );
   }
 }

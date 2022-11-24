@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
-import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/models/user_object.dart';
 import 'package:flutter_optipets_webapp/services/firebase_services/firebase_auth.dart';
 import 'package:flutter_optipets_webapp/services/navigation/navigation.dart';
@@ -29,12 +28,12 @@ class ApplicationViewModel extends BaseViewModel {
   Future<void> getFirebaseUser() async {
     User? firebaseUser = FirebaseAuth.instance.currentUser;
     firebaseUser ??= await FirebaseAuth.instance.authStateChanges().first;
-    if (firebaseUser == null) {
-      await navigationService.pushReplacementNamed(Routes.login);
-    } else {
-      await userRef.doc(FirebaseAuth.instance.currentUser!.uid).get().then(
-          (value) => userObject =
-              UserObject.fromJson(value.data()!));
+    if (firebaseUser != null) {
+      await userRef
+          .doc(firebaseUser.uid)
+          .get()
+          .then((value) => userObject = UserObject.fromJson(value.data()!));
     }
+    notifyListeners();
   }
 }

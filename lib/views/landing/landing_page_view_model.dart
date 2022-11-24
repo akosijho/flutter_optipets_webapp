@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
@@ -12,11 +11,14 @@ class LandingPageViewModel extends BaseViewModel {
       locator<ApplicationViewModel>();
 
   void onScreenSizeChange() {
-    debugPrint(screenSize.toString());
+    debugPrint(screenSize.toString()); 
   }
 
   Future<dynamic> checkLogged() async {
-    if (FirebaseAuth.instance.currentUser == null) {
+    // checks for log persistence
+    await applicationViewModel.getFirebaseUser();
+    // checks if there is logged user
+    if (applicationViewModel.userObject == null) {
       return await applicationViewModel.navigationService
           .pushNamed(Routes.login);
     } else {

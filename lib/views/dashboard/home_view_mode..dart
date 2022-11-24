@@ -26,18 +26,7 @@ class HomeViewModel extends BaseViewModel {
   void init() async {
     setBusy(true);
     // check if a user is currently logged in
-    debugPrint(FirebaseAuth.instance.currentUser.toString());
-    // if(FirebaseAuth.instance.currentUser == null && applicationViewModel.userObject == null){
-    //   await applicationViewModel.navigationService.pushReplacementNamed(Routes.login);
-    // }
-
-    // if(FirebaseAuth.instance.currentUser != null && user == null){
-    //  
-    // } await userRef.doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) => applicationViewModel
-    //         .userObject = UserObject.fromJson(value.data()!));
-    //   user = applicationViewModel.userObject;
     await applicationViewModel.getFirebaseUser();
-    debugPrint(FirebaseAuth.instance.currentUser.toString());
     setBusy(false);
   }
 

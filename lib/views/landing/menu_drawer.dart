@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.router.dart';
+import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
 import 'package:flutter_optipets_webapp/views/landing/landing_page_view_model.dart';
+import 'package:image_network/image_network.dart';
 import 'package:stacked/stacked.dart';
 
 class MenuDrawer extends ViewModelWidget<LandingPageViewModel> {
@@ -14,24 +16,29 @@ class MenuDrawer extends ViewModelWidget<LandingPageViewModel> {
         color: Colors.white, //const Color(0xFF077BD7),
         child: Column(
           children: [
-            Container(
-              height: 150,
-              width: double.infinity,
-              color: Colors.blue,
-              child: const Align(
+            const Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.0),
+                child: ImageNetwork(
+                  image: 'assets/${SvgIcons.appIcon}', 
+                  height: 72, 
+                  width: 72),
+              ),
+            ),
+             const Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'Author',
+                  'optipets',
                   style: TextStyle(
                     fontSize: 26,
-                    color: Colors.white,
+                    color: Colors.black,
                     // fontFamily: 'Raleway',
                     fontWeight: FontWeight.w900,
                     letterSpacing: 3,
                   ),
                 ),
               ),
-            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),

@@ -10,7 +10,7 @@ class DashViews extends StatelessWidget{
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      padding: const EdgeInsets.only(left: 4, right: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: child
     );
   }

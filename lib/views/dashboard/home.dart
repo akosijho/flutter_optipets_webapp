@@ -1,5 +1,6 @@
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/utils/my_colors.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/dash_views.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
@@ -38,7 +39,7 @@ class Home extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         child: SizedBox(
                           width: 1366,
-                          height: 768,
+                          height: maxHeight,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,14 +47,16 @@ class Home extends StatelessWidget {
                               const LeftNavBar(), //left navbar
                               // Changeable panel
                               Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const StatusBar(),
-                                    DashViews(child: model.child),
-                                  ],
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const StatusBar(),
+                                      DashViews(child: model.child),
+                                    ],
+                                  ),
                                 ),
                               )
                             ],

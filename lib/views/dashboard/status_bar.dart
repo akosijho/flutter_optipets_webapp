@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
-import 'package:flutter_optipets_webapp/utils/my_image.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:image_network/image_network.dart';
 import 'package:stacked/stacked.dart';
@@ -16,14 +15,14 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
       height: 48,
       color: Theme.of(context).primaryColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: const EdgeInsets.fromLTRB(4, 0, 24, 0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-                height: 40,
-                width: 40,
+                height: 36,
+                width: 36,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.white,
@@ -33,8 +32,8 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
                       viewModel.applicationViewModel.userObject!.displayImage!,
                   imageCache: CachedNetworkImageProvider(
                       viewModel.applicationViewModel.userObject!.displayImage!),
-                  height: 40,
-                  width: 40,
+                  height: 36,
+                  width: 36,
                   duration: 1500,
                   curve: Curves.easeIn,
                   onPointer: true,

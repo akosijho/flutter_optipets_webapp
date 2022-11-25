@@ -15,7 +15,7 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Container(
         width: 200,
-        height: 768,
+        height: maxHeight,
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
@@ -71,7 +71,7 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
                 function: viewModel.appointments,
                 icon: Icons.add,
                 label: 'Appointments'),
-            leftNavButton(function: prints, icon: Icons.add, label: 'button'),
+            leftNavButton(function: viewModel.clients, icon: Icons.people, label: 'Clients'),
             leftNavButton(
                 function: () async {
                   await viewModel.auth.signOut();

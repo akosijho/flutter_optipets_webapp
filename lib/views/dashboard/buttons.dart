@@ -8,9 +8,9 @@ Widget leftNavButton({required IconData icon, required String label,  dynamic fu
           onTap: function,
           child: Container(
               padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 border: Border.symmetric(
-                    horizontal: BorderSide(color: Colors.white, width: 0.5)),
+                    horizontal: BorderSide(color: Colors.white.withOpacity(0.6), width: 0.5)),
               ),
               child: Stack(
                 alignment: Alignment.center,

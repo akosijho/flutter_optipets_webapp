@@ -12,54 +12,85 @@ class ClientsView extends StatelessWidget {
       viewModelBuilder: () => ClientsViewModel(),
       onModelReady: (model) => model.getClients(),
       builder: (context, model, child) {
-        final DataTableSource data = DataSource(data: model.clients);
+        final DataTableSource data = DataSource(data: model.names);
         return model.isBusy
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : SingleChildScrollView(
-                child:
-                    // StreamBuilder<QuerySnapshot>(
-                    //     stream: model.clientListStream(),
-                    //     builder: (context, snapshot) {
-                    //       if (snapshot.hasError) {
-                    //         return const Center(child: Text('Something went wrong'));
-                    //       }
-
-                    //       if (snapshot.connectionState == ConnectionState.waiting) {
-                    //         return const Align(
-                    //           alignment: Alignment.center,
-                    //           child: CircularProgressIndicator());
-                    //       }
-
-                    //       final DataTableSource data =
-                    //           DataSource(data: snapshot.data!.docs);
-                    //       return PaginatedDataTable(
-                    //         columns: const [
-                    //           DataColumn(label: Text('Name')),
-                    //           DataColumn(label: Text('Adress')),
-                    //           DataColumn(label: Text('Contacts')),
-                    //           DataColumn(label: Text('Pets')),
-                    //         ],
-                    //         source: data,
-                    //         rowsPerPage: 20,
-                    //       );
-                    //     }),
-                    model.clients.isEmpty
-                        ? const Center(child: Text('No data found'))
-                        : PaginatedDataTable(
-                          onPageChanged: (value) => model.getNextPage(),
-                            columns: const [
-                              DataColumn(label: Text('Name')),
-                              DataColumn(label: Text('Adress')),
-                              DataColumn(label: Text('Contacts')),
-                              DataColumn(label: Text('Pets')),
-                              DataColumn(label: Text('Added On')),
-                            ],
-                            source: data,
-                            rowsPerPage: 20,
-                          ));
+                child: model.clients.isEmpty
+                    ? const Center(child: Text('No data found'))
+                    : PaginatedDataTable(
+                        sortColumnIndex: 0,
+                        headingRowHeight: 32,
+                        dataRowHeight: 24,
+                        sortAscending: model.sort,
+                        showCheckboxColumn: false,
+                        showFirstLastButtons: true,
+                        header: Container(
+                          padding: const EdgeInsets.only(left: 16, right: 16),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey,
+                            ),
+                            borderRadius: BorderRadius.circular(4)),
+                          child: TextField(
+                            style: const TextStyle(
+                              fontSize: 14
+                            ),
+                            decoration: const InputDecoration(
+                              border:InputBorder.none,
+                              contentPadding: EdgeInsets.all(8),
+                                icon: Icon(
+                                  textDirection: TextDirection.rtl,
+                                  Icons.search,
+                                  size: 18,
+                                  color: Colors.black,
+                                ),
+                                isDense: true,
+                                hintText: "Search"),
+                            onChanged: (value) {
+                              model.filter(value);
+                            },
+                          ),
+                        ),
+                        onPageChanged: (value) => model.getNextPage(),
+                        columns: [
+                          DataColumn(
+                            label: header('Name'),
+                          ),
+                          DataColumn(label: header('Adress')),
+                          DataColumn(label: header('Contacts')),
+                          DataColumn(label: header('Pets')),
+                          DataColumn(
+                              label: header(
+                                'Added On',
+                              ),
+                              onSort: (columnIndex, ascending) {
+                                model.onsortColum(columnIndex, ascending);
+                              }),
+                        ],
+                        source: data,
+                        rowsPerPage: model.names.length < model.rows &&
+                                model.names.isNotEmpty
+                            ? model.names.length
+                            : model.names.isEmpty
+                                ? 1
+                                : model.rows,
+                        // columnSpacing: 8,
+                      ));
       },
     );
+  }
+
+  Widget header(String text) {
+    return Center(
+        child: Text(
+      text,
+      style: const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w700,
+      ),
+    ));
   }
 }

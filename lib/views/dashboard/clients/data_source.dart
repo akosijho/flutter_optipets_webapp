@@ -1,11 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_optipets_webapp/models/user_object.dart';
 import 'package:get/get.dart';
 import 'package:image_network/image_network.dart';
 
 class DataSource extends DataTableSource {
-  // final List<QueryDocumentSnapshot<Object?>> data;
-  final List<DocumentSnapshot<Object?>> data;
+  // final List<DocumentSnapshot<Object?>> data;
+  final List<UserObject> data;
 
   DataSource({required this.data});
 
@@ -13,52 +14,65 @@ class DataSource extends DataTableSource {
 
   @override
   DataRow? getRow(int index) {
-    final val = data[index].data() as Map<String, dynamic>;
-    // countPets(index);
-    return DataRow(
-      onLongPress: () => showDialog(),
-      cells: [
+    final val = data[index];
+    return DataRow(onSelectChanged: (value) => showDialog(), cells: [
       DataCell(
-          Row(
+        Center(
+          child: Row(
             children: [
-              val['displayImage'] == null
-                  ? const Icon(
-                      Icons.account_circle,
-                      size: 32,
-                    )
-                  : Container(
-                      height: 32,
-                      width: 32,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: ImageNetwork(
-                        image: val['displayImage'],
-                        height: 32,
-                        width: 32,
-                        onError: const Icon(Icons.account_circle),
+              Container(
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors
+                        .primaries[Random().nextInt(Colors.primaries.length)]),
+                child: val.displayImage == null
+                    ? Center(
+                        child: Text(
+                          val.firstName![0].toUpperCase(),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                              color: Colors.white),
+                        ),
+                      )
+                    : ImageNetwork(
+                        image: val.displayImage!,
+                        height: 20,
+                        width: 20,
+                        onError: cell(val.firstName![0]),
                         borderRadius: BorderRadius.circular(70),
                       ),
-                    ),
+              ),
               const SizedBox(
                 width: 16,
               ),
-              Text(
-                  '${val['firstName'].toString()} ${val['lastName'].toString()}'),
+              cell('${val.firstName.toString()} ${val.lastName.toString()}'),
             ],
           ),
-          onTap: () => showDialog()
-                  ),
-      DataCell(Text(val['address'].toString()),
-          onTap: () => showDialog()),
-      DataCell(Text(val['contacts'].toString()),
-          onTap: () => showDialog()),
+        ),
+      ),
       DataCell(
-          Text(val['pets'].toString().isEmpty ? '' : val['pets'].toString()),
-          onTap: () => showDialog()),
-      DataCell(Text(val['createdAt'].toString()),
-          onTap: () => showDialog()),
+        cell(val.address.toString()),
+      ),
+      DataCell(
+        cell(val.contacts.toString()),
+      ),
+      DataCell(
+        cell(val.pets.toString().isEmpty ? '' : val.pets.toString()),
+      ),
+      DataCell(
+        cell(val.createdAt.toString()),
+      ),
     ]);
+  }
+
+  Widget cell(String text) {
+    return Text(text,
+    style: const TextStyle(
+      fontSize: 12
+    ),);
   }
 
   @override
@@ -71,15 +85,13 @@ class DataSource extends DataTableSource {
   int get selectedRowCount => 0;
 
   // edit modal
-  showDialog(){
-    Get.dialog(
-             const AlertDialog(
-                    title: ImageNetwork(
-                        image:
-                            'https://124135-361502-raikfcquaxqncofqfm.stackpathdns.com/asset/img/cartoon/authorized_personnel_only-1.png',
-                        height: 400,
-                        width: 400),
-                  )
-          );
+  showDialog() {
+    Get.dialog(const AlertDialog(
+      title: ImageNetwork(
+          image:
+              'https://124135-361502-raikfcquaxqncofqfm.stackpathdns.com/asset/img/cartoon/authorized_personnel_only-1.png',
+          height: 400,
+          width: 400),
+    ));
   }
 }

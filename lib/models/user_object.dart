@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class UserObject extends Equatable {
@@ -10,7 +11,8 @@ class UserObject extends Equatable {
     required this.uid,
     this.role,
     this.displayImage,
-    this.pets
+    this.pets,
+    this.createdAt
   });
 
   final String? uid;
@@ -22,6 +24,7 @@ class UserObject extends Equatable {
   final String? role;
   final String? displayImage;
   final int? pets;
+  final String? createdAt;
 
   factory UserObject.fromJson(Map<String, dynamic> json) {
     return UserObject(
@@ -33,7 +36,8 @@ class UserObject extends Equatable {
         contacts: json['contacts'] as String?,
         role: json['role'] as String?,
         displayImage: json['displayImage'] as String?,
-        pets: json['pets'] as int?);
+        pets: json['pets'] as int?,
+        createdAt: json['createdAt'] as String?);
   }
 
   Map<String, dynamic> toFirestore() => {
@@ -45,7 +49,8 @@ class UserObject extends Equatable {
         if (contacts != null) "contacts": contacts,
         if (role != null) "role": role,
         if (displayImage != null) "displayImage": displayImage,
-        if (pets != null) "pets": pets
+        if (pets != null) "pets": pets,
+        if (createdAt != null) "createdAt": createdAt
       };
 
   @override
@@ -59,5 +64,6 @@ class UserObject extends Equatable {
         role,
         displayImage,
         pets,
+        createdAt
       ];
 }

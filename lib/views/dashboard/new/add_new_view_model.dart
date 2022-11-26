@@ -81,7 +81,9 @@ class AddNewViewModel extends BaseViewModel {
           lastName: lastName,
           address: address,
           role: 'client',
-          contacts: contacts);
+          contacts: contacts,
+          pets: 1,
+          createdAt: DateTime.now().toString());
 
       // creates new pet object
       PetObject newPet = PetObject(
@@ -101,6 +103,7 @@ class AddNewViewModel extends BaseViewModel {
 
       showSnackbar(
           title: 'Success', message: 'New Client Added', maxWidth: 400);
+      clear();
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'netword-request-failed') {

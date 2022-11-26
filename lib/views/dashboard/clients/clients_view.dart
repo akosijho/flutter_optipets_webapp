@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/clients/clients_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/clients/data_source.dart';
 import 'package:stacked/stacked.dart';
@@ -56,6 +54,7 @@ class ClientsView extends StatelessWidget {
                               DataColumn(label: Text('Adress')),
                               DataColumn(label: Text('Contacts')),
                               DataColumn(label: Text('Pets')),
+                              DataColumn(label: Text('Added On')),
                             ],
                             source: data,
                             rowsPerPage: 20,

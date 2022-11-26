@@ -24,64 +24,66 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
           //     topLeft: Radius.circular(8),
           //     bottomLeft: Radius.circular(8))
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const ImageNetwork(
-              image: 'assets/${SvgIcons.logo}',
-              height: 104,
-              width: 104,
-              fitAndroidIos: BoxFit.fill,
-              fitWeb: BoxFitWeb.fill,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              'optipets',
-              style: TextStyle(
-                fontSize: Theme.of(context).textTheme.headline4!.fontSize,
-                fontWeight: FontWeight.w200,
-                color: Colors.white,
+        child: ClipRRect(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const ImageNetwork(
+                image: 'assets/${SvgIcons.logo}',
+                height: 104,
+                width: 104,
+                fitAndroidIos: BoxFit.fill,
+                fitWeb: BoxFitWeb.fill,
               ),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            leftNavButton(
-                function: viewModel.home, icon: Icons.home, label: 'Home'),
-            PopupMenuButton(
-              position: PopupMenuPosition.under,
-              child: leftNavButton(icon: Icons.add, label: 'New'),
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  child: popupMenuItem(text: 'New Client'),
-                  onTap: () {
-                    viewModel.addNew();
-                  },
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                'optipets',
+                style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.headline4!.fontSize,
+                  fontWeight: FontWeight.w200,
+                  color: Colors.white,
                 ),
-                PopupMenuItem(
-                    child: popupMenuItem(
-                  text: 'New Staff',
-                ))
-              ],
-            ),
-            leftNavButton(
-                function: viewModel.appointments,
-                icon: Icons.add,
-                label: 'Appointments'),
-            leftNavButton(function: viewModel.clients, icon: Icons.people, label: 'Clients'),
-            leftNavButton(
-                function: () async {
-                  await viewModel.auth.signOut();
-                  await ApplicationViewModel()
-                      .navigationService
-                      .pushReplacementNamed(Routes.login);
-                },
-                icon: Icons.logout_outlined,
-                label: 'Sign Out'),
-          ],
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              leftNavButton(
+                  function: viewModel.home, icon: Icons.home, label: 'Home'),
+              PopupMenuButton(
+                position: PopupMenuPosition.under,
+                child: leftNavButton(icon: Icons.add, label: 'New'),
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: popupMenuItem(text: 'New Client'),
+                    onTap: () {
+                      viewModel.addNew();
+                    },
+                  ),
+                  PopupMenuItem(
+                      child: popupMenuItem(
+                    text: 'New Staff',
+                  ))
+                ],
+              ),
+              leftNavButton(
+                  function: viewModel.appointments,
+                  icon: Icons.add,
+                  label: 'Appointments'),
+              leftNavButton(function: viewModel.clients, icon: Icons.people, label: 'Clients'),
+              leftNavButton(
+                  function: () async {
+                    await viewModel.auth.signOut();
+                    await ApplicationViewModel()
+                        .navigationService
+                        .pushReplacementNamed(Routes.login);
+                  },
+                  icon: Icons.logout_outlined,
+                  label: 'Sign Out'),
+            ],
+          ),
         ));
   }
 

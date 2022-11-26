@@ -10,6 +10,7 @@ class UserObject extends Equatable {
     required this.uid,
     this.role,
     this.displayImage,
+    this.pets
   });
 
   final String? uid;
@@ -20,6 +21,7 @@ class UserObject extends Equatable {
   final String? contacts;
   final String? role;
   final String? displayImage;
+  final int? pets;
 
   factory UserObject.fromJson(Map<String, dynamic> json) {
     return UserObject(
@@ -30,7 +32,8 @@ class UserObject extends Equatable {
         address: json['address'] as String?,
         contacts: json['contacts'] as String?,
         role: json['role'] as String?,
-        displayImage: json['displayImage'] as String?);
+        displayImage: json['displayImage'] as String?,
+        pets: json['pets'] as int?);
   }
 
   Map<String, dynamic> toFirestore() => {
@@ -41,7 +44,8 @@ class UserObject extends Equatable {
         if (address != null) "address": address,
         if (contacts != null) "contacts": contacts,
         if (role != null) "role": role,
-        if (displayImage != null) "displayImage": displayImage
+        if (displayImage != null) "displayImage": displayImage,
+        if (pets != null) "pets": pets
       };
 
   @override
@@ -53,6 +57,7 @@ class UserObject extends Equatable {
         address,
         contacts,
         role,
-        displayImage
+        displayImage,
+        pets,
       ];
 }

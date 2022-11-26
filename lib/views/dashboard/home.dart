@@ -37,9 +37,12 @@ class Home extends StatelessWidget {
                         controller: model.scrollController,
                         scrollDirection: Axis.horizontal,
                         physics: const BouncingScrollPhysics(),
-                        child: SizedBox(
-                          width: 1366,
-                          height: maxHeight,
+                        child: Container(
+                          constraints: BoxConstraints(
+                              minHeight: 768,
+                              minWidth: 1366,
+                              maxHeight: maxHeight,
+                              maxWidth: maxWidth).normalize(),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +54,8 @@ class Home extends StatelessWidget {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       const StatusBar(),
                                       DashViews(child: model.child),

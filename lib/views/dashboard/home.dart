@@ -6,6 +6,7 @@ import 'package:flutter_optipets_webapp/views/dashboard/dash_views.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:flutter_optipets_webapp/views/dashboard/left_navbar.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/status_bar.dart';
+import 'package:flutter_optipets_webapp/views/widgets/loader.dart';
 import 'package:stacked/stacked.dart';
 
 class Home extends StatelessWidget {
@@ -19,7 +20,7 @@ class Home extends StatelessWidget {
       disposeViewModel: false,
       builder: (context, model, child) {
         return model.isBusy
-            ? const Center(child: CircularProgressIndicator())
+            ? const Loader()
             : Scaffold(
                 body: Center(
                   child: AdaptiveScrollbar(

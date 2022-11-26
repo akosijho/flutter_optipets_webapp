@@ -7,7 +7,6 @@ import 'package:flutter_optipets_webapp/services/firebase_services/firebase_auth
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
-import 'package:get/get.dart';
 import 'package:image_network/image_network.dart';
 import 'package:stacked/stacked.dart';
 

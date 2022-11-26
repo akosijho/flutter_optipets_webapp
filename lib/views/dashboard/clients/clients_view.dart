@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/clients/clients_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/clients/data_source.dart';
+import 'package:flutter_optipets_webapp/views/widgets/loader.dart';
 import 'package:stacked/stacked.dart';
 
 class ClientsView extends StatelessWidget {
@@ -14,9 +15,7 @@ class ClientsView extends StatelessWidget {
       builder: (context, model, child) {
         final DataTableSource data = DataSource(data: model.names);
         return model.isBusy
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
+            ? const Loader()
             : SingleChildScrollView(
                 child: model.clients.isEmpty
                     ? const Center(child: Text('No data found'))

@@ -1,6 +1,6 @@
+import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:image_network/image_network.dart';
 import 'package:stacked/stacked.dart';
@@ -11,7 +11,7 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Container(
-      width: maxWidth,
+      width: double.infinity,
       height: 48,
       color: Theme.of(context).primaryColor,
       child: Padding(
@@ -23,44 +23,59 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
             Container(
                 height: 36,
                 width: 36,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
+                  color: Colors
+                        .primaries[Random().nextInt(Colors.primaries.length)],
                 ),
-                child: ImageNetwork(
-                  image:
-                      viewModel.applicationViewModel.userObject!.displayImage!,
-                  imageCache: CachedNetworkImageProvider(
-                      viewModel.applicationViewModel.userObject!.displayImage!),
-                  height: 36,
-                  width: 36,
-                  duration: 1500,
-                  curve: Curves.easeIn,
-                  onPointer: true,
-                  debugPrint: false,
-                  fullScreen: false,
-                  fitAndroidIos: BoxFit.cover,
-                  fitWeb: BoxFitWeb.cover,
-                  borderRadius: BorderRadius.circular(70),
-                  onError: Text(
-                      viewModel.applicationViewModel.userObject!.firstName![0],
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      )),
-                  onTap: () {},
-                )),
+                child:
+                    viewModel.applicationViewModel.userObject!.displayImage ==
+                            null
+                        ? Center(
+                          child: Text(
+                              viewModel
+                                  .applicationViewModel.userObject!.firstName![0],
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 28,
+                                color: Colors.white,
+                              )),
+                        )
+                        : ImageNetwork(
+                            image: viewModel
+                                .applicationViewModel.userObject!.displayImage!,
+                            imageCache: CachedNetworkImageProvider(viewModel
+                                .applicationViewModel
+                                .userObject!
+                                .displayImage!),
+                            height: 36,
+                            width: 36,
+                            duration: 1500,
+                            curve: Curves.easeIn,
+                            onPointer: true,
+                            debugPrint: false,
+                            fullScreen: false,
+                            fitAndroidIos: BoxFit.cover,
+                            fitWeb: BoxFitWeb.cover,
+                            borderRadius: BorderRadius.circular(70),
+                            onError: Text(
+                                viewModel.applicationViewModel.userObject!
+                                    .firstName![0],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                )),
+                          )),
             const SizedBox(
               width: 8,
             ),
             Text(
                 "Hi, ${viewModel.applicationViewModel.userObject!.firstName!}!",
                 style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 2
-                )),
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 2)),
           ],
         ),
       ),

@@ -8,9 +8,10 @@ class DashViews extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      padding: const EdgeInsets.fromLTRB(8,8,16,8),
+      // width: MediaQuery.of(context).size.width,
+      // height: MediaQuery.of(context).size.height,
+      color: Colors.white60,
+      padding: const EdgeInsets.fromLTRB(4,4,16,4),
       child: child
     );
   }

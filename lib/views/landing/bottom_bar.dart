@@ -131,10 +131,11 @@ class BottomBar extends StatelessWidget {
               ],
             )
           : Column(
+            mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     BottomBarColumn(
                       currentSize: currentSize,
@@ -146,6 +147,7 @@ class BottomBar extends StatelessWidget {
                       s3: '',
                       s3Link: '',
                     ),
+                    const SizedBox(width: 48,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -182,11 +184,13 @@ class BottomBar extends StatelessWidget {
                         ),
                       ],
                     ),
+                    const SizedBox(width: 32,),
                     Container(
                       color: Colors.white60,
                       width: 2,
                       height: 150,
                     ),
+                    const SizedBox(width: 48,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children:  [

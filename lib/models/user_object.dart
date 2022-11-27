@@ -11,7 +11,8 @@ class UserObject extends Equatable {
     this.role,
     this.displayImage,
     this.pets,
-    this.createdAt
+    this.createdAt,
+    this.email,
   });
 
   final String? uid;
@@ -24,6 +25,7 @@ class UserObject extends Equatable {
   final String? displayImage;
   final int? pets;
   final String? createdAt;
+  final String? email;
 
   factory UserObject.fromJson(Map<String, dynamic> json) {
     return UserObject(
@@ -36,6 +38,7 @@ class UserObject extends Equatable {
         role: json['role'] as String?,
         displayImage: json['displayImage'] as String?,
         pets: json['pets'] as int?,
+        email: json['email'] as String?,
         createdAt: json['createdAt'] as String?);
   }
 
@@ -49,7 +52,8 @@ class UserObject extends Equatable {
         if (role != null) "role": role,
         if (displayImage != null) "displayImage": displayImage,
         if (pets != null) "pets": pets,
-        if (createdAt != null) "createdAt": createdAt
+        if (createdAt != null) "createdAt": createdAt,
+        if (email != null) "email": email
       };
 
   @override
@@ -63,6 +67,7 @@ class UserObject extends Equatable {
         role,
         displayImage,
         pets,
-        createdAt
+        createdAt,
+        email
       ];
 }

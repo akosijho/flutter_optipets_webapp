@@ -1,16 +1,21 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:stacked/stacked.dart';
+
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/models/pet_object.dart';
 import 'package:flutter_optipets_webapp/models/user_object.dart';
 import 'package:flutter_optipets_webapp/services/firebase_services/firbase_firestore/firestore_service.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
 import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
-import 'package:intl/intl.dart';
-import 'package:stacked/stacked.dart';
 
 class AddNewViewModel extends BaseViewModel {
+  AddNewViewModel({required this.state, this.user});
+
   final ApplicationViewModel applicationViewModel =
       locator<ApplicationViewModel>();
   final FirestoreService firestoreService = locator<FirestoreService>();
@@ -21,12 +26,49 @@ class AddNewViewModel extends BaseViewModel {
   TextEditingController lastName = TextEditingController();
   TextEditingController address = TextEditingController();
   TextEditingController contacts = TextEditingController();
+  TextEditingController email = TextEditingController();
   TextEditingController petName = TextEditingController();
   TextEditingController specie = TextEditingController();
   TextEditingController breed = TextEditingController();
   TextEditingController color = TextEditingController();
+  TextEditingController weight = TextEditingController();
   TextEditingController birthDay = TextEditingController();
   String? sex = "Male";
+
+// decides the purpose of the reusable widget
+  ViewState state;
+
+  // use to load fields
+  UserObject? user;
+  // use to block some sensitive fields
+  bool enabled = true;
+
+  void init() {
+    setBusy(true);
+    user = applicationViewModel.userObject!;
+    switch (state) {
+      case ViewState.newClient:
+        state = ViewState.newClient;
+        break;
+      case ViewState.viewClient:
+        state = ViewState.viewClient;
+        firstName.text = user!.firstName!;
+        middleName.text = user!.middleName!;
+        lastName.text = user!.lastName!;
+        address.text = user!.address!;
+        contacts.text = user!.contacts!;
+        email.text = user!.email!;
+        enabled = false;
+        break;
+      case ViewState.newPet:
+        state = ViewState.newPet;
+        break;
+      default:
+        state = ViewState.newPet;
+        break;
+    }
+    setBusy(false);
+  }
 
   // listens value changes from radio button
   void radioValueChanges(String? value) {
@@ -56,17 +98,15 @@ class AddNewViewModel extends BaseViewModel {
       String lastName,
       String address,
       String contacts,
+      String email,
       String petName,
       String specie,
       String breed,
       String color,
+      String weight,
       String birthDay,
       String sex) async {
     setBusy(true);
-    // generate custom email
-    String email =
-        '${firstName.replaceAll(' ', '')}.${lastName.replaceAll(' ', '')}@boholvet.bh'
-            .replaceAll(' ', '');
     String password = 'ChangeMe${DateFormat('MMddyy').format(DateTime.now())}';
     try {
       // creates new login credentials
@@ -80,21 +120,23 @@ class AddNewViewModel extends BaseViewModel {
           middleName: middlename,
           lastName: lastName,
           address: address,
-          role: 'client',
+          role: 'su',
           contacts: contacts,
+          email: email,
           pets: 1,
           createdAt: DateTime.now().toString());
 
       // creates new pet object
       PetObject newPet = PetObject(
-        name: petName,
-        specie: specie,
-        breed: breed,
-        color: color,
-        birthday: birthDay,
-        sex: sex,
-        owner: newClient.uid,
-      );
+          name: petName,
+          specie: specie,
+          breed: breed,
+          color: color,
+          birthday: birthDay,
+          weight: weight,
+          sex: sex,
+          owner: newClient.uid,
+          createdAt: DateTime.now().toString());
 
       // add new client data to firestore database
       await firestoreService.addNew(newClient);
@@ -122,6 +164,20 @@ class AddNewViewModel extends BaseViewModel {
     setBusy(false);
   }
 
+  update(
+      String firstName,
+      String middlename,
+      String lastName,
+      String address,
+      String contacts,
+      String email,
+      String petName,
+      String specie,
+      String breed,
+      String color,
+      String birthDay,
+      String sex) {}
+
 // clears input
   void clear() {
     firstName.clear();
@@ -129,12 +185,25 @@ class AddNewViewModel extends BaseViewModel {
     lastName.clear();
     address.clear();
     contacts.clear();
+    email.clear();
     petName.clear();
     specie.clear();
     breed.clear();
     color.clear();
+    weight.clear();
     birthDay.clear();
     sex = 'Male';
     notifyListeners();
+  }
+
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await applicationViewModel.firebaseAuth
+          .sendPasswordResetEmail(email: email.trim());
+      showSnackbar(title: 'Successful!', message: 'Password reset sent', maxWidth: 400);
+    } on FirebaseAuthException catch (e) {
+      showSnackbar(
+          title: 'Something went wrong1', message: e.message!, maxWidth: 400);
+    }
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
 import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/buttons.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
+import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
 import 'package:image_network/image_network.dart';
 import 'package:stacked/stacked.dart';
 
@@ -15,7 +16,7 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Container(
         width: 200,
-        height: maxHeight,
+        height: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
@@ -59,7 +60,7 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
                   PopupMenuItem(
                     child: popupMenuItem(text: 'New Client'),
                     onTap: () {
-                      viewModel.addNew();
+                      viewModel.addNew(ViewState.newClient);
                     },
                   ),
                   PopupMenuItem(

@@ -1,7 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/models/user_object.dart';
-import 'package:get/get.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
+import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
 import 'package:image_network/image_network.dart';
 
 class DataSource extends DataTableSource {
@@ -10,14 +12,16 @@ class DataSource extends DataTableSource {
 
   DataSource({required this.data});
 
-  get getContext => null;
+  final HomeViewModel homeViewModel = locator<HomeViewModel>();
 
   @override
   DataRow? getRow(int index) {
     final val = data[index];
-    return DataRow(onSelectChanged: (value) => showDialog(), cells: [
+    return DataRow(onSelectChanged: (value) {
+      homeViewModel.addNew(ViewState.viewClient, user: val);
+    }, cells: [
       DataCell(
-        Center(
+        Align(
           child: Row(
             children: [
               Container(
@@ -29,14 +33,14 @@ class DataSource extends DataTableSource {
                         .primaries[Random().nextInt(Colors.primaries.length)]),
                 child: val.displayImage == null
                     ? Center(
-                        child: Text(
-                          val.firstName![0].toUpperCase(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
-                              color: Colors.white),
-                        ),
-                      )
+                      child: Text(
+                        val.firstName![0].toUpperCase(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: Colors.white),
+                      ),
+                    )
                     : ImageNetwork(
                         image: val.displayImage!,
                         height: 20,
@@ -68,11 +72,14 @@ class DataSource extends DataTableSource {
     ]);
   }
 
-  Widget cell(String text) {
-    return Text(text,
-    style: const TextStyle(
-      fontSize: 12
-    ),);
+  static Widget cell(String text) {
+    return Align(
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 12),
+      ),
+    );
   }
 
   @override
@@ -83,15 +90,4 @@ class DataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
-
-  // edit modal
-  showDialog() {
-    Get.dialog(const AlertDialog(
-      title: ImageNetwork(
-          image:
-              'https://124135-361502-raikfcquaxqncofqfm.stackpathdns.com/asset/img/cartoon/authorized_personnel_only-1.png',
-          height: 400,
-          width: 400),
-    ));
-  }
 }

@@ -1,5 +1,6 @@
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/utils/my_colors.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/dash_views.dart';
@@ -15,7 +16,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
-      viewModelBuilder: () => HomeViewModel(),
+      viewModelBuilder: () => locator<HomeViewModel>(),
       onModelReady: (model) async => model.init(),
       disposeViewModel: false,
       builder: (context, model, child) {

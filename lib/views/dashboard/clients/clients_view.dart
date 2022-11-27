@@ -19,64 +19,74 @@ class ClientsView extends StatelessWidget {
             : SingleChildScrollView(
                 child: model.clients.isEmpty
                     ? const Center(child: Text('No data found'))
-                    : PaginatedDataTable(
-                        sortColumnIndex: 0,
-                        headingRowHeight: 32,
-                        dataRowHeight: 24,
-                        sortAscending: model.sort,
-                        showCheckboxColumn: false,
-                        showFirstLastButtons: true,
-                        header: Container(
-                          padding: const EdgeInsets.only(left: 16, right: 16),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey,
+                    : Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey
+                                  .withOpacity(0.4), //color of shadow
+                              blurRadius: 8, // blur radius
+                              offset: const Offset(2, 4),
                             ),
-                            borderRadius: BorderRadius.circular(4)),
-                          child: TextField(
-                            style: const TextStyle(
-                              fontSize: 14
-                            ),
-                            decoration: const InputDecoration(
-                              border:InputBorder.none,
-                              contentPadding: EdgeInsets.all(8),
-                                icon: Icon(
-                                  textDirection: TextDirection.rtl,
-                                  Icons.search,
-                                  size: 18,
-                                  color: Colors.black,
-                                ),
-                                isDense: true,
-                                hintText: "Search"),
-                            onChanged: (value) {
-                              model.filter(value);
-                            },
-                          ),
+                          ],
                         ),
-                        onPageChanged: (value) => model.getNextPage(),
-                        columns: [
-                          DataColumn(
-                            label: header('Name'),
+                        child: PaginatedDataTable(
+                          sortColumnIndex: 0,
+                          headingRowHeight: 32,
+                          dataRowHeight: 24,
+                          sortAscending: model.sort,
+                          showCheckboxColumn: false,
+                          showFirstLastButtons: true,
+                          header: Container(
+                            padding: const EdgeInsets.only(left: 16, right: 16),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius: BorderRadius.circular(4)),
+                            child: TextField(
+                              style: const TextStyle(fontSize: 14),
+                              decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  contentPadding: EdgeInsets.all(8),
+                                  icon: Icon(
+                                    textDirection: TextDirection.rtl,
+                                    Icons.search,
+                                    size: 18,
+                                    color: Colors.black,
+                                  ),
+                                  isDense: true,
+                                  hintText: "Search"),
+                              onChanged: (value) {
+                                model.filter(value);
+                              },
+                            ),
                           ),
-                          DataColumn(label: header('Adress')),
-                          DataColumn(label: header('Contacts')),
-                          DataColumn(label: header('Pets')),
-                          DataColumn(
-                              label: header(
-                                'Added On',
-                              ),
-                              onSort: (columnIndex, ascending) {
-                                model.onsortColum(columnIndex, ascending);
-                              }),
-                        ],
-                        source: data,
-                        rowsPerPage: model.names.length < model.rows &&
-                                model.names.isNotEmpty
-                            ? model.names.length
-                            : model.names.isEmpty
-                                ? 1
-                                : model.rows,
-                        // columnSpacing: 8,
+                          onPageChanged: (value) => model.getNextPage(),
+                          columns: [
+                            DataColumn(
+                              label: header('Name'),
+                            ),
+                            DataColumn(label: header('Adress')),
+                            DataColumn(label: header('Contacts')),
+                            DataColumn(label: header('Pets')),
+                            DataColumn(
+                                label: header(
+                                  'Added On',
+                                ),
+                                onSort: (columnIndex, ascending) {
+                                  model.onsortColum(columnIndex, ascending);
+                                }),
+                          ],
+                          source: data,
+                          rowsPerPage: model.names.length < model.rows &&
+                                  model.names.isNotEmpty
+                              ? model.names.length
+                              : model.names.isEmpty
+                                  ? 1
+                                  : model.rows,
+                          // columnSpacing: 8,
+                        ),
                       ));
       },
     );

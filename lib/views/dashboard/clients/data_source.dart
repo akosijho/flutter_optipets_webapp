@@ -1,7 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/models/user_object.dart';
-import 'package:get/get.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:image_network/image_network.dart';
 
 class DataSource extends DataTableSource {
@@ -10,12 +11,14 @@ class DataSource extends DataTableSource {
 
   DataSource({required this.data});
 
-  get getContext => null;
+  final HomeViewModel homeViewModel = locator<HomeViewModel>();
 
   @override
   DataRow? getRow(int index) {
     final val = data[index];
-    return DataRow(onSelectChanged: (value) => showDialog(), cells: [
+    return DataRow(onSelectChanged: (value) {
+      homeViewModel.addNew();
+    }, cells: [
       DataCell(
         Center(
           child: Row(
@@ -69,10 +72,10 @@ class DataSource extends DataTableSource {
   }
 
   Widget cell(String text) {
-    return Text(text,
-    style: const TextStyle(
-      fontSize: 12
-    ),);
+    return Text(
+      text,
+      style: const TextStyle(fontSize: 12),
+    );
   }
 
   @override
@@ -83,15 +86,4 @@ class DataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
-
-  // edit modal
-  showDialog() {
-    Get.dialog(const AlertDialog(
-      title: ImageNetwork(
-          image:
-              'https://124135-361502-raikfcquaxqncofqfm.stackpathdns.com/asset/img/cartoon/authorized_personnel_only-1.png',
-          height: 400,
-          width: 400),
-    ));
-  }
 }

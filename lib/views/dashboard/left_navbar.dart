@@ -66,7 +66,10 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
                   PopupMenuItem(
                       child: popupMenuItem(
                     text: 'New Staff',
-                  ))
+                  ),
+                   onTap: () {
+                      viewModel.addNew(ViewState.newStaff);
+                    },)
                 ],
               ),
               leftNavButton(

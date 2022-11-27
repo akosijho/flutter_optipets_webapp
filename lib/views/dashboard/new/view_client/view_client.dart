@@ -68,23 +68,24 @@ class ViewClient extends ViewModelWidget<AddNewViewModel> {
                             )),
                       )),
           ),
-           const SizedBox(
-            height: 16,
-          ),
-           const Padding(
-             padding:  EdgeInsets.symmetric(horizontal: 24.0),
-             child: Divider(
-              color: Colors.grey,
-          ),
-           ),
           const SizedBox(
             height: 16,
           ),
-          Text('Pets:    ${viewModel.user!.pets!.toString()}'),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            child: Divider(
+              color: Colors.grey,
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Text(
+              'Pets:    ${viewModel.user!.pets == null ? 'None' : viewModel.user!.pets!.toString()}'),
           const SizedBox(
             height: 8,
           ),
-          Text('Reigstered On:   ${viewModel.user!.createdAt!}'),
+          Text('Registered On:   ${viewModel.user!.createdAt!}'),
         ],
       ),
     );

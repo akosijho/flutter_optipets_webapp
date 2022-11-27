@@ -59,7 +59,7 @@ class ClientPets extends DataTableSource {
         DataSource.cell(val.breed!),
       ),
       DataCell(
-        DataSource.cell(val.weight ?? ''),
+        DataSource.cell(val.weight == null ? '' : '${val.weight} kg'),
       ),
       DataCell(
         DataSource.cell(val.sex!),

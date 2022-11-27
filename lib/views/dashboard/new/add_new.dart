@@ -23,6 +23,7 @@ class AddNew extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool hasData = true;
     return ViewModelBuilder<AddNewViewModel>.reactive(
       viewModelBuilder: () => AddNewViewModel(state: viewState, user: user),
       onModelReady: (model) => model.init(),
@@ -81,12 +82,11 @@ class AddNew extends StatelessWidget {
                                       children: [
                                         fieldLabel(
                                             label: model.state ==
-                                                    ViewState.newClient
+                                                        ViewState.newClient ||
+                                                    model.state ==
+                                                        ViewState.newPet
                                                 ? 'Owner\'s Name:'
-                                                : model.state ==
-                                                        ViewState.newClient
-                                                    ? 'Owner\'s Name:'
-                                                    : 'Name:'),
+                                                : 'Name:'),
                                         textField(
                                             label: 'First Name',
                                             enabled: model.enabled,
@@ -172,7 +172,8 @@ class AddNew extends StatelessWidget {
                                     const SizedBox(
                                       height: 16,
                                     ),
-                                    if (model.state == ViewState.newClient)
+                                    if (model.state == ViewState.newClient ||
+                                        model.state == ViewState.newPet)
                                       const PetSection(),
                                   ],
                                 ),
@@ -183,21 +184,45 @@ class AddNew extends StatelessWidget {
                                   actions(model.state, model),
                                 if (model.state == ViewState.newStaff)
                                   actions(model.state, model),
+                                if (model.state == ViewState.newPet)
+                                  actions(model.state, model),
                                 if (model.state == ViewState.viewClient)
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      await model.sendPasswordResetEmail(
-                                          model.user!.email!);
-                                    },
-                                    style: const ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStatePropertyAll(
-                                                MyColors.coverColor)),
-                                    child:
-                                        const Text('Send Password Reset Email',
+                                  Row(
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          model.homeViewModel.addNew(
+                                              ViewState.newPet,
+                                              user: model.user);
+                                        },
+                                        style: const ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStatePropertyAll(
+                                                    MyColors.coverColor)),
+                                        child: const Text('Add A Pet',
                                             style: TextStyle(
                                               color: Colors.white,
                                             )),
+                                      ),
+                                      const SizedBox(
+                                        width: 24,
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () async {
+                                          await model.sendPasswordResetEmail(
+                                              model.user!.email!);
+                                        },
+                                        style: const ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStatePropertyAll(
+                                                    MyColors.coverColor)),
+                                        child: const Text(
+                                            'Send Password Reset Email',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            )),
+                                      ),
+                                    ],
                                   ),
                               ],
                             ),
@@ -211,7 +236,7 @@ class AddNew extends StatelessWidget {
                       Container(
                         width: 1366,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: hasData ? Colors.transparent : Colors.white,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(24)),
                           boxShadow: [
@@ -239,6 +264,7 @@ class AddNew extends StatelessWidget {
                             }
                             if (snapshot.hasData) {
                               if (snapshot.data!.isNotEmpty) {
+                                hasData = true;
                                 return PaginatedDataTable(
                                   sortColumnIndex: 0,
                                   headingRowHeight: 32,
@@ -269,6 +295,7 @@ class AddNew extends StatelessWidget {
                                           : 20,
                                 );
                               } else {
+                                hasData = false;
                                 return const Align(
                                   child: Padding(
                                     padding: EdgeInsets.all(32.0),
@@ -279,7 +306,11 @@ class AddNew extends StatelessWidget {
                             }
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              return const Loader();
+                              return Container(
+                                  color: Colors.white,
+                                  width: MediaQuery.of(context).size.width,
+                                  height: MediaQuery.of(context).size.height,
+                                  child: const Loader());
                             }
                             return Container();
                           },
@@ -334,6 +365,18 @@ class AddNew extends StatelessWidget {
                   model.address.text,
                   model.contacts.text,
                   model.email.text,
+                );
+              }
+              if (model.state == ViewState.newPet) {
+                model.addPet(
+                  model.user!,
+                  model.petName.text,
+                  model.specie.text,
+                  model.breed.text,
+                  model.color.text,
+                  model.weight.text,
+                  model.birthDay.text,
+                  model.sex!,
                 );
               }
             } else {

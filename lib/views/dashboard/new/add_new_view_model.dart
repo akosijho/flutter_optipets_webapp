@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
@@ -19,6 +20,7 @@ class AddNewViewModel extends BaseViewModel {
   final ApplicationViewModel applicationViewModel =
       locator<ApplicationViewModel>();
   final FirestoreService firestoreService = locator<FirestoreService>();
+  final HomeViewModel homeViewModel = locator<HomeViewModel>();
 
   // page fields
   TextEditingController firstName = TextEditingController();
@@ -41,32 +43,46 @@ class AddNewViewModel extends BaseViewModel {
   // use to load fields
   UserObject? user;
   // use to block some sensitive fields
-  bool enabled = true;
+  bool enabled = true, personalInfo = true;
 
   void init() {
-    // user = applicationViewModel.userObject!;
     if (state == ViewState.newClient) {
       state = ViewState.newClient;
       clear();
       enabled = true;
     }
     if (state == ViewState.viewClient) {
+      setBusy(true);
       state = ViewState.newClient;
       clear();
       firstName.text = user!.firstName!;
       middleName.text = user!.middleName!;
       lastName.text = user!.lastName!;
-      address.text= user!.address!;
-      contacts.text= user!.contacts!;
-      email.text= user!.email!;
+      address.text = user!.address!;
+      contacts.text = user!.contacts!;
+      email.text = user!.email!;
       enabled = false;
+      setBusy(false);
     }
     if (state == ViewState.newStaff) {
       clear();
       state = ViewState.newStaff;
       enabled = true;
     }
-    notifyListeners();
+    if (state == ViewState.newPet) {
+      setBusy(true);
+      clear();
+      state = ViewState.newPet;
+      firstName.text = user!.firstName!;
+      middleName.text = user!.middleName!;
+      lastName.text = user!.lastName!;
+      address.text = user!.address!;
+      contacts.text = user!.contacts!;
+      email.text = user!.email!;
+      enabled = false;
+      personalInfo = true;
+      setBusy(false);
+    }
   }
 
   // listens value changes from radio button
@@ -165,14 +181,14 @@ class AddNewViewModel extends BaseViewModel {
 
   // adds new Staff
   newStaff(
-      String firstName,
-      String middlename,
-      String lastName,
-      String address,
-      String contacts,
-      String email,
-     ) async {
-      setBusy(true);
+    String firstName,
+    String middlename,
+    String lastName,
+    String address,
+    String contacts,
+    String email,
+  ) async {
+    setBusy(true);
     String password = 'ChangeMe${DateFormat('MMddyy').format(DateTime.now())}';
     try {
       // creates new login credentials
@@ -180,7 +196,7 @@ class AddNewViewModel extends BaseViewModel {
           .createUserWithEmailAndPassword(email: email, password: password);
 
       // creates user object to be saved to firestore database
-      UserObject newClient = UserObject(
+      UserObject newStaff = UserObject(
           uid: newUser.user!.uid,
           firstName: firstName,
           middleName: middlename,
@@ -192,11 +208,10 @@ class AddNewViewModel extends BaseViewModel {
           createdAt: DateTime.now().toString());
 
       // add new client data to firestore database
-      await firestoreService.addNew(newClient);
+      await firestoreService.addNew(newStaff);
       setBusy(false);
 
-      showSnackbar(
-          title: 'Success', message: 'New Staff Added', maxWidth: 400);
+      showSnackbar(title: 'Success', message: 'New Staff Added', maxWidth: 400);
       clear();
       notifyListeners();
     } on FirebaseAuthException catch (e) {
@@ -213,7 +228,43 @@ class AddNewViewModel extends BaseViewModel {
       rethrow;
     }
     setBusy(false);
-     }
+  }
+
+  // add Pet
+  addPet(UserObject user, String petName, String specie, String breed,
+      String color, String weight, String birthDay, String sex) async {
+        setBusy(true);
+    try {
+      PetObject newPet = PetObject(
+          name: petName,
+          specie: specie,
+          breed: breed,
+          color: color,
+          birthday: birthDay,
+          weight: weight,
+          sex: sex,
+          owner: user.uid,
+          createdAt: DateTime.now().toString());
+      await firestoreService.newPet(newPet);
+
+      // update user pet count
+      int pets = user.pets ?? 0;
+      await userRef.doc(user.uid).update({"pets" : pets++});
+
+      // clear inputs
+      clear();
+
+      // redirect to client view
+      homeViewModel.addNew(ViewState.viewClient, user: user);
+
+      showSnackbar(
+          title: 'Sucessful', message: 'Pet added to account.', maxWidth: 400);
+    } catch (e) {
+      showSnackbar(
+          title: 'Oops!', message: 'Something went wrong!', maxWidth: 400);
+    }
+    setBusy(false);
+  }
 
 // clears input
   void clear() {

@@ -3,7 +3,7 @@ import 'package:flutter_optipets_webapp/utils/my_colors.dart';
 import 'package:get/get.dart';
 
 SnackbarController showSnackbar(
-    {required String title, required String message, Widget? icon, required double maxWidth}) {
+    {required String title, required String message, Widget? icon,  double maxWidth = 400}) {
   return Get.snackbar(
     title,
     message,

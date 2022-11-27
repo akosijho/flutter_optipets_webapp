@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/models/user_object.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
+import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
 import 'package:image_network/image_network.dart';
 
 class DataSource extends DataTableSource {
@@ -17,7 +18,7 @@ class DataSource extends DataTableSource {
   DataRow? getRow(int index) {
     final val = data[index];
     return DataRow(onSelectChanged: (value) {
-      homeViewModel.addNew();
+      homeViewModel.addNew(ViewState.viewClient, user: val);
     }, cells: [
       DataCell(
         Center(

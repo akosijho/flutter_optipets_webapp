@@ -42,12 +42,13 @@ class LoginViewModel extends BaseViewModel {
     setBusy(true);
     try {
       final user = await applicationViewModel.auth.signInWithCredentials(
-          '$email$myDomain'.replaceAll(' ', ''), password);
+          email.replaceAll(' ', ''), password);
       if (user != null) {
         await userRef.doc(user.uid).get().then((value) => applicationViewModel
             .userObject = UserObject.fromJson(value.data()!));
         //Check user role
         if (applicationViewModel.userObject!.role == 'staff' ||
+            applicationViewModel.userObject!.role == 'su' ||
             applicationViewModel.userObject!.role == 'practitioner') {
           await applicationViewModel.navigationService
               .pushReplacementNamed(Routes.home);

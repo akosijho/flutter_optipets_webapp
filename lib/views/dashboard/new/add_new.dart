@@ -28,8 +28,12 @@ class AddNew extends StatelessWidget {
       onModelReady: (model) => model.init(),
       disposeViewModel: false,
       builder: (context, model, child) {
+        model.state = viewState;
         return model.isBusy
-            ? const Loader()
+            ? SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: const Loader())
             : Form(
                 key: formGlobalKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -75,7 +79,14 @@ class AddNew extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        fieldLabel(label: 'Owner\'s Name:'),
+                                        fieldLabel(
+                                            label: model.state ==
+                                                    ViewState.newClient
+                                                ? 'Owner\'s Name:'
+                                                : model.state ==
+                                                        ViewState.newClient
+                                                    ? 'Owner\'s Name:'
+                                                    : 'Name:'),
                                         textField(
                                             label: 'First Name',
                                             enabled: model.enabled,
@@ -169,74 +180,9 @@ class AddNew extends StatelessWidget {
                                   height: 16,
                                 ),
                                 if (model.state == ViewState.newClient)
-                                  Row(
-                                    children: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          model.clear();
-                                          formGlobalKey.currentState!.reset();
-                                        },
-                                        child: const Text(
-                                          'Clear',
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 16,
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          if (formGlobalKey.currentState!
-                                              .validate()) {
-                                            switch (model.state) {
-                                              case ViewState.newClient:
-                                                model.addNew(
-                                                    model.firstName.text,
-                                                    model.middleName.text,
-                                                    model.lastName.text,
-                                                    model.address.text,
-                                                    model.contacts.text,
-                                                    model.email.text,
-                                                    model.petName.text,
-                                                    model.specie.text,
-                                                    model.breed.text,
-                                                    model.color.text,
-                                                    model.weight.text,
-                                                    model.birthDay.text,
-                                                    model.sex!);
-                                                break;
-                                              case ViewState.viewClient:
-                                                // TODO: Handle this case.
-                                                break;
-                                              case ViewState.newPet:
-                                                // TODO: Handle this case.
-                                                break;
-                                            }
-                                          } else {
-                                            showSnackbar(
-                                                title: 'Oops',
-                                                message:
-                                                    'Check for empty fields',
-                                                maxWidth: 400);
-                                          }
-                                        },
-                                        style: const ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStatePropertyAll(
-                                                    MyColors.coverColor)),
-                                        child: model.isBusy
-                                            ? const Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  color: Colors.white,
-                                                ),
-                                              )
-                                            : const Text('Save',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                )),
-                                      ),
-                                    ],
-                                  ),
+                                  actions(model.state, model),
+                                if (model.state == ViewState.newStaff)
+                                  actions(model.state, model),
                                 if (model.state == ViewState.viewClient)
                                   ElevatedButton(
                                     onPressed: () async {
@@ -279,7 +225,7 @@ class AddNew extends StatelessWidget {
                         ),
                         child: StreamBuilder<List<PetObject>>(
                           stream: petRef
-                              .where('owner', isEqualTo: user!.uid)
+                              .where('owner', isEqualTo: model.user!.uid)
                               .snapshots()
                               .map((event) => event.docs
                                   .map((e) => PetObject.fromJson(e.data()))
@@ -292,34 +238,44 @@ class AddNew extends StatelessWidget {
                               ));
                             }
                             if (snapshot.hasData) {
-                              return PaginatedDataTable(
-                                sortColumnIndex: 0,
-                                headingRowHeight: 32,
-                                dataRowHeight: 24,
-                                showCheckboxColumn: false,
-                                showFirstLastButtons: true,
-                                columns: [
-                                  DataColumn(
-                                    label: ClientsView.header('Name'),
+                              if (snapshot.data!.isNotEmpty) {
+                                return PaginatedDataTable(
+                                  sortColumnIndex: 0,
+                                  headingRowHeight: 32,
+                                  dataRowHeight: 24,
+                                  showCheckboxColumn: false,
+                                  showFirstLastButtons: true,
+                                  columns: [
+                                    DataColumn(
+                                      label: ClientsView.header('Name'),
+                                    ),
+                                    DataColumn(
+                                        label: ClientsView.header('Breed')),
+                                    DataColumn(
+                                        label: ClientsView.header('Weight')),
+                                    DataColumn(
+                                        label: ClientsView.header('Sex')),
+                                    DataColumn(
+                                        label: ClientsView.header('Birthday')),
+                                    DataColumn(
+                                        label: ClientsView.header('Added On')),
+                                  ],
+                                  source: ClientPets(pets: snapshot.data!),
+                                  rowsPerPage: snapshot.data!.length <= 20 &&
+                                          snapshot.data!.isNotEmpty
+                                      ? snapshot.data!.length
+                                      : snapshot.data!.isEmpty
+                                          ? 1
+                                          : 20,
+                                );
+                              } else {
+                                return const Align(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(32.0),
+                                    child: Text('Haven\'t added any pets yet.'),
                                   ),
-                                  DataColumn(
-                                      label: ClientsView.header('Breed')),
-                                  DataColumn(
-                                      label: ClientsView.header('Weight')),
-                                  DataColumn(label: ClientsView.header('Sex')),
-                                  DataColumn(
-                                      label: ClientsView.header('Birthday')),
-                                  DataColumn(
-                                      label: ClientsView.header('Added On')),
-                                ],
-                                source: ClientPets(pets: snapshot.data!),
-                                rowsPerPage: snapshot.data!.length <= 20 &&
-                                        snapshot.data!.isNotEmpty
-                                    ? snapshot.data!.length
-                                    : snapshot.data!.isEmpty
-                                        ? 1
-                                        : 20,
-                              );
+                                );
+                              }
                             }
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
@@ -333,6 +289,74 @@ class AddNew extends StatelessWidget {
                 ),
               );
       },
+    );
+  }
+
+  Widget actions(ViewState state, AddNewViewModel model) {
+    return Row(
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            model.clear();
+            formGlobalKey.currentState!.reset();
+          },
+          child: const Text(
+            'Clear',
+          ),
+        ),
+        const SizedBox(
+          width: 16,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            if (formGlobalKey.currentState!.validate()) {
+              if (model.state == ViewState.newClient) {
+                model.addNew(
+                    model.firstName.text,
+                    model.middleName.text,
+                    model.lastName.text,
+                    model.address.text,
+                    model.contacts.text,
+                    model.email.text,
+                    model.petName.text,
+                    model.specie.text,
+                    model.breed.text,
+                    model.color.text,
+                    model.weight.text,
+                    model.birthDay.text,
+                    model.sex!);
+              }
+              if (model.state == ViewState.newStaff) {
+                model.newStaff(
+                  model.firstName.text,
+                  model.middleName.text,
+                  model.lastName.text,
+                  model.address.text,
+                  model.contacts.text,
+                  model.email.text,
+                );
+              }
+            } else {
+              showSnackbar(
+                  title: 'Oops',
+                  message: 'Check for empty fields',
+                  maxWidth: 400);
+            }
+          },
+          style: const ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(MyColors.coverColor)),
+          child: model.isBusy
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                )
+              : const Text('Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                  )),
+        ),
+      ],
     );
   }
 }

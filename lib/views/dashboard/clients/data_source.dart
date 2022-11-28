@@ -64,7 +64,7 @@ class DataSource extends DataTableSource {
         cell(val.contacts.toString()),
       ),
       DataCell(
-        cell(val.pets.toString().isEmpty ? '' : val.pets.toString()),
+        cell(val.pets == null ? '' : val.pets!.toString()),
       ),
       DataCell(
         cell(val.createdAt.toString()),

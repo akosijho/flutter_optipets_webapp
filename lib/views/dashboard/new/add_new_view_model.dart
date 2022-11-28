@@ -44,30 +44,29 @@ class AddNewViewModel extends BaseViewModel {
   bool enabled = true;
 
   void init() {
-    setBusy(true);
-    user = applicationViewModel.userObject!;
-    switch (state) {
-      case ViewState.newClient:
-        state = ViewState.newClient;
-        break;
-      case ViewState.viewClient:
-        state = ViewState.viewClient;
-        firstName.text = user!.firstName!;
-        middleName.text = user!.middleName!;
-        lastName.text = user!.lastName!;
-        address.text = user!.address!;
-        contacts.text = user!.contacts!;
-        email.text = user!.email!;
-        enabled = false;
-        break;
-      case ViewState.newPet:
-        state = ViewState.newPet;
-        break;
-      default:
-        state = ViewState.newPet;
-        break;
+    // user = applicationViewModel.userObject!;
+    if (state == ViewState.newClient) {
+      state = ViewState.newClient;
+      clear();
+      enabled = true;
     }
-    setBusy(false);
+    if (state == ViewState.viewClient) {
+      state = ViewState.newClient;
+      clear();
+      firstName.text = user!.firstName!;
+      middleName.text = user!.middleName!;
+      lastName.text = user!.lastName!;
+      address.text= user!.address!;
+      contacts.text= user!.contacts!;
+      email.text= user!.email!;
+      enabled = false;
+    }
+    if (state == ViewState.newStaff) {
+      clear();
+      state = ViewState.newStaff;
+      enabled = true;
+    }
+    notifyListeners();
   }
 
   // listens value changes from radio button
@@ -120,7 +119,7 @@ class AddNewViewModel extends BaseViewModel {
           middleName: middlename,
           lastName: lastName,
           address: address,
-          role: 'su',
+          role: 'client',
           contacts: contacts,
           email: email,
           pets: 1,
@@ -164,19 +163,57 @@ class AddNewViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  update(
+  // adds new Staff
+  newStaff(
       String firstName,
       String middlename,
       String lastName,
       String address,
       String contacts,
       String email,
-      String petName,
-      String specie,
-      String breed,
-      String color,
-      String birthDay,
-      String sex) {}
+     ) async {
+      setBusy(true);
+    String password = 'ChangeMe${DateFormat('MMddyy').format(DateTime.now())}';
+    try {
+      // creates new login credentials
+      final newUser = await applicationViewModel.firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      // creates user object to be saved to firestore database
+      UserObject newClient = UserObject(
+          uid: newUser.user!.uid,
+          firstName: firstName,
+          middleName: middlename,
+          lastName: lastName,
+          address: address,
+          role: 'staff',
+          contacts: contacts,
+          email: email,
+          createdAt: DateTime.now().toString());
+
+      // add new client data to firestore database
+      await firestoreService.addNew(newClient);
+      setBusy(false);
+
+      showSnackbar(
+          title: 'Success', message: 'New Staff Added', maxWidth: 400);
+      clear();
+      notifyListeners();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'netword-request-failed') {
+        showDialog(
+            context: getContext,
+            builder: (_) {
+              return const AlertDialog(
+                title: Text('Error'),
+                content: Text('Connection timed out'),
+              );
+            });
+      }
+      rethrow;
+    }
+    setBusy(false);
+     }
 
 // clears input
   void clear() {
@@ -200,7 +237,8 @@ class AddNewViewModel extends BaseViewModel {
     try {
       await applicationViewModel.firebaseAuth
           .sendPasswordResetEmail(email: email.trim());
-      showSnackbar(title: 'Successful!', message: 'Password reset sent', maxWidth: 400);
+      showSnackbar(
+          title: 'Successful!', message: 'Password reset sent', maxWidth: 400);
     } on FirebaseAuthException catch (e) {
       showSnackbar(
           title: 'Something went wrong1', message: e.message!, maxWidth: 400);

@@ -20,10 +20,6 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
-          // shape: BoxShape.rectangle,
-          // borderRadius: const BorderRadius.only(
-          //     topLeft: Radius.circular(8),
-          //     bottomLeft: Radius.circular(8))
         ),
         child: ClipRRect(
           child: Column(
@@ -60,7 +56,7 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
                   PopupMenuItem(
                     child: popupMenuItem(text: 'New Client'),
                     onTap: () {
-                      viewModel.addNew(ViewState.newClient);
+                      viewModel.addNew(ViewState.newClient, user: null);
                     },
                   ),
                   PopupMenuItem(
@@ -68,7 +64,7 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
                     text: 'New Staff',
                   ),
                    onTap: () {
-                      viewModel.addNew(ViewState.newStaff);
+                      viewModel.addNew(ViewState.newStaff, user: null);
                     },)
                 ],
               ),

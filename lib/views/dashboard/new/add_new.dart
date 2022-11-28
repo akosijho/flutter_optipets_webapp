@@ -30,6 +30,7 @@ class AddNew extends StatelessWidget {
       disposeViewModel: false,
       builder: (context, model, child) {
         model.state = viewState;
+        model.changeState();
         return model.isBusy
             ? SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -47,11 +48,14 @@ class AddNew extends StatelessWidget {
                                 : MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          //
                           if (model.state == ViewState.viewClient)
                             const ViewClient(),
                           const SizedBox(
                             width: 32,
                           ),
+                          //
+
                           Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -307,10 +311,12 @@ class AddNew extends StatelessWidget {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
                               return Container(
-                                  color: Colors.white,
                                   width: MediaQuery.of(context).size.width,
                                   height: MediaQuery.of(context).size.height,
-                                  child: const Loader());
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                  ),
+                                  child: const Center(child: Loader()));
                             }
                             return Container();
                           },

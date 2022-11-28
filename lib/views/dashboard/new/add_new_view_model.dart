@@ -46,15 +46,22 @@ class AddNewViewModel extends BaseViewModel {
   bool enabled = true, personalInfo = true;
 
   void init() {
+    setBusy(true);
+    clear();
+    changeState();
+    setBusy(false);
+    notifyListeners();
+  }
+
+  // just a mthod
+  changeState(){
     if (state == ViewState.newClient) {
       state = ViewState.newClient;
       clear();
       enabled = true;
     }
     if (state == ViewState.viewClient) {
-      setBusy(true);
-      state = ViewState.newClient;
-      clear();
+      state = ViewState.viewClient;
       firstName.text = user!.firstName!;
       middleName.text = user!.middleName!;
       lastName.text = user!.lastName!;
@@ -62,16 +69,13 @@ class AddNewViewModel extends BaseViewModel {
       contacts.text = user!.contacts!;
       email.text = user!.email!;
       enabled = false;
-      setBusy(false);
     }
     if (state == ViewState.newStaff) {
-      clear();
       state = ViewState.newStaff;
+      clear();
       enabled = true;
     }
     if (state == ViewState.newPet) {
-      setBusy(true);
-      clear();
       state = ViewState.newPet;
       firstName.text = user!.firstName!;
       middleName.text = user!.middleName!;
@@ -81,7 +85,6 @@ class AddNewViewModel extends BaseViewModel {
       email.text = user!.email!;
       enabled = false;
       personalInfo = true;
-      setBusy(false);
     }
   }
 
@@ -233,7 +236,7 @@ class AddNewViewModel extends BaseViewModel {
   // add Pet
   addPet(UserObject user, String petName, String specie, String breed,
       String color, String weight, String birthDay, String sex) async {
-        setBusy(true);
+    setBusy(true);
     try {
       PetObject newPet = PetObject(
           name: petName,
@@ -249,7 +252,7 @@ class AddNewViewModel extends BaseViewModel {
 
       // update user pet count
       int pets = user.pets ?? 0;
-      await userRef.doc(user.uid).update({"pets" : pets++});
+      await userRef.doc(user.uid).update({"pets": pets++});
 
       // clear inputs
       clear();
@@ -281,7 +284,6 @@ class AddNewViewModel extends BaseViewModel {
     weight.clear();
     birthDay.clear();
     sex = 'Male';
-    notifyListeners();
   }
 
   Future<void> sendPasswordResetEmail(String email) async {

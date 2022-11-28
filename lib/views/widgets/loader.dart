@@ -6,7 +6,7 @@ class Loader extends StatelessWidget{
   
   @override
   Widget build(BuildContext context) {
-   return  Center(
+   return  Align(
     child: 
     Lottie.asset("images/heartbeat.json",
     width: 96,

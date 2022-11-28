@@ -21,7 +21,7 @@ class DataSource extends DataTableSource {
       homeViewModel.addNew(ViewState.viewClient, user: val);
     }, cells: [
       DataCell(
-        Center(
+        Align(
           child: Row(
             children: [
               Container(
@@ -33,14 +33,14 @@ class DataSource extends DataTableSource {
                         .primaries[Random().nextInt(Colors.primaries.length)]),
                 child: val.displayImage == null
                     ? Center(
-                        child: Text(
-                          val.firstName![0].toUpperCase(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
-                              color: Colors.white),
-                        ),
-                      )
+                      child: Text(
+                        val.firstName![0].toUpperCase(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: Colors.white),
+                      ),
+                    )
                     : ImageNetwork(
                         image: val.displayImage!,
                         height: 20,
@@ -72,7 +72,7 @@ class DataSource extends DataTableSource {
     ]);
   }
 
-  Widget cell(String text) {
+  static Widget cell(String text) {
     return Align(
       alignment: Alignment.center,
       child: Text(

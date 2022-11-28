@@ -31,6 +31,7 @@ class AddNewViewModel extends BaseViewModel {
   TextEditingController specie = TextEditingController();
   TextEditingController breed = TextEditingController();
   TextEditingController color = TextEditingController();
+  TextEditingController weight = TextEditingController();
   TextEditingController birthDay = TextEditingController();
   String? sex = "Male";
 
@@ -44,6 +45,7 @@ class AddNewViewModel extends BaseViewModel {
 
   void init() {
     setBusy(true);
+    user = applicationViewModel.userObject!;
     switch (state) {
       case ViewState.newClient:
         state = ViewState.newClient;
@@ -101,6 +103,7 @@ class AddNewViewModel extends BaseViewModel {
       String specie,
       String breed,
       String color,
+      String weight,
       String birthDay,
       String sex) async {
     setBusy(true);
@@ -130,6 +133,7 @@ class AddNewViewModel extends BaseViewModel {
           breed: breed,
           color: color,
           birthday: birthDay,
+          weight: weight,
           sex: sex,
           owner: newClient.uid,
           createdAt: DateTime.now().toString());
@@ -186,6 +190,7 @@ class AddNewViewModel extends BaseViewModel {
     specie.clear();
     breed.clear();
     color.clear();
+    weight.clear();
     birthDay.clear();
     sex = 'Male';
     notifyListeners();

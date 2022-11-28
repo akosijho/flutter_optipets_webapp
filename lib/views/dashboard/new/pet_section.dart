@@ -137,6 +137,19 @@ class PetSection extends ViewModelWidget<AddNewViewModel> {
             ),
           ],
         ),
+        const SizedBox(
+          height: 16,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            fieldLabel(label: 'Weight:', fieldWidth: 80),
+            textField(
+                label: 'Weight in kg',
+                maxWidth: 160,
+                textEditingController: viewModel.weight),
+          ],
+        ),
       ],
     );
   }

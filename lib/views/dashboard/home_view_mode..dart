@@ -21,7 +21,7 @@ class HomeViewModel extends BaseViewModel {
   final ScrollController scrollController = ScrollController();
   final ScrollController verticalScrollController = ScrollController();
 
-  Widget? child = const ClientsView();
+  Widget? child = const Home();
   UserObject? user;
 
   void init() async {

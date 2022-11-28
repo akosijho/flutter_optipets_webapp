@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_optipets_webapp/models/pet_object.dart';
 import 'package:flutter_optipets_webapp/models/user_object.dart';
+import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/utils/my_colors.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/clients/clients_view.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/add_new_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/pet_section.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/new/view_client/client_pets.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/view_client/view_client.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/widgets/widgets.dart';
@@ -29,194 +33,304 @@ class AddNew extends StatelessWidget {
             : Form(
                 key: formGlobalKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: Row(
-                    mainAxisAlignment: MediaQuery.of(context).size.width < 1366
-                        ? MainAxisAlignment.spaceEvenly
-                        : MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                child: Column(
+                  children: [
+                    Row(
+                        mainAxisAlignment:
+                            MediaQuery.of(context).size.width < 1366
+                                ? MainAxisAlignment.spaceEvenly
+                                : MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  fieldLabel(label: 'Owner\'s Name:'),
-                                  textField(
-                                      label: 'First Name',
-                                      enabled: model.enabled,
-                                      textEditingController: model.firstName),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  fieldLabel(label: ''),
-                                  textField(
-                                      label: 'Middle Name',
-                                      enabled: model.enabled,
-                                      textEditingController: model.middleName),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  fieldLabel(label: ''),
-                                  textField(
-                                      label: 'Last Name',
-                                      enabled: model.enabled,
-                                      textEditingController: model.lastName),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  fieldLabel(label: 'Address:'),
-                                  textField(
-                                      label: 'Address',
-                                      lines: 3,
-                                      enabled: model.enabled,
-                                      textEditingController: model.address),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  fieldLabel(label: 'Contact nos:'),
-                                  textField(
-                                      label: 'Contact nos',
-                                      enabled: model.enabled,
-                                      textEditingController: model.contacts),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  fieldLabel(label: 'Email:'),
-                                  textField(
-                                      label: 'Preferrably gmail',
-                                      enabled: model.enabled,
-                                      textEditingController: model.email),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              if (model.state == ViewState.newClient)
-                                const PetSection(),
-                            ],
-                          ),
+                          if (model.state == ViewState.viewClient)
+                            const ViewClient(),
                           const SizedBox(
-                            height: 16,
+                            width: 32,
                           ),
-                          if (model.state == ViewState.newClient)
-                            Row(
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    model.clear();
-                                    formGlobalKey.currentState!.reset();
-                                  },
-                                  child: const Text(
-                                    'Clear',
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 16,
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    if (formGlobalKey.currentState!
-                                        .validate()) {
-                                      switch (model.state) {
-                                        case ViewState.newClient:
-                                          model.addNew(
-                                              model.firstName.text,
-                                              model.middleName.text,
-                                              model.lastName.text,
-                                              model.address.text,
-                                              model.contacts.text,
-                                              model.email.text,
-                                              model.petName.text,
-                                              model.specie.text,
-                                              model.breed.text,
-                                              model.color.text,
-                                              model.birthDay.text,
-                                              model.sex!);
-                                          break;
-                                        case ViewState.viewClient:
-                                          // TODO: Handle this case.
-                                          break;
-                                        case ViewState.newPet:
-                                          // TODO: Handle this case.
-                                          break;
-                                      }
-                                    } else {
-                                      showSnackbar(
-                                          title: 'Oops',
-                                          message: 'Check for empty fields',
-                                          maxWidth: 400);
-                                    }
-                                  },
-                                  style: const ButtonStyle(
-                                      backgroundColor: MaterialStatePropertyAll(
-                                          MyColors.coverColor)),
-                                  child: model.isBusy
-                                      ? const Center(
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                          ),
-                                        )
-                                      : const Text('Save',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          )),
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(24)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey
+                                      .withOpacity(0.4), //color of shadow
+                                  blurRadius: 8, // blur radius
+                                  offset: const Offset(2, 4),
                                 ),
                               ],
                             ),
-                          if (model.state == ViewState.viewClient)
-                            ElevatedButton(
-                              onPressed: () async {
-                                await model
-                                    .sendPasswordResetEmail(model.user!.email!);
-                              },
-                              style: const ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
-                                      MyColors.coverColor)),
-                              child: const Text('Send Password Reset Email',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  )),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        fieldLabel(label: 'Owner\'s Name:'),
+                                        textField(
+                                            label: 'First Name',
+                                            enabled: model.enabled,
+                                            textEditingController:
+                                                model.firstName),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        fieldLabel(label: ''),
+                                        textField(
+                                            label: 'Middle Name',
+                                            enabled: model.enabled,
+                                            textEditingController:
+                                                model.middleName),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        fieldLabel(label: ''),
+                                        textField(
+                                            label: 'Last Name',
+                                            enabled: model.enabled,
+                                            textEditingController:
+                                                model.lastName),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        fieldLabel(label: 'Address:'),
+                                        textField(
+                                            label: 'Address',
+                                            lines: 3,
+                                            enabled: model.enabled,
+                                            textEditingController:
+                                                model.address),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        fieldLabel(label: 'Contact nos:'),
+                                        textField(
+                                            label: 'Contact nos',
+                                            enabled: model.enabled,
+                                            textEditingController:
+                                                model.contacts),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        fieldLabel(label: 'Email:'),
+                                        textField(
+                                            label: 'Preferrably gmail',
+                                            enabled: model.enabled,
+                                            textEditingController: model.email),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    if (model.state == ViewState.newClient)
+                                      const PetSection(),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                if (model.state == ViewState.newClient)
+                                  Row(
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          model.clear();
+                                          formGlobalKey.currentState!.reset();
+                                        },
+                                        child: const Text(
+                                          'Clear',
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          if (formGlobalKey.currentState!
+                                              .validate()) {
+                                            switch (model.state) {
+                                              case ViewState.newClient:
+                                                model.addNew(
+                                                    model.firstName.text,
+                                                    model.middleName.text,
+                                                    model.lastName.text,
+                                                    model.address.text,
+                                                    model.contacts.text,
+                                                    model.email.text,
+                                                    model.petName.text,
+                                                    model.specie.text,
+                                                    model.breed.text,
+                                                    model.color.text,
+                                                    model.weight.text,
+                                                    model.birthDay.text,
+                                                    model.sex!);
+                                                break;
+                                              case ViewState.viewClient:
+                                                // TODO: Handle this case.
+                                                break;
+                                              case ViewState.newPet:
+                                                // TODO: Handle this case.
+                                                break;
+                                            }
+                                          } else {
+                                            showSnackbar(
+                                                title: 'Oops',
+                                                message:
+                                                    'Check for empty fields',
+                                                maxWidth: 400);
+                                          }
+                                        },
+                                        style: const ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStatePropertyAll(
+                                                    MyColors.coverColor)),
+                                        child: model.isBusy
+                                            ? const Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: Colors.white,
+                                                ),
+                                              )
+                                            : const Text('Save',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                )),
+                                      ),
+                                    ],
+                                  ),
+                                if (model.state == ViewState.viewClient)
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      await model.sendPasswordResetEmail(
+                                          model.user!.email!);
+                                    },
+                                    style: const ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                MyColors.coverColor)),
+                                    child:
+                                        const Text('Send Password Reset Email',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            )),
+                                  ),
+                              ],
                             ),
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 48,
-                      ),
-                      if (model.state == ViewState.viewClient)
-                        const ViewClient()
-                    ]),
+                          ),
+                        ]),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    // pets list of shown client
+                    if (model.state == ViewState.viewClient)
+                      Container(
+                        width: 1366,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(24)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey
+                                  .withOpacity(0.4), //color of shadow
+                              blurRadius: 8, // blur radius
+                              offset: const Offset(2, 4),
+                            ),
+                          ],
+                        ),
+                        child: StreamBuilder<List<PetObject>>(
+                          stream: petRef
+                              .where('owner', isEqualTo: user!.uid)
+                              .snapshots()
+                              .map((event) => event.docs
+                                  .map((e) => PetObject.fromJson(e.data()))
+                                  .toList()),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return const Center(
+                                  child: Text(
+                                'Something went wrong',
+                              ));
+                            }
+                            if (snapshot.hasData) {
+                              return PaginatedDataTable(
+                                sortColumnIndex: 0,
+                                headingRowHeight: 32,
+                                dataRowHeight: 24,
+                                showCheckboxColumn: false,
+                                showFirstLastButtons: true,
+                                columns: [
+                                  DataColumn(
+                                    label: ClientsView.header('Name'),
+                                  ),
+                                  DataColumn(
+                                      label: ClientsView.header('Breed')),
+                                  DataColumn(
+                                      label: ClientsView.header('Weight')),
+                                  DataColumn(label: ClientsView.header('Sex')),
+                                  DataColumn(
+                                      label: ClientsView.header('Birthday')),
+                                  DataColumn(
+                                      label: ClientsView.header('Added On')),
+                                ],
+                                source: ClientPets(pets: snapshot.data!),
+                                rowsPerPage: snapshot.data!.length <= 20 &&
+                                        snapshot.data!.isNotEmpty
+                                    ? snapshot.data!.length
+                                    : snapshot.data!.isEmpty
+                                        ? 1
+                                        : 20,
+                              );
+                            }
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Loader();
+                            }
+                            return Container();
+                          },
+                        ),
+                      )
+                  ],
+                ),
               );
       },
     );

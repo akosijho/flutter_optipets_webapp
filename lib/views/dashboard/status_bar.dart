@@ -67,7 +67,6 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
                                   fontWeight: FontWeight.w700,
                                   color: Colors.white,
                                 )),
-                            onTap: () {},
                           )),
             const SizedBox(
               width: 8,

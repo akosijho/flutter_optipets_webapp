@@ -93,96 +93,105 @@ class LandingPageView extends StatelessWidget {
                       color: MyColors.coverColor,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(16, 0, 56, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextButton(
-                              style: ButtonStyle(
-                                  overlayColor: MaterialStateProperty.all(
-                                      Colors.transparent)),
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          const LandingPageView()),
-                                );
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: const [
-                                    ImageNetwork(
-                                      image: 'assets/${SvgIcons.logo}',
-                                      fitWeb: BoxFitWeb.fill,
-                                      fitAndroidIos: BoxFit.fill,
-                                      width: 56,
-                                      height: 56,
-                                      curve: Curves.easeOut,
-                                    ),
-                                    SizedBox(width: 8),
-                                    Center(
-                                        child: Text("optipets",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.white))),
-                                  ],
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextButton(
+                                style: ButtonStyle(
+                                    overlayColor: MaterialStateProperty.all(
+                                        Colors.transparent)),
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            const LandingPageView()),
+                                  );
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: const [
+                                      ImageNetwork(
+                                        image: 'assets/${SvgIcons.logo}',
+                                        fitWeb: BoxFitWeb.fill,
+                                        fitAndroidIos: BoxFit.fill,
+                                        width: 56,
+                                        height: 56,
+                                        curve: Curves.easeOut,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Center(
+                                          child: Text("optipets",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.white))),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextButton(
-                                  style: ButtonStyle(
-                                      overlayColor: MaterialStateProperty.all(
-                                          Colors.transparent)),
-                                  onPressed: () {
-                                    js.context.callMethod('open', [
-                                      'https://appdistribution.firebase.google.com/testerapps/1:123934579832:android:538171b55e0e5dcbe7218d/releases/1l1ej6v8k0ct8'
-                                    ]);
-                                  },
-                                  child: const Center(
-                                      child: Text("Download",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.white))),
-                                ),
-                                const SizedBox(width: 24),
-                                TextButton(
-                                  style: ButtonStyle(
-                                      overlayColor: MaterialStateProperty.all(
-                                          Colors.transparent)),
-                                  onPressed: () async {
-                                    await model.checkLogged();
-                                  },
-                                  child: const Center(
-                                      child: Text("Login",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.white))),
-                                ),
-                              ],
-                            )
-                          ],
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextButton(
+                                    style: ButtonStyle(
+                                        overlayColor: MaterialStateProperty.all(
+                                            Colors.transparent)),
+                                    onPressed: () {
+                                      js.context.callMethod('open', [
+                                        'https://appdistribution.firebase.google.com/testerapps/1:123934579832:android:538171b55e0e5dcbe7218d/releases/1l1ej6v8k0ct8'
+                                      ]);
+                                    },
+                                    child: const Center(
+                                        child: Text("Download",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white))),
+                                  ),
+                                  const SizedBox(width: 24),
+                                  TextButton(
+                                    style: ButtonStyle(
+                                        overlayColor: MaterialStateProperty.all(
+                                            Colors.transparent)),
+                                    onPressed: () async {
+                                      await model.checkLogged();
+                                    },
+                                    child: const Center(
+                                        child: Text("Login",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white))),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  HeroSection(
-                    screenSize: screenSize,
-                  ),
-                  BottomBar(
-                    currentSize: screenSize,
-                  )
-                ],
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        HeroSection(
+                          screenSize: screenSize,
+                        ),
+                      ],
+                    ),
+                    BottomBar(
+                      currentSize: screenSize,
+                    )
+                  ],
+                ),
               ),
             ),
           );

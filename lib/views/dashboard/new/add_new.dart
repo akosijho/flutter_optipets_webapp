@@ -30,7 +30,9 @@ class AddNew extends StatelessWidget {
                 key: formGlobalKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MediaQuery.of(context).size.width < 1366
+                        ? MainAxisAlignment.spaceEvenly
+                        : MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
@@ -62,8 +64,7 @@ class AddNew extends StatelessWidget {
                                   textField(
                                       label: 'Middle Name',
                                       enabled: model.enabled,
-                                      textEditingController:
-                                          model.middleName),
+                                      textEditingController: model.middleName),
                                 ],
                               ),
                               const SizedBox(
@@ -179,9 +180,8 @@ class AddNew extends StatelessWidget {
                                     }
                                   },
                                   style: const ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStatePropertyAll(
-                                              MyColors.coverColor)),
+                                      backgroundColor: MaterialStatePropertyAll(
+                                          MyColors.coverColor)),
                                   child: model.isBusy
                                       ? const Center(
                                           child: CircularProgressIndicator(
@@ -198,8 +198,8 @@ class AddNew extends StatelessWidget {
                           if (model.state == ViewState.viewClient)
                             ElevatedButton(
                               onPressed: () async {
-                                await model.sendPasswordResetEmail(
-                                    model.user!.email!);
+                                await model
+                                    .sendPasswordResetEmail(model.user!.email!);
                               },
                               style: const ButtonStyle(
                                   backgroundColor: MaterialStatePropertyAll(
@@ -210,6 +210,9 @@ class AddNew extends StatelessWidget {
                                   )),
                             ),
                         ],
+                      ),
+                      const SizedBox(
+                        width: 48,
                       ),
                       if (model.state == ViewState.viewClient)
                         const ViewClient()

@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:image_network/image_network.dart';
 import 'package:stacked/stacked.dart';
@@ -13,7 +11,7 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Container(
-      width: maxWidth,
+      width: double.infinity,
       height: 48,
       color: Theme.of(context).primaryColor,
       child: Padding(

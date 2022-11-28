@@ -17,8 +17,8 @@ class Home extends StatelessWidget {
     double maxWidth = MediaQuery.of(context).size.width <= 1366
         ? 1366
         : MediaQuery.of(context).size.width;
-    double maxHeight = MediaQuery.of(context).size.height <= 768
-        ? 768
+    double maxHeight = MediaQuery.of(context).size.height <= 667
+        ? 667
         : MediaQuery.of(context).size.height;
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => locator<HomeViewModel>(),

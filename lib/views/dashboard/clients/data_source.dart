@@ -73,9 +73,12 @@ class DataSource extends DataTableSource {
   }
 
   Widget cell(String text) {
-    return Text(
-      text,
-      style: const TextStyle(fontSize: 12),
+    return Align(
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 12),
+      ),
     );
   }
 

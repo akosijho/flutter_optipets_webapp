@@ -93,13 +93,16 @@ class ClientsView extends StatelessWidget {
   }
 
   Widget header(String text) {
-    return Center(
-        child: Text(
-      text,
-      style: const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w700,
-      ),
-    ));
+    return Expanded(
+      child: Align(
+        alignment: Alignment.center,
+          child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w700,
+        ),
+      )),
+    );
   }
 }

@@ -16,7 +16,7 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Container(
         width: 200,
-        height: maxHeight,
+        height: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,

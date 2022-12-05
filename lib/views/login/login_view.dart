@@ -54,7 +54,7 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                       ),
                       child: Center(
                         child: Form(
-                          key: model.applicationViewModel.formGlobalKey,
+                          key: model.formGlobalKey,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -131,8 +131,7 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                                       ),
                                     ),
                                     onPressed: () {
-                                      if (model.applicationViewModel
-                                              .formGlobalKey.currentState!
+                                      if (model.formGlobalKey.currentState!
                                               .validate() &&
                                           isNotEmpty(model.email) &&
                                           isNotEmpty(model.password)) {

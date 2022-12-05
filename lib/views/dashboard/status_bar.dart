@@ -29,12 +29,12 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
                         .primaries[Random().nextInt(Colors.primaries.length)],
                 ),
                 child:
-                    viewModel.applicationViewModel.userObject!.displayImage ==
+                    viewModel.userObject!.displayImage ==
                             null
                         ? Center(
                           child: Text(
                               viewModel
-                                  .applicationViewModel.userObject!.firstName![0],
+                                  .userObject!.firstName![0],
                               style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 28,
@@ -43,9 +43,8 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
                         )
                         : ImageNetwork(
                             image: viewModel
-                                .applicationViewModel.userObject!.displayImage!,
+                                .userObject!.displayImage!,
                             imageCache: CachedNetworkImageProvider(viewModel
-                                .applicationViewModel
                                 .userObject!
                                 .displayImage!),
                             height: 36,
@@ -59,7 +58,7 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
                             fitWeb: BoxFitWeb.cover,
                             borderRadius: BorderRadius.circular(70),
                             onError: Text(
-                                viewModel.applicationViewModel.userObject!
+                                viewModel.userObject!
                                     .firstName![0],
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w700,
@@ -70,7 +69,7 @@ class StatusBar extends ViewModelWidget<HomeViewModel> {
               width: 8,
             ),
             Text(
-                "Hi, ${viewModel.applicationViewModel.userObject!.firstName!}!",
+                "Hi, ${viewModel.userObject!.firstName!}!",
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,

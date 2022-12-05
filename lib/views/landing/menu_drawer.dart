@@ -109,7 +109,7 @@ class MenuDrawer extends ViewModelWidget<LandingPageViewModel> {
                     ),
                     InkWell(
                       onTap: () async {
-                        viewModel.applicationViewModel.navigationService.pop();
+                        viewModel.navigationService.pop();
                         await viewModel.checkLogged();
                       },
                       child: const Text(

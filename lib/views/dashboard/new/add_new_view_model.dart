@@ -14,11 +14,9 @@ import 'package:flutter_optipets_webapp/app/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
 import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 
-class AddNewViewModel extends BaseViewModel {
+class AddNewViewModel extends ApplicationViewModel {
   AddNewViewModel({required this.state, this.user});
 
-  final ApplicationViewModel applicationViewModel =
-      locator<ApplicationViewModel>();
   final FirestoreService firestoreService = locator<FirestoreService>();
   final HomeViewModel homeViewModel = locator<HomeViewModel>();
 
@@ -128,7 +126,7 @@ class AddNewViewModel extends BaseViewModel {
     String password = 'ChangeMe${DateFormat('MMddyy').format(DateTime.now())}';
     try {
       // creates new login credentials
-      final newUser = await applicationViewModel.firebaseAuth
+      final newUser = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
 
       // creates user object to be saved to firestore database
@@ -195,7 +193,7 @@ class AddNewViewModel extends BaseViewModel {
     String password = 'ChangeMe${DateFormat('MMddyy').format(DateTime.now())}';
     try {
       // creates new login credentials
-      final newUser = await applicationViewModel.firebaseAuth
+      final newUser = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
 
       // creates user object to be saved to firestore database
@@ -288,7 +286,7 @@ class AddNewViewModel extends BaseViewModel {
 
   Future<void> sendPasswordResetEmail(String email) async {
     try {
-      await applicationViewModel.firebaseAuth
+      await firebaseAuth
           .sendPasswordResetEmail(email: email.trim());
       showSnackbar(
           title: 'Successful!', message: 'Password reset sent', maxWidth: 400);

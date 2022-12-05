@@ -1,4 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: unused_local_variable
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_optipets_webapp/core/models/user_object.dart';
 import 'package:flutter_optipets_webapp/core/services/firebase_services/firebase_auth.dart';
@@ -59,19 +60,19 @@ class AuthImpl implements Auth {
   @override
   Future<UserObject?> getFirebaseUser() async{
     try{
-    UserObject userObject;
     User? firebaseUser = FirebaseAuth.instance.currentUser;
     firebaseUser ??= await FirebaseAuth.instance.authStateChanges().first;
     if (firebaseUser != null) {
-      return userObject =  await userRef
+      return await userRef
           .doc(firebaseUser.uid)
           .get()
-          .then((value) => UserObject.fromJson(value.data()!));
-    }else{
-      return null;
+          .then((value) {
+            return UserObject.fromJson(value.data()!);
+          });
     }
     }on FirebaseAuthException catch(e){
       throw e.message!;
     }
+    return null;
   }
 }

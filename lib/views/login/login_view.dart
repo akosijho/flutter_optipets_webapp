@@ -93,7 +93,7 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                                   prefixIcon: Icon(Icons.person),
                                 ),
                                 onChanged: (val) => model.email = val,
-                                validator: (val) => val!.isNotEmpty
+                                validator: (val) => isEmailValid(val!)
                                     ? null
                                     : 'Enter a valid email address',
                               ),

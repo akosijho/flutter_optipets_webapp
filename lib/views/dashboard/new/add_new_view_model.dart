@@ -3,8 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:intl/intl.dart';
-import 'package:stacked/stacked.dart';
-
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/core/models/pet_object.dart';
 import 'package:flutter_optipets_webapp/core/models/user_object.dart';
@@ -127,7 +125,7 @@ class AddNewViewModel extends ApplicationViewModel {
     try {
       // creates new login credentials
       final newUser = await firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
+          .createUserWithEmailAndPassword(email, password);
 
       // creates user object to be saved to firestore database
       UserObject newClient = UserObject(
@@ -194,7 +192,7 @@ class AddNewViewModel extends ApplicationViewModel {
     try {
       // creates new login credentials
       final newUser = await firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
+          .createUserWithEmailAndPassword(email, password);
 
       // creates user object to be saved to firestore database
       UserObject newStaff = UserObject(
@@ -286,8 +284,7 @@ class AddNewViewModel extends ApplicationViewModel {
 
   Future<void> sendPasswordResetEmail(String email) async {
     try {
-      await firebaseAuth
-          .sendPasswordResetEmail(email: email.trim());
+      await firebaseAuth.sendPasswordResetEmail(email);
       showSnackbar(
           title: 'Successful!', message: 'Password reset sent', maxWidth: 400);
     } on FirebaseAuthException catch (e) {

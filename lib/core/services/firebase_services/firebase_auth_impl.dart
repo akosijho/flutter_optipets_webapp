@@ -4,8 +4,7 @@ import 'package:flutter_optipets_webapp/core/services/firebase_services/firebase
 import 'package:stacked/stacked_annotations.dart';
 
 @LazySingleton(asType: Auth)
-class AuthImpl implements Auth{
-
+class AuthImpl implements Auth {
   //instantiate Firebase Auth package
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -17,10 +16,11 @@ class AuthImpl implements Auth{
 
   @override
   Future signInWithCredentials(String email, String password) async {
-    try{
-    final result = await _auth.signInWithEmailAndPassword(email: email, password: password);
-    // User user = result.user!;
-    return userFromFirebase(result.user);
+    try {
+      final result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      // User user = result.user!;
+      return userFromFirebase(result.user);
     } on FirebaseAuthException {
       rethrow;
     }
@@ -28,11 +28,28 @@ class AuthImpl implements Auth{
 
   @override
   Future signOut() async {
-     try{
+    try {
       return await _auth.signOut();
-    }catch(e){
+    } catch (e) {
       rethrow;
     }
   }
 
+  @override
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email.trim());
+    } on FirebaseAuthException catch (e) {
+      throw e.message!;
+    }
+  }
+  
+  @override
+  Future<UserCredential> createUserWithEmailAndPassword(String email, String password) async {
+    try{
+      return await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    }on FirebaseAuthException catch(e){
+      throw e.message!;
+    }
+  }
 }

@@ -35,7 +35,7 @@ class LoginViewModel extends ApplicationViewModel {
   void signIn(String email, String password) async {
     setBusy(true);
     try {
-      final user = await auth.signInWithCredentials(
+      final user = await firebaseAuth.signInWithCredentials(
           email.replaceAll(' ', ''), password);
       if (user != null) {
         await userRef.doc(user.uid).get().then((value) => userObject = UserObject.fromJson(value.data()!));
@@ -46,7 +46,7 @@ class LoginViewModel extends ApplicationViewModel {
           await navigationService
               .pushReplacementNamed(Routes.home);
         } else {
-          await auth.signOut();
+          await firebaseAuth.signOut();
           userObject = null;
           showDialog(
               context: getContext,

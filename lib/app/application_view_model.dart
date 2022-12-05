@@ -11,9 +11,9 @@ import 'package:stacked/stacked_annotations.dart';
 @LazySingleton(asType: ApplicationViewModel)
 class ApplicationViewModel extends BaseViewModel {
   //firebase auth
-  final Auth auth = locator<Auth>();
+  final Auth firebaseAuth = locator<Auth>();
 
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
 
   // key for form validation
   final formGlobalKey = GlobalKey<FormState>();

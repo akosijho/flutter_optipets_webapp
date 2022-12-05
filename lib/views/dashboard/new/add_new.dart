@@ -19,7 +19,7 @@ class AddNew extends StatelessWidget {
 
   final formGlobalKey = GlobalKey<FormState>();
   final ViewState viewState;
-  final UserObject? user;
+  final UserObject? user; 
 
   @override
   Widget build(BuildContext context) {

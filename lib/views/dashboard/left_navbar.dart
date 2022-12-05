@@ -75,7 +75,7 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
               leftNavButton(function: viewModel.clients, icon: Icons.people, label: 'Clients'),
               leftNavButton(
                   function: () async {
-                    await viewModel.auth.signOut();
+                    await viewModel.firebaseAuth.signOut();
                     await ApplicationViewModel()
                         .navigationService
                         .pushReplacementNamed(Routes.login);

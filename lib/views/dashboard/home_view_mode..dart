@@ -10,7 +10,6 @@ import 'package:flutter_optipets_webapp/views/dashboard/appointments/appointment
 import 'package:flutter_optipets_webapp/views/dashboard/clients/clients_view.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home/home.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/add_new.dart';
-import 'package:flutter_optipets_webapp/views/dashboard/new/add_new_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
 import 'package:flutter_optipets_webapp/views/widgets/buildBody.dart';
 import 'package:stacked/stacked.dart';

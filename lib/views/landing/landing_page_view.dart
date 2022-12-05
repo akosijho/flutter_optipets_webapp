@@ -93,9 +93,9 @@ class LandingPageView extends StatelessWidget {
                       color: MyColors.coverColor,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(16, 0, 56, 0),
-                        child: Center(
+                        child: Align(
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               TextButton(
                                 style: ButtonStyle(

@@ -93,56 +93,61 @@ class HeroSection extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                        width: 666,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            animatedText(text: 'Your Pet Care Assistant'),
-                            const SizedBox(height: 16),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 104),
-                              child: entryText(),
-                            ),
-                            const SizedBox(height: 16),
-                            Align(
-                              alignment: Alignment.topCenter,
-                              child: ImageNetwork(
-                                image: 'assets/${SvgIcons.googlePlay}',
-                                fitWeb: BoxFitWeb.fill,
-                                fitAndroidIos: BoxFit.fill,
-                                width: screenSize.width / 2,
-                                height: 64,
-                                curve: Curves.easeOut,
+                    Flexible(
+                      child: SizedBox(
+                          width: 666,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              animatedText(text: 'Your Pet Care Assistant'),
+                              const SizedBox(height: 16),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 104),
+                                child: entryText(),
                               ),
-                            ),
-                          ],
-                        )),
-                    Container(
-                      width: 666,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            const Color(0xfff9f9f8).withOpacity(0.2),
-                            const Color(0xffe5e6e4).withOpacity(0.4)
-                          ],
-                          begin: const FractionalOffset(0.2, 0.2),
-                          end: const FractionalOffset(1.0, 1.0),
-                          stops: const [0.0, 1.0],
-                          tileMode: TileMode.clamp,
+                              const SizedBox(height: 16),
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: ImageNetwork(
+                                  image: 'assets/${SvgIcons.googlePlay}',
+                                  fitWeb: BoxFitWeb.fill,
+                                  fitAndroidIos: BoxFit.fill,
+                                  width: screenSize.width / 2,
+                                  height: 64,
+                                  curve: Curves.easeOut,
+                                ),
+                              ),
+                            ],
+                          )),
+                    ),
+                    Flexible(
+                      child: Container(
+                        width: 666,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              const Color(0xfff9f9f8).withOpacity(0.2),
+                              const Color(0xffe5e6e4).withOpacity(0.4)
+                            ],
+                            begin: const FractionalOffset(0.2, 0.2),
+                            end: const FractionalOffset(1.0, 1.0),
+                            stops: const [0.0, 1.0],
+                            tileMode: TileMode.clamp,
+                          ),
+                          borderRadius: const BorderRadius.all(Radius.circular(24)),
                         ),
-                        borderRadius: const BorderRadius.all(Radius.circular(24)),
-                      ),
-                      child: const Center(
-                        child: ImageNetwork(
-                          image: 'assets/${SvgIcons.appLogin}',
-                          fitWeb: BoxFitWeb.fill,
-                          fitAndroidIos: BoxFit.fill,
-                          width: 300,
-                          height: 544,
-                          curve: Curves.easeOut,
+                        child: const Center(
+                            child: ImageNetwork(
+                              image: 'assets/${SvgIcons.appLogin}',
+                              fitWeb: BoxFitWeb.fill,
+                              fitAndroidIos: BoxFit.fill,
+                              width: 300,
+                              height: 544,
+                              curve: Curves.easeOut,
+                            
+                          ),
                         ),
                       ),
                     ),

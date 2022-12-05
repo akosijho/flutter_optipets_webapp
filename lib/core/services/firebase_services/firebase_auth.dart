@@ -17,4 +17,7 @@ abstract class Auth{
 
   // send password reset email
   Future<void> sendPasswordResetEmail(String email);
+
+  // checks if a user is currently logged in
+  Future<void> getFirebaseUser();
 }

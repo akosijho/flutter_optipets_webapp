@@ -1,12 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_optipets_webapp/core/models/user_object.dart';
 import 'package:flutter_optipets_webapp/core/services/firebase_services/firebase_auth.dart';
+import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 @LazySingleton(asType: Auth)
 class AuthImpl implements Auth {
   //instantiate Firebase Auth package
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
 
   // simply return a user object from firebase user
   @override
@@ -48,6 +51,25 @@ class AuthImpl implements Auth {
   Future<UserCredential> createUserWithEmailAndPassword(String email, String password) async {
     try{
       return await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    }on FirebaseAuthException catch(e){
+      throw e.message!;
+    }
+  }
+  
+  @override
+  Future<UserObject?> getFirebaseUser() async{
+    try{
+    UserObject userObject;
+    User? firebaseUser = FirebaseAuth.instance.currentUser;
+    firebaseUser ??= await FirebaseAuth.instance.authStateChanges().first;
+    if (firebaseUser != null) {
+      return userObject =  await userRef
+          .doc(firebaseUser.uid)
+          .get()
+          .then((value) => UserObject.fromJson(value.data()!));
+    }else{
+      return null;
+    }
     }on FirebaseAuthException catch(e){
       throw e.message!;
     }

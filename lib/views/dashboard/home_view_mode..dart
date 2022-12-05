@@ -13,7 +13,9 @@ import 'package:flutter_optipets_webapp/views/dashboard/new/add_new.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
 import 'package:flutter_optipets_webapp/views/widgets/buildBody.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
+@LazySingleton(asType: HomeViewModel)
 class HomeViewModel extends ApplicationViewModel {
   final ScrollController scrollController = ScrollController();
   final ScrollController verticalScrollController = ScrollController();

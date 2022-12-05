@@ -4,7 +4,8 @@ import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/core/models/user_object.dart';
 import 'package:flutter_optipets_webapp/core/services/firebase_services/firebase_auth.dart';
 import 'package:flutter_optipets_webapp/core/services/navigation/navigation.dart';
-import 'package:flutter_optipets_webapp/utils/constants.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
+import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -26,13 +27,10 @@ class ApplicationViewModel extends BaseViewModel {
 
   // checks if a user is currently logged in
   Future<void> getFirebaseUser() async {
-    User? firebaseUser = FirebaseAuth.instance.currentUser;
-    firebaseUser ??= await FirebaseAuth.instance.authStateChanges().first;
-    if (firebaseUser != null) {
-      await userRef
-          .doc(firebaseUser.uid)
-          .get()
-          .then((value) => userObject = UserObject.fromJson(value.data()!));
+    try{
+      userObject = await firebaseAuth.getFirebaseUser() as UserObject;
+    }catch(e){
+      showSnackbar(title: 'Something went wrong', message: e.toString());
     }
     notifyListeners();
   }

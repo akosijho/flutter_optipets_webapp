@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_optipets_webapp/models/user_object.dart';
-import 'package:flutter_optipets_webapp/services/firebase_services/firebase_auth.dart';
+import 'package:flutter_optipets_webapp/core/models/user_object.dart';
+import 'package:flutter_optipets_webapp/core/services/firebase_services/firebase_auth.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 @LazySingleton(asType: Auth)

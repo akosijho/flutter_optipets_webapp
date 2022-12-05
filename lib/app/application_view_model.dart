@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
-import 'package:flutter_optipets_webapp/models/user_object.dart';
-import 'package:flutter_optipets_webapp/services/firebase_services/firebase_auth.dart';
-import 'package:flutter_optipets_webapp/services/navigation/navigation.dart';
+import 'package:flutter_optipets_webapp/core/models/user_object.dart';
+import 'package:flutter_optipets_webapp/core/services/firebase_services/firebase_auth.dart';
+import 'package:flutter_optipets_webapp/core/services/navigation/navigation.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';

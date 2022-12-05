@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/app/app.router.dart';
-import 'package:flutter_optipets_webapp/models/user_object.dart';
-import 'package:flutter_optipets_webapp/services/firebase_services/firebase_auth.dart';
+import 'package:flutter_optipets_webapp/core/models/user_object.dart';
+import 'package:flutter_optipets_webapp/core/services/firebase_services/firebase_auth.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
-import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
+import 'package:flutter_optipets_webapp/app/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/appointments/appointments_view.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/clients/clients_view.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home/home.dart';

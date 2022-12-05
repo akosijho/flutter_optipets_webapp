@@ -1,4 +1,4 @@
-import 'package:flutter_optipets_webapp/models/user_object.dart';
+import 'package:flutter_optipets_webapp/core/models/user_object.dart';
 
 abstract class Auth{
 

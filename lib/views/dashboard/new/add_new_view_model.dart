@@ -6,11 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
-import 'package:flutter_optipets_webapp/models/pet_object.dart';
-import 'package:flutter_optipets_webapp/models/user_object.dart';
-import 'package:flutter_optipets_webapp/services/firebase_services/firbase_firestore/firestore_service.dart';
+import 'package:flutter_optipets_webapp/core/models/pet_object.dart';
+import 'package:flutter_optipets_webapp/core/models/user_object.dart';
+import 'package:flutter_optipets_webapp/core/services/firebase_services/firbase_firestore/firestore_service.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
-import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
+import 'package:flutter_optipets_webapp/app/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
 import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 

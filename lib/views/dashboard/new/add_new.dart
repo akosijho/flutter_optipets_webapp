@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_optipets_webapp/models/pet_object.dart';
-import 'package:flutter_optipets_webapp/models/user_object.dart';
+import 'package:flutter_optipets_webapp/core/models/pet_object.dart';
+import 'package:flutter_optipets_webapp/core/models/user_object.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/utils/my_colors.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/clients/clients_view.dart';

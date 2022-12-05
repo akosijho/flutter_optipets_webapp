@@ -1,10 +1,10 @@
-import 'package:flutter_optipets_webapp/services/firebase_services/firbase_firestore/firestore_service.dart';
-import 'package:flutter_optipets_webapp/services/firebase_services/firbase_firestore/firestore_service_impl.dart';
-import 'package:flutter_optipets_webapp/services/firebase_services/firebase_auth.dart';
-import 'package:flutter_optipets_webapp/services/firebase_services/firebase_auth_impl.dart';
-import 'package:flutter_optipets_webapp/services/navigation/navigation.dart';
-import 'package:flutter_optipets_webapp/services/navigation/navigation_impl.dart';
-import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
+import 'package:flutter_optipets_webapp/core/services/firebase_services/firbase_firestore/firestore_service.dart';
+import 'package:flutter_optipets_webapp/core/services/firebase_services/firbase_firestore/firestore_service_impl.dart';
+import 'package:flutter_optipets_webapp/core/services/firebase_services/firebase_auth.dart';
+import 'package:flutter_optipets_webapp/core/services/firebase_services/firebase_auth_impl.dart';
+import 'package:flutter_optipets_webapp/app/application_view_model.dart';
+import 'package:flutter_optipets_webapp/core/services/navigation/navigation.dart';
+import 'package:flutter_optipets_webapp/core/services/navigation/navigation_impl.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:flutter_optipets_webapp/views/login/login_view.dart';

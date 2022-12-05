@@ -81,7 +81,7 @@ class BottomBar extends StatelessWidget {
                           TextButton(
                             style: buttonStyle,
                             onPressed: () => js.context.callMethod(
-                                'open', ['https://optipets.web.app/#/']),
+                                'open', ['https://optipets.web.app']),
                             child: const ImageNetwork(
                               image: 'assets/${SvgIcons.appIcon}',
                               fitWeb: BoxFitWeb.fill,

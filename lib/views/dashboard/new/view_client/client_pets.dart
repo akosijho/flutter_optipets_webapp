@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_optipets_webapp/models/pet_object.dart';
+import 'package:flutter_optipets_webapp/core/models/pet_object.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/clients/data_source.dart';
 import 'package:image_network/image_network.dart';
 

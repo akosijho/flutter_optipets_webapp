@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_optipets_webapp/services/navigation/navigation.dart';
+import 'package:flutter_optipets_webapp/core/services/navigation/navigation.dart';
 import 'package:get/get.dart';
 import 'package:stacked/stacked_annotations.dart';
 

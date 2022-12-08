@@ -52,18 +52,20 @@ class Home extends StatelessWidget {
                           children: [
                             const LeftNavBar(), //left navbar
                             // Changeable panel
+                            
                             Expanded(
-                              child: SingleChildScrollView(
-                                child: Column(
+                              child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children:  [
+                                  children: [
                                     StatusBar(),
-                                    DashViews(),
-                                  ],
-                                ),
-                              ),
+                                    Expanded(
+                                      child: SingleChildScrollView(
+                                        child: DashViews(),
+                                      ),
+                                    ),
+                                  ]),
                             )
                           ],
                         ),

@@ -58,8 +58,8 @@ class Home extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                     StatusBar(),
+                                  children:  [
+                                    StatusBar(),
                                     DashViews(),
                                   ],
                                 ),

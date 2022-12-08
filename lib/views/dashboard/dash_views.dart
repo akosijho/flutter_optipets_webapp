@@ -1,9 +1,10 @@
+import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:stacked/stacked.dart';
 
 class DashViews extends ViewModelWidget<HomeViewModel>{
-  const DashViews({Key? key,}) : super(key: key);
+   DashViews({Key? key,}) : super(key: key);
   
   // final Widget? child;
 
@@ -14,7 +15,7 @@ class DashViews extends ViewModelWidget<HomeViewModel>{
       // height: MediaQuery.of(context).size.height,
       color: Colors.white60,
       padding: const EdgeInsets.fromLTRB(4,4,16,4),
-      child: viewModel.child
+      child: viewModel.child!
     );
   }
 }

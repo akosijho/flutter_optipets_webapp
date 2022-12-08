@@ -5,4 +5,5 @@ enum ViewState {
   newPet,
   newStaff,
   petDiagnose,
+  viewPet,
 }

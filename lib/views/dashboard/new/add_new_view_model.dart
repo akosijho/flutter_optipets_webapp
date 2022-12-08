@@ -13,7 +13,7 @@ import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
 import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 
 class AddNewViewModel extends ApplicationViewModel {
-  AddNewViewModel({required this.state, this.user});
+  AddNewViewModel({required this.state, this.user, this.pet});
 
   final FirestoreService firestoreService = locator<FirestoreService>();
   final HomeViewModel homeViewModel = locator<HomeViewModel>();
@@ -38,6 +38,10 @@ class AddNewViewModel extends ApplicationViewModel {
 
   // use to load fields
   UserObject? user;
+
+  // user to load pet fields
+  PetObject? pet;
+
   // use to block some sensitive fields
   bool enabled = true, personalInfo = true;
 
@@ -50,7 +54,7 @@ class AddNewViewModel extends ApplicationViewModel {
   }
 
   // just a mthod
-  changeState(){
+  changeState() {
     if (state == ViewState.newClient) {
       state = ViewState.newClient;
       clear();
@@ -124,8 +128,8 @@ class AddNewViewModel extends ApplicationViewModel {
     String password = 'ChangeMe${DateFormat('MMddyy').format(DateTime.now())}';
     try {
       // creates new login credentials
-      final newUser = await firebaseAuth
-          .createUserWithEmailAndPassword(email, password);
+      final newUser =
+          await firebaseAuth.createUserWithEmailAndPassword(email, password);
 
       // creates user object to be saved to firestore database
       UserObject newClient = UserObject(
@@ -191,8 +195,8 @@ class AddNewViewModel extends ApplicationViewModel {
     String password = 'ChangeMe${DateFormat('MMddyy').format(DateTime.now())}';
     try {
       // creates new login credentials
-      final newUser = await firebaseAuth
-          .createUserWithEmailAndPassword(email, password);
+      final newUser =
+          await firebaseAuth.createUserWithEmailAndPassword(email, password);
 
       // creates user object to be saved to firestore database
       UserObject newStaff = UserObject(

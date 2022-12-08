@@ -50,7 +50,7 @@ class ViewClient extends ViewModelWidget<AddNewViewModel> {
                     : ImageNetwork(
                         image: viewModel.user!.displayImage!,
                         imageCache: CachedNetworkImageProvider(viewModel
-                            .userObject!.displayImage!),
+                            .user!.displayImage!),
                         height: 160,
                         width: 160,
                         duration: 1500,

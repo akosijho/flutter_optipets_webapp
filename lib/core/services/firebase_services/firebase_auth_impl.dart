@@ -11,7 +11,6 @@ class AuthImpl implements Auth {
   //instantiate Firebase Auth package
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-
   // simply return a user object from firebase user
   @override
   UserObject? userFromFirebase(dynamic user) {
@@ -47,32 +46,35 @@ class AuthImpl implements Auth {
       throw e.message!;
     }
   }
-  
+
   @override
-  Future<UserCredential> createUserWithEmailAndPassword(String email, String password) async {
-    try{
-      return await _auth.createUserWithEmailAndPassword(email: email, password: password);
-    }on FirebaseAuthException catch(e){
+  Future<UserCredential> createUserWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      return await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+    } on FirebaseAuthException catch (e) {
       throw e.message!;
     }
   }
-  
+
   @override
-  Future<UserObject?> getFirebaseUser() async{
-    try{
-    User? firebaseUser = FirebaseAuth.instance.currentUser;
-    firebaseUser ??= await FirebaseAuth.instance.authStateChanges().first;
-    if (firebaseUser != null) {
-      return await userRef
-          .doc(firebaseUser.uid)
-          .get()
-          .then((value) {
-            return UserObject.fromJson(value.data()!);
-          });
-    }
-    }on FirebaseAuthException catch(e){
+  Future<UserObject?> getFirebaseUser() async {
+    try {
+      UserObject? user;
+      User? firebaseUser = FirebaseAuth.instance.currentUser;
+      firebaseUser ??= await FirebaseAuth.instance.authStateChanges().first;
+      if (firebaseUser != null) {
+        await userRef
+            .doc(firebaseUser.uid)
+            .get()
+            .then((value) => user = UserObject.fromJson(value.data()!));
+        return user;
+      }else{
+        return null;
+      }
+    } on FirebaseAuthException catch (e) {
       throw e.message!;
     }
-    return null;
   }
 }

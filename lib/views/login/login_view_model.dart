@@ -27,8 +27,7 @@ class LoginViewModel extends ApplicationViewModel {
   }
 
   void home() async {
-    await navigationService
-        .pushReplacementNamed(Routes.home);
+    await navigationService.pushReplacementNamed(Routes.home);
   }
 
   // sign in with credentialsflutter pub
@@ -38,13 +37,15 @@ class LoginViewModel extends ApplicationViewModel {
       final user = await firebaseAuth.signInWithCredentials(
           email.replaceAll(' ', ''), password);
       if (user != null) {
-        await userRef.doc(user.uid).get().then((value) => userObject = UserObject.fromJson(value.data()!));
+        await userRef
+            .doc(user.uid)
+            .get()
+            .then((value) => userObject = UserObject.fromJson(value.data()!));
         //Check user role
         if (userObject!.role == 'staff' ||
             userObject!.role == 'su' ||
             userObject!.role == 'practitioner') {
-          await navigationService
-              .pushReplacementNamed(Routes.home);
+          await navigationService.pushReplacementNamed(Routes.home);
         } else {
           await firebaseAuth.signOut();
           userObject = null;
@@ -58,9 +59,9 @@ class LoginViewModel extends ApplicationViewModel {
                         width: 400),
                   ));
           showSnackbar(
-            title: 'Oops',
-            message: 'Only clinic staff are allowed beyond this point.',
-            maxWidth: 480);
+              title: 'Oops',
+              message: 'Only clinic staff are allowed beyond this point.',
+              maxWidth: 480);
         }
       } else {
         return null;

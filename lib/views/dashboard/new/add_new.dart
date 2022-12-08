@@ -15,17 +15,20 @@ import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 import 'package:stacked/stacked.dart';
 
 class AddNew extends StatelessWidget {
-  AddNew({Key? key, required this.viewState, this.user}) : super(key: key);
+  AddNew({Key? key, required this.viewState, this.user, this.pet})
+      : super(key: key);
 
   final formGlobalKey = GlobalKey<FormState>();
   final ViewState viewState;
-  final UserObject? user; 
+  final UserObject? user;
+  final PetObject? pet;
 
   @override
   Widget build(BuildContext context) {
     bool hasData = true;
     return ViewModelBuilder<AddNewViewModel>.reactive(
-      viewModelBuilder: () => AddNewViewModel(state: viewState, user: user),
+      viewModelBuilder: () =>
+          AddNewViewModel(state: viewState, user: user, pet: pet),
       onModelReady: (model) => model.init(),
       disposeViewModel: false,
       builder: (context, model, child) {

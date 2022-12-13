@@ -58,7 +58,7 @@ class Home extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                  children: const [
                                     StatusBar(),
                                     Expanded(
                                       child: SingleChildScrollView(

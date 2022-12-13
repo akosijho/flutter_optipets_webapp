@@ -70,7 +70,7 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
               ),
               leftNavButton(
                   function: viewModel.appointments,
-                  icon: Icons.add,
+                  icon: Icons.calendar_month_rounded,
                   label: 'Appointments'),
               leftNavButton(function: viewModel.clients, icon: Icons.people, label: 'Clients'),
               leftNavButton(

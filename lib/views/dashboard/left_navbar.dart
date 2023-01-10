@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/utils/svg_icons.dart';
-import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
+import 'package:flutter_optipets_webapp/app/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/buttons.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
@@ -20,10 +20,6 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
-          // shape: BoxShape.rectangle,
-          // borderRadius: const BorderRadius.only(
-          //     topLeft: Radius.circular(8),
-          //     bottomLeft: Radius.circular(8))
         ),
         child: ClipRRect(
           child: Column(
@@ -60,7 +56,7 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
                   PopupMenuItem(
                     child: popupMenuItem(text: 'New Client'),
                     onTap: () {
-                      viewModel.addNew(ViewState.newClient);
+                      viewModel.addNew(ViewState.newClient, user: null);
                     },
                   ),
                   PopupMenuItem(
@@ -68,18 +64,18 @@ class LeftNavBar extends ViewModelWidget<HomeViewModel> {
                     text: 'New Staff',
                   ),
                    onTap: () {
-                      viewModel.addNew(ViewState.newStaff);
+                      viewModel.addNew(ViewState.newStaff, user: null);
                     },)
                 ],
               ),
               leftNavButton(
                   function: viewModel.appointments,
-                  icon: Icons.add,
+                  icon: Icons.calendar_month_rounded,
                   label: 'Appointments'),
               leftNavButton(function: viewModel.clients, icon: Icons.people, label: 'Clients'),
               leftNavButton(
                   function: () async {
-                    await viewModel.auth.signOut();
+                    await viewModel.firebaseAuth.signOut();
                     await ApplicationViewModel()
                         .navigationService
                         .pushReplacementNamed(Routes.login);

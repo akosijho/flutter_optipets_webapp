@@ -35,7 +35,7 @@ class PetObject extends Equatable {
       birthday: json['birthday'] as String?,
       sex: json['sex'] as String?,
       weight: json['weight'] as String?,
-      owner: json['sex'] as String?,
+      owner: json['owner'] as String?,
       displayImage: json['displayImage'] as String?,
       createdAt: json['createdAt'] as String?);
 

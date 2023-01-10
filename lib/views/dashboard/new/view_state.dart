@@ -3,5 +3,7 @@ enum ViewState {
   newClient,
   viewClient,
   newPet,
-  newStaff
+  newStaff,
+  petDiagnose,
+  viewPet,
 }

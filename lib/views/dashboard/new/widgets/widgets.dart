@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-const thisLabelStyle = TextStyle(fontSize: 12);
+const thisLabelStyle = TextStyle(fontSize: 12,
+overflow: TextOverflow.clip);
 
 Widget fieldLabel({required String label, double fieldWidth = 104}) {
   return Container(
@@ -12,15 +13,17 @@ Widget fieldLabel({required String label, double fieldWidth = 104}) {
 TextFormField textField(
     {String? label,
     bool? enabled,
-    int lines = 1,
+    int? lines = 1,
     TextEditingController? textEditingController,
     double maxWidth = 384,
-    dynamic function}) {
+    dynamic function,
+    bool expands = false}) {
   return TextFormField(
     controller: textEditingController,
     enabled: enabled,
     maxLines: lines,
     style: thisLabelStyle,
+    expands: expands,
     decoration: InputDecoration(
       border: const OutlineInputBorder(),
       isDense: true,

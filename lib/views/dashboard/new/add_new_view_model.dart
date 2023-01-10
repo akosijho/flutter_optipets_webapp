@@ -3,22 +3,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:intl/intl.dart';
-import 'package:stacked/stacked.dart';
-
 import 'package:flutter_optipets_webapp/app/app.locator.dart';
-import 'package:flutter_optipets_webapp/models/pet_object.dart';
-import 'package:flutter_optipets_webapp/models/user_object.dart';
-import 'package:flutter_optipets_webapp/services/firebase_services/firbase_firestore/firestore_service.dart';
+import 'package:flutter_optipets_webapp/core/models/pet_object.dart';
+import 'package:flutter_optipets_webapp/core/models/user_object.dart';
+import 'package:flutter_optipets_webapp/core/services/firebase_services/firbase_firestore/firestore_service.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
-import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
+import 'package:flutter_optipets_webapp/app/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
 import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 
-class AddNewViewModel extends BaseViewModel {
-  AddNewViewModel({required this.state, this.user});
+class AddNewViewModel extends ApplicationViewModel {
+  AddNewViewModel({required this.state, this.user, this.pet});
 
-  final ApplicationViewModel applicationViewModel =
-      locator<ApplicationViewModel>();
   final FirestoreService firestoreService = locator<FirestoreService>();
   final HomeViewModel homeViewModel = locator<HomeViewModel>();
 
@@ -42,19 +38,30 @@ class AddNewViewModel extends BaseViewModel {
 
   // use to load fields
   UserObject? user;
+
+  // user to load pet fields
+  PetObject? pet;
+
   // use to block some sensitive fields
   bool enabled = true, personalInfo = true;
 
   void init() {
+    setBusy(true);
+    clear();
+    changeState();
+    setBusy(false);
+    notifyListeners();
+  }
+
+  // just a mthod
+  changeState() {
     if (state == ViewState.newClient) {
       state = ViewState.newClient;
       clear();
       enabled = true;
     }
     if (state == ViewState.viewClient) {
-      setBusy(true);
-      state = ViewState.newClient;
-      clear();
+      state = ViewState.viewClient;
       firstName.text = user!.firstName!;
       middleName.text = user!.middleName!;
       lastName.text = user!.lastName!;
@@ -62,16 +69,13 @@ class AddNewViewModel extends BaseViewModel {
       contacts.text = user!.contacts!;
       email.text = user!.email!;
       enabled = false;
-      setBusy(false);
     }
     if (state == ViewState.newStaff) {
-      clear();
       state = ViewState.newStaff;
+      clear();
       enabled = true;
     }
     if (state == ViewState.newPet) {
-      setBusy(true);
-      clear();
       state = ViewState.newPet;
       firstName.text = user!.firstName!;
       middleName.text = user!.middleName!;
@@ -81,7 +85,6 @@ class AddNewViewModel extends BaseViewModel {
       email.text = user!.email!;
       enabled = false;
       personalInfo = true;
-      setBusy(false);
     }
   }
 
@@ -125,8 +128,8 @@ class AddNewViewModel extends BaseViewModel {
     String password = 'ChangeMe${DateFormat('MMddyy').format(DateTime.now())}';
     try {
       // creates new login credentials
-      final newUser = await applicationViewModel.firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      final newUser =
+          await firebaseAuth.createUserWithEmailAndPassword(email, password);
 
       // creates user object to be saved to firestore database
       UserObject newClient = UserObject(
@@ -192,8 +195,8 @@ class AddNewViewModel extends BaseViewModel {
     String password = 'ChangeMe${DateFormat('MMddyy').format(DateTime.now())}';
     try {
       // creates new login credentials
-      final newUser = await applicationViewModel.firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      final newUser =
+          await firebaseAuth.createUserWithEmailAndPassword(email, password);
 
       // creates user object to be saved to firestore database
       UserObject newStaff = UserObject(
@@ -233,7 +236,7 @@ class AddNewViewModel extends BaseViewModel {
   // add Pet
   addPet(UserObject user, String petName, String specie, String breed,
       String color, String weight, String birthDay, String sex) async {
-        setBusy(true);
+    setBusy(true);
     try {
       PetObject newPet = PetObject(
           name: petName,
@@ -249,7 +252,7 @@ class AddNewViewModel extends BaseViewModel {
 
       // update user pet count
       int pets = user.pets ?? 0;
-      await userRef.doc(user.uid).update({"pets" : pets++});
+      await userRef.doc(user.uid).update({"pets": pets++});
 
       // clear inputs
       clear();
@@ -281,13 +284,11 @@ class AddNewViewModel extends BaseViewModel {
     weight.clear();
     birthDay.clear();
     sex = 'Male';
-    notifyListeners();
   }
 
   Future<void> sendPasswordResetEmail(String email) async {
     try {
-      await applicationViewModel.firebaseAuth
-          .sendPasswordResetEmail(email: email.trim());
+      await firebaseAuth.sendPasswordResetEmail(email);
       showSnackbar(
           title: 'Successful!', message: 'Password reset sent', maxWidth: 400);
     } on FirebaseAuthException catch (e) {

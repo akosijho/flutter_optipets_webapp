@@ -7,10 +7,10 @@ import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/app/app.router.dart';
 import 'package:flutter_optipets_webapp/firebase_options.dart';
 import 'package:flutter_optipets_webapp/utils/my_themes.dart';
-import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
+import 'package:flutter_optipets_webapp/app/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/landing/landing_page_view.dart';
-// import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get/get.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +18,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   setupLocator();
+
+  // remove hash from <base href>
+  setPathUrlStrategy(); 
+
   // set session persistence
   FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   runApp(const MyApp());

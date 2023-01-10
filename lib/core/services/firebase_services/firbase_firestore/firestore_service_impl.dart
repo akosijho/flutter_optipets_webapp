@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_optipets_webapp/models/pet_object.dart';
-import 'package:flutter_optipets_webapp/models/user_object.dart';
-import 'package:flutter_optipets_webapp/services/firebase_services/firbase_firestore/firestore_service.dart';
+import 'package:flutter_optipets_webapp/core/models/pet_object.dart';
+import 'package:flutter_optipets_webapp/core/models/user_object.dart';
+import 'package:flutter_optipets_webapp/core/services/firebase_services/firbase_firestore/firestore_service.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 @LazySingleton(asType: FirestoreService)

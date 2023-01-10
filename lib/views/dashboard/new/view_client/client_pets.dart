@@ -2,9 +2,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_optipets_webapp/app/app.locator.dart';
 
-import 'package:flutter_optipets_webapp/models/pet_object.dart';
+import 'package:flutter_optipets_webapp/core/models/pet_object.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/clients/data_source.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/home_view_mode..dart';
 import 'package:image_network/image_network.dart';
 
 class ClientPets extends DataTableSource {
@@ -14,10 +16,16 @@ class ClientPets extends DataTableSource {
 
   List<PetObject> pets;
 
+  final HomeViewModel homeViewModel = locator<HomeViewModel>();
+
   @override
   DataRow? getRow(int index) {
-    final val = pets[index];
-    return DataRow(cells: [
+    final pet = pets[index];
+    return DataRow(
+      onSelectChanged: (value) {
+        homeViewModel.viewPet(pet);
+      },
+      cells: [
       DataCell(
         Center(
           child: Row(
@@ -29,10 +37,10 @@ class ClientPets extends DataTableSource {
                     shape: BoxShape.circle,
                     color: Colors
                         .primaries[Random().nextInt(Colors.primaries.length)]),
-                child: val.displayImage == null
+                child: pet.displayImage == null
                     ? Center(
                         child: Text(
-                          val.name![0].toUpperCase(),
+                          pet.name![0].toUpperCase(),
                           style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 16,
@@ -40,35 +48,35 @@ class ClientPets extends DataTableSource {
                         ),
                       )
                     : ImageNetwork(
-                        image: val.displayImage!,
+                        image: pet.displayImage!,
                         height: 20,
                         width: 20,
-                        onError: DataSource.cell(val.name![0]),
+                        onError: DataSource.cell(pet.name![0]),
                         borderRadius: BorderRadius.circular(70),
                       ),
               ),
               const SizedBox(
                 width: 16,
               ),
-              DataSource.cell(val.name!),
+              DataSource.cell(pet.name!),
             ],
           ),
         ),
       ),
       DataCell(
-        DataSource.cell(val.breed!),
+        DataSource.cell(pet.breed!),
       ),
       DataCell(
-        DataSource.cell(val.weight == null ? '' : '${val.weight} kg'),
+        DataSource.cell(pet.weight == null ? '' : '${pet.weight} kg'),
       ),
       DataCell(
-        DataSource.cell(val.sex!),
+        DataSource.cell(pet.sex!),
       ),
       DataCell(
-        DataSource.cell(val.birthday!),
+        DataSource.cell(pet.birthday!),
       ),
       DataCell(
-        DataSource.cell(val.createdAt!),
+        DataSource.cell(pet.createdAt!),
       ),
     ]);
   }

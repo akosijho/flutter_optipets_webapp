@@ -1,25 +1,26 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/app/app.router.dart';
-import 'package:flutter_optipets_webapp/models/user_object.dart';
-import 'package:flutter_optipets_webapp/services/firebase_services/firebase_auth.dart';
+import 'package:flutter_optipets_webapp/core/models/pet_object.dart';
+import 'package:flutter_optipets_webapp/core/models/user_object.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
-import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
+import 'package:flutter_optipets_webapp/app/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/appointments/appointments_view.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/clients/clients_view.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/home/home.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/add_new.dart';
+import 'package:flutter_optipets_webapp/views/dashboard/new/view_pet/view_pet.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/new/view_state.dart';
-import 'package:stacked/stacked.dart';
+import 'package:flutter_optipets_webapp/views/widgets/buildBody.dart';
+import 'package:stacked/stacked_annotations.dart';
 
-class HomeViewModel extends BaseViewModel {
-  final ApplicationViewModel applicationViewModel =
-      locator<ApplicationViewModel>();
-  final Auth auth = locator<Auth>();
-
+@LazySingleton(asType: HomeViewModel)
+class HomeViewModel extends ApplicationViewModel {
   final ScrollController scrollController = ScrollController();
   final ScrollController verticalScrollController = ScrollController();
+  
+  final ScrollController childScrollController = ScrollController();
+  final ScrollController childVerticalScrollController = ScrollController();
 
   Widget? child = const Home();
   UserObject? user;
@@ -27,9 +28,9 @@ class HomeViewModel extends BaseViewModel {
   void init() async {
     setBusy(true);
     // check if a user is currently logged in
-    await applicationViewModel.getFirebaseUser();
-    if (applicationViewModel.userObject == null) {
-      await applicationViewModel.navigationService
+    await getFirebaseUser();
+    if (userObject == null) {
+      await navigationService
           .pushReplacementNamed(Routes.login);
     }
     setBusy(false);
@@ -50,8 +51,8 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  addNew(ViewState viewState, {UserObject? user}){
-    child = AddNew(viewState: viewState, user: user,);
+  addNew(ViewState viewState, {UserObject? user, PetObject? pet}){
+    child = AddNew(viewState: viewState, user: user, pet: pet,);
     notifyListeners();
   }
 
@@ -60,9 +61,19 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+   buildBody() {
+    child = BuildBody();
+    notifyListeners();
+  }
+
   // view clients
    clients() {
     child = const ClientsView();
+    notifyListeners();
+  }
+
+   viewPet(PetObject? pet){
+    child = ViewPet(pet: pet,);
     notifyListeners();
   }
 }

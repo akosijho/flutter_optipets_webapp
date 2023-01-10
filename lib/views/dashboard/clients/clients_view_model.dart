@@ -1,13 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_optipets_webapp/app/app.locator.dart';
-import 'package:flutter_optipets_webapp/models/user_object.dart';
+import 'package:flutter_optipets_webapp/core/models/user_object.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
-import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
-import 'package:stacked/stacked.dart';
+import 'package:flutter_optipets_webapp/app/application_view_model.dart';
 
-class ClientsViewModel extends BaseViewModel {
-  final ApplicationViewModel applicationViewModel =
-      locator<ApplicationViewModel>();
+class ClientsViewModel extends ApplicationViewModel {
 
   List<Map<String, dynamic>> clientList = [];
   // rows per page

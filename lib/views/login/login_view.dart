@@ -54,7 +54,7 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                       ),
                       child: Center(
                         child: Form(
-                          key: model.applicationViewModel.formGlobalKey,
+                          key: model.formGlobalKey,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +93,7 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                                   prefixIcon: Icon(Icons.person),
                                 ),
                                 onChanged: (val) => model.email = val,
-                                validator: (val) => val!.isNotEmpty
+                                validator: (val) => isEmailValid(val!)
                                     ? null
                                     : 'Enter a valid email address',
                               ),
@@ -131,8 +131,7 @@ class LoginView extends StatelessWidget with InputValidationMixin {
                                       ),
                                     ),
                                     onPressed: () {
-                                      if (model.applicationViewModel
-                                              .formGlobalKey.currentState!
+                                      if (model.formGlobalKey.currentState!
                                               .validate() &&
                                           isNotEmpty(model.email) &&
                                           isNotEmpty(model.password)) {

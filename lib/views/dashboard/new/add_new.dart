@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_optipets_webapp/models/pet_object.dart';
-import 'package:flutter_optipets_webapp/models/user_object.dart';
+import 'package:flutter_optipets_webapp/core/models/pet_object.dart';
+import 'package:flutter_optipets_webapp/core/models/user_object.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
 import 'package:flutter_optipets_webapp/utils/my_colors.dart';
 import 'package:flutter_optipets_webapp/views/dashboard/clients/clients_view.dart';
@@ -15,21 +15,25 @@ import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 import 'package:stacked/stacked.dart';
 
 class AddNew extends StatelessWidget {
-  AddNew({Key? key, required this.viewState, this.user}) : super(key: key);
+  AddNew({Key? key, required this.viewState, this.user, this.pet})
+      : super(key: key);
 
   final formGlobalKey = GlobalKey<FormState>();
   final ViewState viewState;
   final UserObject? user;
+  final PetObject? pet;
 
   @override
   Widget build(BuildContext context) {
     bool hasData = true;
     return ViewModelBuilder<AddNewViewModel>.reactive(
-      viewModelBuilder: () => AddNewViewModel(state: viewState, user: user),
+      viewModelBuilder: () =>
+          AddNewViewModel(state: viewState, user: user, pet: pet),
       onModelReady: (model) => model.init(),
       disposeViewModel: false,
       builder: (context, model, child) {
         model.state = viewState;
+        model.changeState();
         return model.isBusy
             ? SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -47,11 +51,14 @@ class AddNew extends StatelessWidget {
                                 : MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          //
                           if (model.state == ViewState.viewClient)
                             const ViewClient(),
                           const SizedBox(
                             width: 32,
                           ),
+                          //
+
                           Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -307,10 +314,12 @@ class AddNew extends StatelessWidget {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
                               return Container(
-                                  color: Colors.white,
                                   width: MediaQuery.of(context).size.width,
                                   height: MediaQuery.of(context).size.height,
-                                  child: const Loader());
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                  ),
+                                  child: const Center(child: Loader()));
                             }
                             return Container();
                           },

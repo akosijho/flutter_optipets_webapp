@@ -1,19 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_optipets_webapp/app/app.locator.dart';
 import 'package:flutter_optipets_webapp/app/app.router.dart';
-import 'package:flutter_optipets_webapp/models/user_object.dart';
-import 'package:flutter_optipets_webapp/services/firebase_services/firebase_auth.dart';
+import 'package:flutter_optipets_webapp/core/models/user_object.dart';
 import 'package:flutter_optipets_webapp/utils/constants.dart';
-import 'package:flutter_optipets_webapp/views/application/application_view_model.dart';
+import 'package:flutter_optipets_webapp/app/application_view_model.dart';
 import 'package:flutter_optipets_webapp/views/widgets/show_snackbar.dart';
 import 'package:image_network/image_network.dart';
-import 'package:stacked/stacked.dart';
 
-class LoginViewModel extends BaseViewModel {
-  final ApplicationViewModel applicationViewModel =
-      locator<ApplicationViewModel>();
-  final Auth auth = locator<Auth>();
+class LoginViewModel extends ApplicationViewModel {
   //controls the scroll position
   final ScrollController scrollController = ScrollController();
 
@@ -33,28 +27,28 @@ class LoginViewModel extends BaseViewModel {
   }
 
   void home() async {
-    await applicationViewModel.navigationService
-        .pushReplacementNamed(Routes.home);
+    await navigationService.pushReplacementNamed(Routes.home);
   }
 
   // sign in with credentialsflutter pub
   void signIn(String email, String password) async {
     setBusy(true);
     try {
-      final user = await applicationViewModel.auth.signInWithCredentials(
+      final user = await firebaseAuth.signInWithCredentials(
           email.replaceAll(' ', ''), password);
       if (user != null) {
-        await userRef.doc(user.uid).get().then((value) => applicationViewModel
-            .userObject = UserObject.fromJson(value.data()!));
+        await userRef
+            .doc(user.uid)
+            .get()
+            .then((value) => userObject = UserObject.fromJson(value.data()!));
         //Check user role
-        if (applicationViewModel.userObject!.role == 'staff' ||
-            applicationViewModel.userObject!.role == 'su' ||
-            applicationViewModel.userObject!.role == 'practitioner') {
-          await applicationViewModel.navigationService
-              .pushReplacementNamed(Routes.home);
+        if (userObject!.role == 'staff' ||
+            userObject!.role == 'su' ||
+            userObject!.role == 'practitioner') {
+          await navigationService.pushReplacementNamed(Routes.home);
         } else {
-          await auth.signOut();
-          applicationViewModel.userObject = null;
+          await firebaseAuth.signOut();
+          userObject = null;
           showDialog(
               context: getContext,
               builder: (context) => const AlertDialog(
@@ -65,9 +59,9 @@ class LoginViewModel extends BaseViewModel {
                         width: 400),
                   ));
           showSnackbar(
-            title: 'Oops',
-            message: 'Only clinic staff are allowed beyond this point.',
-            maxWidth: 480);
+              title: 'Oops',
+              message: 'Only clinic staff are allowed beyond this point.',
+              maxWidth: 480);
         }
       } else {
         return null;

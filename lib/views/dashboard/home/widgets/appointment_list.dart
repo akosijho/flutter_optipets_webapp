@@ -13,12 +13,12 @@ class AppointmentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
-      width: 840,
+      height: MediaQuery.of(context).size.height - 272,
+      width: MediaQuery.of(context).size.width - 200,
       padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: Color(0xFF2A2D3E),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+      decoration: BoxDecoration(
+        color: const Color(0xFF2A2D3E).withOpacity(0.6),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

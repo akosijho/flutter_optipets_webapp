@@ -5,7 +5,7 @@ import 'package:flutter_optipets_webapp/utils/constants.dart';
 class AppointmentList extends StatelessWidget {
   AppointmentList({Key? key}) : super(key: key);
 
-  final TextStyle? _defTextStle =
+  final TextStyle? _defTextStyle =
       Theme.of(getContext).textTheme.subtitle1?.copyWith(
             color: Colors.white,
           );
@@ -23,7 +23,7 @@ class AppointmentList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Appointments", style: _defTextStle),
+          Text("Appointments", style: _defTextStyle),
           Flexible(
             child: DataTable2(
               columnSpacing: 16,
@@ -70,7 +70,7 @@ class AppointmentList extends StatelessWidget {
   Text label(String text) {
     return Text(
       text,
-      style: _defTextStle,
+      style: _defTextStyle,
     );
   }
 }

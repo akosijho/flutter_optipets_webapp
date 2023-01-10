@@ -15,5 +15,9 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-Plugins
+Packages
     url_launcher for launching external url
+    equatable for model comparison
+    image_network to bypass CORS
+    lottie for lottie animation
+    data_table_2 for tables

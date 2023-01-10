@@ -27,53 +27,55 @@ class Home extends StatelessWidget {
       builder: (context, model, child) {
         return model.isBusy
             ? const Loader()
-            : Scaffold(
-                body: AdaptiveScrollbar(
-                  width: 12,
-                  controller: model.scrollController,
-                  position: ScrollbarPosition.bottom,
-                  underColor: Colors.grey.shade400,
-                  sliderDefaultColor: MyColors.primaryColor,
-                  sliderActiveColor: MyColors.primaryColor,
-                  child: SingleChildScrollView(
-                    controller: model.verticalScrollController,
-                    scrollDirection: Axis.vertical,
-                    physics: const BouncingScrollPhysics(),
+            : SafeArea(
+          child: Scaffold(
+                  body: AdaptiveScrollbar(
+                    width: 12,
+                    controller: model.scrollController,
+                    position: ScrollbarPosition.bottom,
+                    underColor: Colors.grey.shade400,
+                    sliderDefaultColor: MyColors.primaryColor,
+                    sliderActiveColor: MyColors.primaryColor,
                     child: SingleChildScrollView(
-                      controller: model.scrollController,
-                      scrollDirection: Axis.horizontal,
+                      controller: model.verticalScrollController,
+                      scrollDirection: Axis.vertical,
                       physics: const BouncingScrollPhysics(),
-                      child: SizedBox(
-                        width: maxWidth,
-                        height: maxHeight,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const LeftNavBar(), //left navbar
-                            // Changeable panel
-                            
-                            Expanded(
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    StatusBar(),
-                                    Expanded(
-                                      child: SingleChildScrollView(
-                                        child: DashViews(),
+                      child: SingleChildScrollView(
+                        controller: model.scrollController,
+                        scrollDirection: Axis.horizontal,
+                        physics: const BouncingScrollPhysics(),
+                        child: SizedBox(
+                          width: maxWidth,
+                          height: maxHeight,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const LeftNavBar(), //left navbar
+                              // Changeable panel
+                              
+                              Expanded(
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: const [
+                                      StatusBar(),
+                                      Expanded(
+                                        child: SingleChildScrollView(
+                                          child: DashViews(),
+                                        ),
                                       ),
-                                    ),
-                                  ]),
-                            )
-                          ],
+                                    ]),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              );
+            );
       },
     );
   }

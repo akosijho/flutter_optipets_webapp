@@ -16,8 +16,12 @@ class DashTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
-      width: 200,
+      height: MediaQuery.of(context).size.height / 3.4 >= 204.41176470588235
+          ? MediaQuery.of(context).size.height / 3.4
+          : 204.41176470588235,
+      width: MediaQuery.of(context).size.width / 6 >= 227.66666666666666
+          ? MediaQuery.of(context).size.width / 6
+          : 227.66666666666666,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: MyColors.facebook.withOpacity(0.8),
@@ -50,12 +54,10 @@ class DashTile extends StatelessWidget {
                   child: Icon(Icons.more_vert, color: Colors.white54))
             ],
           ),
-          Text(
-            numbers,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.headline4,
-          ),
+          Text(numbers,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.headline4),
           // ProgressLine(
           //   color: info.color,
           //   percentage: info.percentage,
